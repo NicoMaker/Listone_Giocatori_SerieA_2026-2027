@@ -1,105 +1,59 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="it">
-  <head>
+<head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.5"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5" />
     <title>Serie A 2026-27 · Listone Giocatori</title>
-    <!-- Font & icone -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
+</head>
+<body>
     <div class="app" id="app">
-      <!-- HEADER -->
-      <header class="header">
-        <h1>
-          <i class="fas fa-futbol"></i> Serie A
-          <span style="font-weight: 300; -webkit-text-fill-color: #1e293b"
-            >2026-27</span
-          >
-        </h1>
-        <span class="badge-stagione"
-          ><i class="fas fa-calendar-alt"></i> Stagione 2026/2027</span
-        >
-      </header>
+        <header class="header">
+            <h1>
+                <i class="fas fa-futbol"></i> Serie A
+                <span style="font-weight: 300; -webkit-text-fill-color: #1e293b">2026-27</span>
+            </h1>
+            <span class="badge-stagione"><i class="fas fa-calendar-alt"></i> Stagione 2026/2027</span>
+        </header>
 
-      <!-- TOOLBAR -->
-      <div class="toolbar">
-        <div class="filter-group">
-          <label><i class="fas fa-users"></i> Squadra</label>
-          <select id="filterSquadra">
-            <option value="all">Tutte le squadre</option>
-          </select>
+        <div class="toolbar">
+            <div class="filter-group">
+                <label><i class="fas fa-users"></i> Squadra</label>
+                <select id="filterSquadra">
+                    <option value="all">Tutte le squadre</option>
+                </select>
 
-          <label><i class="fas fa-tshirt"></i> Ruolo</label>
-          <select id="filterRuolo">
-            <option value="all">Tutti i ruoli</option>
-            <option value="Portiere">🧤 Portieri</option>
-            <option value="Difensore">🛡️ Difensori</option>
-            <option value="Centrocampista">⚡ Centrocampisti</option>
-            <option value="Attaccante">⚽ Attaccanti</option>
-          </select>
+                <label><i class="fas fa-tshirt"></i> Ruolo</label>
+                <select id="filterRuolo">
+                    <option value="all">Tutti i ruoli</option>
+                    <option value="Portiere">🧤 Portieri</option>
+                    <option value="Difensore">🛡️ Difensori</option>
+                    <option value="Centrocampista">⚡ Centrocampisti</option>
+                    <option value="Attaccante">⚽ Attaccanti</option>
+                </select>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap;">
+                <span class="counter" id="playerCounter"><i class="fas fa-user"></i> <span id="countNum">0</span> giocatori</span>
+                <button class="btn-reset" id="resetFiltri"><i class="fas fa-undo-alt"></i> Reset</button>
+            </div>
         </div>
-        <div
-          style="
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            flex-wrap: wrap;
-          "
-        >
-          <span class="counter" id="playerCounter"
-            ><i class="fas fa-user"></i>
-            <span id="countNum">0</span> giocatori</span
-          >
-          <button class="btn-reset" id="resetFiltri">
-            <i class="fas fa-undo-alt"></i> Reset
-          </button>
+
+        <div id="loading" style="text-align: center; padding: 3rem">
+            <i class="fas fa-spinner fa-spin" style="font-size: 2.5rem; color: #0a5c8a"></i>
+            <p style="margin-top: 1rem; color: #3a546d">Caricamento dati in corso...</p>
         </div>
-      </div>
 
-      <!-- LOADING -->
-      <div id="loading" style="text-align: center; padding: 3rem">
-        <i
-          class="fas fa-spinner fa-spin"
-          style="font-size: 2.5rem; color: #0a5c8a"
-        ></i>
-        <p style="margin-top: 1rem; color: #3a546d">
-          Caricamento dati in corso...
-        </p>
-      </div>
+        <div class="squadre-grid" id="squadreContainer"></div>
 
-      <!-- GRIGLIA SQUADRE -->
-      <div class="squadre-grid" id="squadreContainer"></div>
-
-      <!-- FOOTER -->
-      <footer
-        style="
-          margin-top: 3rem;
-          text-align: center;
-          font-size: 0.8rem;
-          color: #6c86a0;
-          border-top: 1px solid #dce6f0;
-          padding-top: 1.5rem;
-        "
-      >
-        <i class="fas fa-database"></i> Dati in <strong>data.json</strong> ·
-        Aggiornati al 18 Giugno 2026
-      </footer>
+        <footer style="margin-top: 3rem; text-align: center; font-size: 0.8rem; color: #6c86a0; border-top: 1px solid #dce6f0; padding-top: 1.5rem;">
+            <i class="fas fa-database"></i> Dati in <strong>data.json</strong> · Aggiornati al 18 Giugno 2026
+        </footer>
     </div>
 
     <script src="script.js"></script>
-  </body>
+</body>
 </html>
