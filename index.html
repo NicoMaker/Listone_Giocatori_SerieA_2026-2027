@@ -7,13 +7,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Oswald:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=Oswald:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+
+    <!-- ===== TRICOLORE TOP BAR ===== -->
+    <div class="tricolore-top-bar">
+      <span class="tc-verde"></span>
+      <span class="tc-bianco"></span>
+      <span class="tc-rosso"></span>
+    </div>
 
     <!-- ===== HEADER ===== -->
     <header class="site-header">
@@ -30,26 +37,37 @@
             </div>
           </div>
           <div class="brand-text">
-            <span class="brand-title">LISTO<span>NE</span></span>
-            <span class="brand-sub">Serie A 2026 · 2027</span>
+            <span class="brand-title">LISTO<span class="brand-accent">NE</span></span>
+            <span class="brand-sub">⚽ Serie A 2026 · 2027</span>
+          </div>
+        </div>
+
+        <div class="header-center">
+          <div class="header-badge">
+            <span class="badge-flag">🇮🇹</span>
+            <span class="badge-text">Fantacalcio</span>
           </div>
         </div>
 
         <div class="header-meta">
           <div class="meta-pill">
             <i class="fas fa-users"></i>
-            <span id="totalGiocatori">0</span> giocatori
+            <span id="totalGiocatori">0</span>
+            <span class="meta-label">giocatori</span>
           </div>
           <div class="meta-pill accent">
             <i class="fas fa-star"></i>
-            <span id="totalMieiCount">0</span> nel mio listone
+            <span id="totalMieiCount">0</span>
+            <span class="meta-label">nel mio listone</span>
           </div>
-          <button class="btn-tab active" id="tabListone" onclick="switchTab('listone')">
-            <i class="fas fa-list"></i> Listone
-          </button>
-          <button class="btn-tab" id="tabMio" onclick="switchTab('mio')">
-            <i class="fas fa-star"></i> Il Mio
-          </button>
+          <div class="tab-group">
+            <button class="btn-tab active" id="tabListone" onclick="switchTab('listone')">
+              <i class="fas fa-list"></i> Listone
+            </button>
+            <button class="btn-tab" id="tabMio" onclick="switchTab('mio')">
+              <i class="fas fa-star"></i> Il Mio
+            </button>
+          </div>
         </div>
       </div>
     </header>
@@ -144,8 +162,13 @@
     <!-- ===== MAIN ===== -->
     <main class="main-content">
       <div id="loading" class="loading-state">
-        <div class="loading-spinner"></div>
-        <p>Caricamento listone…</p>
+        <div class="loading-ball">
+          <i class="fas fa-futbol loading-futbol"></i>
+        </div>
+        <p class="loading-txt">Caricamento listone…</p>
+        <div class="loading-tricolore">
+          <span></span><span></span><span></span>
+        </div>
       </div>
 
       <!-- LISTONE -->
@@ -189,7 +212,7 @@
         </div>
 
         <div id="emptyListone" class="empty-state hidden">
-          <i class="fas fa-magnifying-glass"></i>
+          <div class="empty-icon"><i class="fas fa-magnifying-glass"></i></div>
           <p>Nessun giocatore trovato</p>
           <small>Prova a cambiare i filtri o premi Reset</small>
         </div>
@@ -208,17 +231,27 @@
         </div>
         <div id="mioListoneGrid"></div>
         <div id="emptyMio" class="empty-state hidden">
-          <i class="fas fa-star"></i>
+          <div class="empty-icon"><i class="fas fa-star"></i></div>
           <p>Il tuo listone è vuoto</p>
           <small>Clicca <i class="fas fa-plus-circle"></i> su un giocatore nel Listone per aggiungerlo</small>
         </div>
       </div>
     </main>
 
+    <!-- ===== FOOTER ===== -->
     <footer class="site-footer">
+      <div class="tricolore-strip">
+        <span class="tc-verde"></span>
+        <span class="tc-bianco"></span>
+        <span class="tc-rosso"></span>
+      </div>
       <div class="site-footer-inner">
-        <span><i class="fas fa-database"></i> Dati da <strong>data.json</strong> · Stagione 2026/2027</span>
-        <span>Aggiornato al 18 Giugno 2026</span>
+        <div class="footer-left">
+          <span class="footer-logo-text">🇮🇹 <strong>LISTONE</strong></span>
+          <span class="footer-sep">·</span>
+          <span><i class="fas fa-database"></i> Dati da <strong>data.json</strong> · Stagione 2026/2027</span>
+        </div>
+        <span class="footer-date">Aggiornato al 18 Giugno 2026</span>
       </div>
     </footer>
 
