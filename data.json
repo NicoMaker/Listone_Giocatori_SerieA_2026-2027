@@ -1,10 +1,4 @@
-// ============================================================
-//  DATI SERIE A 2026-27 · SQUADRE E GIOCATORI (ESEMPIO)
-//  Fonte squadre: Sky Sport (20 squadre)
-//  Giocatori: lista di esempio con ruoli
-// ============================================================
-
-const serieAData = {
+{
     "stagione": "2026-2027",
     "squadre": [
         {
@@ -289,4 +283,4 @@ const serieAData = {
             ]
         }
     ]
-};
+}

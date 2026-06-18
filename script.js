@@ -1,22 +1,44 @@
 // ============================================================
-//  APP LOGICA · RENDER, FILTRI, CONTATORI
+//  APP LOGICA · CARICAMENTO DATA.JSON + RENDER + FILTRI
 // ============================================================
 
 document.addEventListener('DOMContentLoaded', () => {
 
     // Elementi DOM
     const container = document.getElementById('squadreContainer');
+    const loading = document.getElementById('loading');
     const filterSquadra = document.getElementById('filterSquadra');
     const filterRuolo = document.getElementById('filterRuolo');
     const resetBtn = document.getElementById('resetFiltri');
     const countSpan = document.getElementById('countNum');
 
-    let squadre = []; // copia locale
+    let serieAData = null;
+    let squadre = [];
+
+    // --- Carica data.json ---
+    async function loadData() {
+        try {
+            const response = await fetch('data.json');
+            if (!response.ok) throw new Error('Errore nel caricamento dei dati');
+            const data = await response.json();
+            serieAData = data;
+            squadre = data.squadre;
+            loading.classList.add('hidden');
+            init();
+        } catch (error) {
+            console.error('Errore:', error);
+            loading.innerHTML = `
+                <i class="fas fa-exclamation-triangle" style="font-size: 2.5rem; color: #e74c3c;"></i>
+                <p style="margin-top: 1rem; color: #c0392b; font-weight: 600;">Impossibile caricare data.json</p>
+                <p style="font-size: 0.9rem; color: #5d7b99;">Verifica che il file sia nella stessa cartella</p>
+            `;
+        }
+    }
 
     // --- Popola select squadre ---
     function populateSquadreSelect() {
         filterSquadra.innerHTML = '<option value="all">Tutte le squadre</option>';
-        serieAData.squadre.forEach(s => {
+        squadre.forEach(s => {
             const opt = document.createElement('option');
             opt.value = s.id;
             opt.textContent = s.nome;
@@ -110,10 +132,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- FILTRI ---
     function applyFilters() {
+        if (!squadre.length) return;
+
         const squadraId = filterSquadra.value;
         const ruolo = filterRuolo.value;
 
-        let filtered = serieAData.squadre.map(s => {
+        let filtered = squadre.map(s => {
             // Clona squadra e filtra giocatori per ruolo
             let giocatoriFiltrati = s.giocatori;
             if (ruolo !== 'all') {
@@ -151,5 +175,6 @@ document.addEventListener('DOMContentLoaded', () => {
         applyFilters();
     }
 
-    init();
+    // --- Avvia caricamento ---
+    loadData();
 });

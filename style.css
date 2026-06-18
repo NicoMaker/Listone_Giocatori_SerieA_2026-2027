@@ -284,6 +284,19 @@ body {
     margin-bottom: 0.5rem;
 }
 
+/* LOADING */
+#loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+}
+
+#loading.hidden {
+    display: none;
+}
+
 /* RESPONSIVE */
 @media (max-width: 600px) {
     body {
