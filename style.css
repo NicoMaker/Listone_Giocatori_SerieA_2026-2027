@@ -271,6 +271,34 @@ body {
 .btn-danger:hover { background: var(--red); color: #fff; }
 
 /* ============================================================
+   BOTTONI ESPORTA/IMPORTA
+   ============================================================ */
+.btn-export, .btn-import {
+  padding: 0.35rem 1rem;
+  border-radius: 30px;
+  border: 1.5px solid var(--border);
+  background: var(--cream);
+  color: var(--text-2);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.btn-export:hover {
+  background: #d1fae5;
+  border-color: #6ee7b7;
+  color: #065f46;
+}
+.btn-import:hover {
+  background: #e0eeff;
+  border-color: #93c5fd;
+  color: var(--blue);
+}
+
+/* ============================================================
    MAIN / PANELS
    ============================================================ */
 .main-content { flex: 1; max-width: 1600px; margin: 0 auto; width: 100%; padding: 1.8rem 1.5rem 3rem; }
@@ -311,6 +339,7 @@ body {
   box-shadow: var(--shadow-sm);
   transition: box-shadow .2s, transform .2s, border-color .2s;
   display: flex; flex-direction: column;
+  cursor: pointer;
 }
 .card-squadra:hover { box-shadow: var(--shadow); border-color: #c7d7f4; transform: translateY(-2px); }
 
@@ -346,6 +375,10 @@ body {
   font-size: .75rem;
   font-weight: 700;
   color: rgba(255,255,255,.9);
+}
+.squadra-header .fa-chevron-right {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.4);
 }
 
 .ruolo-section { padding: .6rem 1.1rem .4rem; border-bottom: 1px solid var(--border); }
@@ -389,313 +422,6 @@ body {
 .giocatore-tag.nel-listone .tag-add { color: var(--green); }
 .giocatore-tag.nel-listone .tag-add::before { content: "\f058"; font-family: "Font Awesome 6 Free"; font-weight: 900; }
 .giocatore-tag:not(.nel-listone) .tag-add::before { content: "\f055"; font-family: "Font Awesome 6 Free"; font-weight: 900; }
-
-/* ============================================================
-   VISTA TABELLA
-   ============================================================ */
-.table-wrap { overflow-x: auto; border-radius: var(--radius-lg); border: 1px solid var(--border); background: var(--surface); box-shadow: var(--shadow-sm); }
-.table-giocatori { width: 100%; border-collapse: collapse; font-size: .875rem; }
-.table-giocatori thead tr {
-  background: linear-gradient(135deg, var(--navy), var(--blue-dark));
-  color: #fff;
-}
-.table-giocatori th {
-  padding: .8rem 1rem;
-  text-align: left;
-  font-family: var(--font-display);
-  font-weight: 500;
-  letter-spacing: .5px;
-  font-size: .8rem;
-  white-space: nowrap;
-}
-.table-giocatori tbody tr {
-  border-bottom: 1px solid var(--border);
-  transition: background .12s;
-}
-.table-giocatori tbody tr:last-child { border-bottom: none; }
-.table-giocatori tbody tr:hover { background: #f0f6ff; }
-.table-giocatori td { padding: .65rem 1rem; }
-
-.td-nome { display: flex; align-items: center; gap: .5rem; }
-.td-logo { width: 24px; height: 24px; object-fit: contain; }
-.td-logo-fb { width: 24px; height: 24px; background: var(--cream); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .65rem; font-weight: 800; color: var(--blue-dark); border: 1px solid var(--border); }
-.td-squadra-cell { display: flex; align-items: center; gap: .4rem; }
-
-.badge-ruolo {
-  display: inline-block;
-  padding: .15rem .55rem;
-  border-radius: 30px;
-  font-size: .72rem; font-weight: 700;
-}
-.badge-ruolo.por { background: var(--por-bg); color: var(--por-c); }
-.badge-ruolo.dif { background: var(--dif-bg); color: var(--dif-c); }
-.badge-ruolo.cen { background: var(--cen-bg); color: var(--cen-c); }
-.badge-ruolo.att { background: var(--att-bg); color: var(--att-c); }
-
-.quota-badge {
-  display: inline-block;
-  padding: .18rem .65rem;
-  border-radius: 30px;
-  font-size: .78rem; font-weight: 700;
-  background: #fef9c3; color: #854d0e;
-}
-
-.btn-add-table {
-  padding: .28rem .85rem;
-  border-radius: 30px;
-  border: 1.5px solid;
-  font-size: .78rem; font-weight: 700;
-  cursor: pointer; transition: all .15s;
-  display: inline-flex; align-items: center; gap: .3rem;
-  white-space: nowrap;
-}
-.btn-add-table.add   { border-color: #93c5fd; background: #eff6ff; color: var(--blue); }
-.btn-add-table.add:hover { background: var(--blue-mid); color: #fff; border-color: var(--blue-mid); }
-.btn-add-table.added { border-color: #6ee7b7; background: #d1fae5; color: #065f46; }
-.btn-add-table.added:hover { background: var(--red); border-color: var(--red); color: #fff; }
-
-/* ============================================================
-   IL MIO LISTONE
-   ============================================================ */
-.riepilogo-bar {
-  display: flex; flex-wrap: wrap; gap: .6rem;
-  padding-bottom: 1.4rem;
-  margin-bottom: 1.6rem;
-  border-bottom: 1px solid var(--border);
-}
-.riepilogo-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: .6rem 1.2rem;
-  display: flex; flex-direction: column; gap: .15rem;
-  box-shadow: var(--shadow-sm);
-  min-width: 110px;
-}
-.riepilogo-num { font-family: var(--font-display); font-size: 1.8rem; font-weight: 700; line-height: 1; }
-.riepilogo-label { font-size: .72rem; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; color: var(--text-3); }
-
-.mio-ruolo-section { margin-bottom: 2.2rem; }
-.mio-ruolo-title {
-  display: flex; align-items: center; gap: .7rem;
-  font-family: var(--font-display);
-  font-size: 1.05rem; font-weight: 600; letter-spacing: .5px;
-  margin-bottom: 1rem;
-  padding-bottom: .5rem;
-  border-bottom: 2px solid var(--border);
-}
-.mio-ruolo-title .dot {
-  width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
-}
-
-.mio-giocatori-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: .8rem;
-}
-
-.mio-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: .8rem 1rem;
-  display: flex; align-items: center; gap: .75rem;
-  box-shadow: var(--shadow-sm);
-  transition: box-shadow .15s, border-color .15s;
-}
-.mio-card:hover { box-shadow: var(--shadow); border-color: #c7d7f4; }
-.mio-logo {
-  width: 36px; height: 36px;
-  background: var(--cream);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  overflow: hidden;
-  border: 1px solid var(--border);
-  flex-shrink: 0;
-}
-.mio-logo img { width: 100%; height: 100%; object-fit: contain; }
-.mio-logo-fb { font-size: .72rem; font-weight: 800; color: var(--blue-dark); }
-.mio-info { flex: 1; min-width: 0; }
-.mio-nome { font-weight: 600; font-size: .88rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.mio-squadra { font-size: .75rem; color: var(--text-2); margin-top: .1rem; }
-.mio-quota { font-size: .78rem; font-weight: 700; color: #854d0e; background: #fef9c3; padding: .12rem .5rem; border-radius: 30px; white-space: nowrap; }
-
-.btn-remove {
-  width: 28px; height: 28px;
-  border-radius: 50%;
-  border: none;
-  background: #fee2e2;
-  color: var(--red);
-  font-size: .75rem;
-  cursor: pointer;
-  transition: all .15s;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
-.btn-remove:hover { background: var(--red); color: #fff; }
-
-/* ============================================================
-   EMPTY STATE
-   ============================================================ */
-.empty-state {
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  min-height: 260px; gap: .7rem;
-  background: var(--surface);
-  border: 2px dashed var(--border);
-  border-radius: var(--radius-xl);
-  color: var(--text-3);
-  text-align: center; padding: 2rem;
-  grid-column: 1 / -1;
-}
-.empty-state i { font-size: 2.2rem; opacity: .35; }
-.empty-state p { font-weight: 600; color: var(--text-2); }
-.empty-state small { font-size: .82rem; }
-
-/* ============================================================
-   FOOTER
-   ============================================================ */
-.site-footer {
-  background: var(--navy);
-  color: rgba(255,255,255,.45);
-  padding: 1rem 1.5rem;
-  display: flex; justify-content: space-between; align-items: center;
-  flex-wrap: wrap; gap: .5rem;
-  font-size: .78rem;
-  margin-top: auto;
-}
-.site-footer strong { color: rgba(255,255,255,.7); }
-
-/* ============================================================
-   UTILITY
-   ============================================================ */
-.hidden { display: none !important; }
-
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
-@media (max-width: 800px) {
-  .toolbar { top: 56px; }
-  .toolbar-inner { gap: .8rem 1.2rem; padding: .7rem 1rem; }
-  .squadre-chips-wrap { max-width: 100%; }
-  .search-block { max-width: 100%; }
-  .squadre-grid { grid-template-columns: 1fr; }
-  .mio-giocatori-grid { grid-template-columns: 1fr; }
-  .main-content { padding: 1.2rem 1rem 2rem; }
-  .brand-title { font-size: 1.3rem; }
-  .header-inner { padding: .7rem 1rem; }
-  .site-footer { flex-direction: column; align-items: flex-start; }
-}
-
-@media (max-width: 500px) {
-  .meta-pill { display: none; }
-  .header-meta { gap: .4rem; }
-  .btn-tab { padding: .35rem .8rem; font-size: .78rem; }
-}
-
-/* ============================================================
-   SCROLLBAR
-   ============================================================ */
-::-webkit-scrollbar { width: 7px; height: 7px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-
-
-/* ============================================================
-   MIO LISTONE - VISTA PER SQUADRA
-   ============================================================ */
-.mio-vista-btns {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-  flex-wrap: wrap;
-}
-
-.btn-vista-mio {
-  padding: 0.4rem 1.2rem;
-  border-radius: 30px;
-  border: 1.5px solid var(--border);
-  background: var(--cream);
-  color: var(--text-2);
-  font-size: 0.82rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.15s;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-.btn-vista-mio:hover {
-  border-color: var(--blue-light);
-  color: var(--blue);
-}
-.btn-vista-mio.active {
-  background: var(--blue-dark);
-  border-color: var(--blue-dark);
-  color: #fff;
-}
-
-.mio-squadra-section {
-  margin-bottom: 2.2rem;
-}
-.mio-squadra-title {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid var(--border);
-}
-.mio-squadra-title .logo-mini {
-  width: 28px;
-  height: 28px;
-  object-fit: contain;
-}
-.mio-squadra-title .logo-mini-fallback {
-  width: 28px;
-  height: 28px;
-  background: var(--cream);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.7rem;
-  font-weight: 800;
-  color: var(--blue-dark);
-  border: 1px solid var(--border);
-}
-
-/* ============================================================
-   TOOLTIP PER SALVATAGGIO
-   ============================================================ */
-.toast {
-  position: fixed;
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--navy);
-  color: #fff;
-  padding: 0.8rem 1.8rem;
-  border-radius: var(--radius);
-  font-size: 0.9rem;
-  font-weight: 600;
-  box-shadow: var(--shadow-lg);
-  z-index: 999;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-}
-.toast.show {
-  opacity: 1;
-}
-.toast i {
-  margin-right: 0.5rem;
-  color: var(--green);
-}
 
 /* ============================================================
    VISTA SINGOLA SQUADRA
@@ -844,36 +570,91 @@ body {
 }
 
 /* ============================================================
-   TOAST
+   VISTA TABELLA
    ============================================================ */
-.toast {
-  position: fixed;
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--navy);
+.table-wrap { overflow-x: auto; border-radius: var(--radius-lg); border: 1px solid var(--border); background: var(--surface); box-shadow: var(--shadow-sm); }
+.table-giocatori { width: 100%; border-collapse: collapse; font-size: .875rem; }
+.table-giocatori thead tr {
+  background: linear-gradient(135deg, var(--navy), var(--blue-dark));
   color: #fff;
-  padding: 0.8rem 1.8rem;
-  border-radius: var(--radius);
-  font-size: 0.9rem;
-  font-weight: 600;
-  box-shadow: var(--shadow-lg);
-  z-index: 999;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
 }
-.toast.show {
-  opacity: 1;
+.table-giocatori th {
+  padding: .8rem 1rem;
+  text-align: left;
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: .5px;
+  font-size: .8rem;
+  white-space: nowrap;
 }
-.toast i {
-  margin-right: 0.5rem;
-  color: var(--green);
+.table-giocatori tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background .12s;
+}
+.table-giocatori tbody tr:last-child { border-bottom: none; }
+.table-giocatori tbody tr:hover { background: #f0f6ff; }
+.table-giocatori td { padding: .65rem 1rem; }
+
+.td-nome { display: flex; align-items: center; gap: .5rem; }
+.td-logo { width: 24px; height: 24px; object-fit: contain; }
+.td-logo-fb { width: 24px; height: 24px; background: var(--cream); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .65rem; font-weight: 800; color: var(--blue-dark); border: 1px solid var(--border); }
+.td-squadra-cell { display: flex; align-items: center; gap: .4rem; cursor: pointer; }
+.td-squadra-cell:hover { color: var(--blue); }
+
+.badge-ruolo {
+  display: inline-block;
+  padding: .15rem .55rem;
+  border-radius: 30px;
+  font-size: .72rem; font-weight: 700;
+}
+.badge-ruolo.por { background: var(--por-bg); color: var(--por-c); }
+.badge-ruolo.dif { background: var(--dif-bg); color: var(--dif-c); }
+.badge-ruolo.cen { background: var(--cen-bg); color: var(--cen-c); }
+.badge-ruolo.att { background: var(--att-bg); color: var(--att-c); }
+
+.quota-badge {
+  display: inline-block;
+  padding: .18rem .65rem;
+  border-radius: 30px;
+  font-size: .78rem; font-weight: 700;
+  background: #fef9c3; color: #854d0e;
 }
 
+.btn-add-table {
+  padding: .28rem .85rem;
+  border-radius: 30px;
+  border: 1.5px solid;
+  font-size: .78rem; font-weight: 700;
+  cursor: pointer; transition: all .15s;
+  display: inline-flex; align-items: center; gap: .3rem;
+  white-space: nowrap;
+}
+.btn-add-table.add   { border-color: #93c5fd; background: #eff6ff; color: var(--blue); }
+.btn-add-table.add:hover { background: var(--blue-mid); color: #fff; border-color: var(--blue-mid); }
+.btn-add-table.added { border-color: #6ee7b7; background: #d1fae5; color: #065f46; }
+.btn-add-table.added:hover { background: var(--red); border-color: var(--red); color: #fff; }
+
 /* ============================================================
-   MIO LISTONE - VISTA PER SQUADRA
+   IL MIO LISTONE
    ============================================================ */
+.riepilogo-bar {
+  display: flex; flex-wrap: wrap; gap: .6rem;
+  padding-bottom: 1.4rem;
+  margin-bottom: 1.6rem;
+  border-bottom: 1px solid var(--border);
+}
+.riepilogo-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: .6rem 1.2rem;
+  display: flex; flex-direction: column; gap: .15rem;
+  box-shadow: var(--shadow-sm);
+  min-width: 110px;
+}
+.riepilogo-num { font-family: var(--font-display); font-size: 1.8rem; font-weight: 700; line-height: 1; }
+.riepilogo-label { font-size: .72rem; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; color: var(--text-3); }
+
 .mio-vista-btns {
   display: flex;
   gap: 0.5rem;
@@ -903,6 +684,19 @@ body {
   background: var(--blue-dark);
   border-color: var(--blue-dark);
   color: #fff;
+}
+
+.mio-ruolo-section { margin-bottom: 2.2rem; }
+.mio-ruolo-title {
+  display: flex; align-items: center; gap: .7rem;
+  font-family: var(--font-display);
+  font-size: 1.05rem; font-weight: 600; letter-spacing: .5px;
+  margin-bottom: 1rem;
+  padding-bottom: .5rem;
+  border-bottom: 2px solid var(--border);
+}
+.mio-ruolo-title .dot {
+  width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
 }
 
 .mio-squadra-section {
@@ -937,4 +731,268 @@ body {
   font-weight: 800;
   color: var(--blue-dark);
   border: 1px solid var(--border);
+}
+
+.mio-giocatori-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: .8rem;
+}
+
+.mio-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: .8rem 1rem;
+  display: flex; align-items: center; gap: .75rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow .15s, border-color .15s;
+}
+.mio-card:hover { box-shadow: var(--shadow); border-color: #c7d7f4; }
+.mio-logo {
+  width: 36px; height: 36px;
+  background: var(--cream);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.mio-logo img { width: 100%; height: 100%; object-fit: contain; }
+.mio-logo-fb { font-size: .72rem; font-weight: 800; color: var(--blue-dark); }
+.mio-info { flex: 1; min-width: 0; }
+.mio-nome { font-weight: 600; font-size: .88rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mio-squadra { font-size: .75rem; color: var(--text-2); margin-top: .1rem; }
+.mio-quota { font-size: .78rem; font-weight: 700; color: #854d0e; background: #fef9c3; padding: .12rem .5rem; border-radius: 30px; white-space: nowrap; }
+
+.btn-remove {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: #fee2e2;
+  color: var(--red);
+  font-size: .75rem;
+  cursor: pointer;
+  transition: all .15s;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.btn-remove:hover { background: var(--red); color: #fff; }
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+.toast {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--navy);
+  color: #fff;
+  padding: 0.8rem 1.8rem;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-lg);
+  z-index: 999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.toast.show {
+  opacity: 1;
+}
+.toast i {
+  margin-right: 0.5rem;
+  color: var(--green);
+}
+
+/* ============================================================
+   EMPTY STATE
+   ============================================================ */
+.empty-state {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: 260px; gap: .7rem;
+  background: var(--surface);
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-xl);
+  color: var(--text-3);
+  text-align: center; padding: 2rem;
+  grid-column: 1 / -1;
+}
+.empty-state i { font-size: 2.2rem; opacity: .35; }
+.empty-state p { font-weight: 600; color: var(--text-2); }
+.empty-state small { font-size: .82rem; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.site-footer {
+  background: var(--navy);
+  color: rgba(255,255,255,.45);
+  padding: 1rem 1.5rem;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: .5rem;
+  font-size: .78rem;
+  margin-top: auto;
+}
+.site-footer strong { color: rgba(255,255,255,.7); }
+
+/* ============================================================
+   UTILITY
+   ============================================================ */
+.hidden { display: none !important; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 800px) {
+  .toolbar { top: 56px; }
+  .toolbar-inner { gap: .8rem 1.2rem; padding: .7rem 1rem; }
+  .squadre-chips-wrap { max-width: 100%; }
+  .search-block { max-width: 100%; }
+  .squadre-grid { grid-template-columns: 1fr; }
+  .mio-giocatori-grid { grid-template-columns: 1fr; }
+  .main-content { padding: 1.2rem 1rem 2rem; }
+  .brand-title { font-size: 1.3rem; }
+  .header-inner { padding: .7rem 1rem; }
+  .site-footer { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 500px) {
+  .meta-pill { display: none; }
+  .header-meta { gap: .4rem; }
+  .btn-tab { padding: .35rem .8rem; font-size: .78rem; }
+  #singolaSquadraInfo { flex-direction: column; text-align: center; }
+  #singolaSquadraInfo .squadra-count { margin-left: 0; }
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar { width: 7px; height: 7px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+
+/* ============================================================
+   VISTA SINGOLA SQUADRA - TOGGLE
+   ============================================================ */
+.singola-vista-btns {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.btn-vista-singola {
+  padding: 0.35rem 1.2rem;
+  border-radius: 30px;
+  border: 1.5px solid var(--border);
+  background: var(--cream);
+  color: var(--text-2);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.btn-vista-singola:hover {
+  border-color: var(--blue-light);
+  color: var(--blue);
+}
+.btn-vista-singola.active {
+  background: var(--blue-dark);
+  border-color: var(--blue-dark);
+  color: #fff;
+}
+
+/* ============================================================
+   VISTA SINGOLA SQUADRA - LISTA (RIGA)
+   ============================================================ */
+.singola-lista-giocatori {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.singola-riga-giocatore {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.6rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: all 0.15s;
+  cursor: pointer;
+}
+.singola-riga-giocatore:hover {
+  background: #f0f6ff;
+  border-color: #93c5fd;
+}
+.singola-riga-giocatore .riga-posizione {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-3);
+  min-width: 30px;
+}
+.singola-riga-giocatore .riga-nome {
+  flex: 1;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.singola-riga-giocatore .riga-ruolo {
+  font-size: 0.75rem;
+  padding: 0.15rem 0.6rem;
+  border-radius: 30px;
+  font-weight: 600;
+}
+.singola-riga-giocatore .riga-ruolo.por { background: var(--por-bg); color: var(--por-c); }
+.singola-riga-giocatore .riga-ruolo.dif { background: var(--dif-bg); color: var(--dif-c); }
+.singola-riga-giocatore .riga-ruolo.cen { background: var(--cen-bg); color: var(--cen-c); }
+.singola-riga-giocatore .riga-ruolo.att { background: var(--att-bg); color: var(--att-c); }
+
+.singola-riga-giocatore .riga-quota {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #854d0e;
+  background: #fef9c3;
+  padding: 0.1rem 0.6rem;
+  border-radius: 30px;
+  min-width: 35px;
+  text-align: center;
+}
+.singola-riga-giocatore .riga-add {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  background: var(--cream);
+  color: var(--text-3);
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+.singola-riga-giocatore .riga-add:hover {
+  background: var(--blue-light);
+  color: #fff;
+  border-color: var(--blue-light);
+}
+.singola-riga-giocatore .riga-add.added {
+  background: #d1fae5;
+  border-color: #6ee7b7;
+  color: #065f46;
+}
+.singola-riga-giocatore .riga-add.added:hover {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
 }

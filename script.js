@@ -12,7 +12,7 @@ let squadreSelezionate = new Set(['all']);
 let vistaCorrente = 'card';
 let mioVistaCorrente = 'ruolo';
 let searchTerm = '';
-let singolaSquadraSelezionata = null; // id della squadra selezionata per vista singola
+let singolaSquadraSelezionata = null;
 
 // ============================================================
 //  TOAST NOTIFICATION
@@ -28,7 +28,39 @@ function showToast(message, icon = 'fa-check-circle') {
   toast.innerHTML = `<i class="fas ${icon}"></i> ${message}`;
   toast.classList.add('show');
   clearTimeout(toast._timeout);
-  toast._timeout = setTimeout(() => toast.classList.remove('show'), 2500);
+  toast._timeout = setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+// ============================================================
+//  GESTIONE SALVATAGGIO CON DATA
+// ============================================================
+function aggiornaInfoSalvataggio() {
+  const info = document.getElementById('salvataggioInfo');
+  const span = document.getElementById('ultimoSalvataggio');
+  if (!info || !span) return;
+  
+  const lastSave = localStorage.getItem('mioListone_lastSave');
+  if (lastSave) {
+    const date = new Date(parseInt(lastSave));
+    const now = new Date();
+    const diffMs = now - date;
+    const diffMin = Math.floor(diffMs / 60000);
+    const diffHour = Math.floor(diffMs / 3600000);
+    const diffDay = Math.floor(diffMs / 86400000);
+    
+    let label = '';
+    if (diffMin < 1) label = 'Ora';
+    else if (diffMin < 60) label = `${diffMin} min fa`;
+    else if (diffHour < 24) label = `${diffHour} h fa`;
+    else if (diffDay < 7) label = `${diffDay} g fa`;
+    else label = date.toLocaleDateString('it-IT');
+    
+    span.textContent = `Salvato ${label}`;
+    info.style.display = 'flex';
+  } else {
+    span.textContent = 'Non salvato';
+    info.style.display = 'flex';
+  }
 }
 
 // ============================================================
@@ -39,13 +71,90 @@ function loadMioListone() {
     const saved = localStorage.getItem('mioListone');
     if (saved) {
       mioListone = JSON.parse(saved);
+      setTimeout(aggiornaInfoSalvataggio, 100);
     }
   } catch (e) { mioListone = []; }
 }
 
 function saveMioListone() {
   localStorage.setItem('mioListone', JSON.stringify(mioListone));
+  localStorage.setItem('mioListone_lastSave', String(Date.now()));
   aggiornaContatori();
+  aggiornaInfoSalvataggio();
+}
+
+// ============================================================
+//  ESPORTA / IMPORTA LISTONE
+// ============================================================
+function esportaListone() {
+  if (mioListone.length === 0) {
+    showToast('Il listone è vuoto! Niente da esportare.', 'fa-exclamation-circle');
+    return;
+  }
+  
+  const data = {
+    exportDate: new Date().toISOString(),
+    version: '1.0',
+    giocatori: mioListone
+  };
+  
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `mio-listone-${new Date().toISOString().slice(0,10)}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('Listone esportato con successo!', 'fa-download');
+}
+
+function importaListone(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const data = JSON.parse(e.target.result);
+      let giocatori = [];
+      
+      // Supporta sia il formato con { giocatori: [...] } che array diretto
+      if (data.giocatori && Array.isArray(data.giocatori)) {
+        giocatori = data.giocatori;
+      } else if (Array.isArray(data)) {
+        giocatori = data;
+      } else {
+        throw new Error('Formato non valido');
+      }
+      
+      // Verifica che i dati siano validi
+      if (giocatori.length === 0) {
+        showToast('Nessun giocatore da importare.', 'fa-exclamation-circle');
+        return;
+      }
+      
+      if (!confirm(`Vuoi importare ${giocatori.length} giocatori? Sostituirà il tuo listone attuale.`)) return;
+      
+      mioListone = giocatori;
+      saveMioListone();
+      if (singolaSquadraSelezionata) {
+        renderSingolaSquadra(singolaSquadraSelezionata);
+      } else {
+        applyFilters();
+      }
+      renderMioListone();
+      aggiornaContatori();
+      showToast(`Importati ${giocatori.length} giocatori!`, 'fa-upload');
+    } catch (error) {
+      showToast('Errore: file non valido. Assicurati che sia un JSON esportato da questa app.', 'fa-exclamation-triangle');
+      console.error('Import error:', error);
+    }
+  };
+  reader.readAsText(file);
+  // Reset del file input per permettere di caricare lo stesso file
+  event.target.value = '';
 }
 
 // ============================================================
@@ -85,6 +194,7 @@ function init() {
   applyFilters();
   renderMioListone();
   aggiornaContatori();
+  aggiornaInfoSalvataggio();
   document.getElementById("panelListone").classList.remove("hidden");
 }
 
@@ -114,8 +224,7 @@ function populateSquadreChips(containerId) {
 
 function toggleSquadraChip(chip) {
   const id = chip.dataset.id;
-  const allChip = document.querySelector('#squadreChips .chip-squadra[data-id="all"]') || 
-                  document.querySelector('#squadreChips + .chip-squadra[data-id="all"]');
+  const allChip = document.querySelector('#squadreChips .chip-squadra[data-id="all"]');
   
   if (id === 'all') {
     document.querySelectorAll('#squadreChips .chip-squadra').forEach(c => c.classList.remove('active'));
@@ -126,14 +235,12 @@ function toggleSquadraChip(chip) {
     document.getElementById('vistaCardContainer').classList.remove('hidden');
     document.getElementById('vistaTabContainer').classList.remove('hidden');
   } else {
-    // Se clicco su una squadra, vado alla vista singola
     squadreSelezionate = new Set([id]);
     singolaSquadraSelezionata = id;
     document.querySelectorAll('#squadreChips .chip-squadra').forEach(c => c.classList.remove('active'));
     chip.classList.add('active');
     if (allChip) allChip.classList.remove('active');
     
-    // Nascondi le altre viste e mostra la vista singola
     document.getElementById('vistaCardContainer').classList.add('hidden');
     document.getElementById('vistaTabContainer').classList.add('hidden');
     document.getElementById('vistaSingolaSquadra').classList.remove('hidden');
@@ -144,8 +251,7 @@ function toggleSquadraChip(chip) {
 
 function toggleMioSquadraChip(chip) {
   const id = chip.dataset.id;
-  const allChip = document.querySelector('#mioSquadreChipsList .chip-squadra[data-id="all"]') || 
-                  document.querySelector('#mioSquadreChips .chip-squadra[data-id="all"]');
+  const allChip = document.querySelector('#mioSquadreChipsList .chip-squadra[data-id="all"]');
   
   if (id === 'all') {
     document.querySelectorAll('#mioSquadreChipsList .chip-squadra').forEach(c => c.classList.remove('active'));
@@ -171,7 +277,6 @@ function renderSingolaSquadra(id) {
   const container = document.getElementById('singolaSquadraContent');
   const info = document.getElementById('singolaSquadraInfo');
   
-  // Info squadra
   info.innerHTML = `
     <div style="display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;width:100%;">
       <div>
@@ -189,7 +294,6 @@ function renderSingolaSquadra(id) {
     </div>
   `;
   
-  // Giocatori divisi per ruolo
   const ruoliMap = new Map();
   squadra.giocatori.forEach(g => {
     if (!ruoliMap.has(g.ruolo)) ruoliMap.set(g.ruolo, []);
@@ -237,13 +341,11 @@ function tornaAlListone() {
   singolaSquadraSelezionata = null;
   document.getElementById('vistaSingolaSquadra').classList.add('hidden');
   
-  // Resetta i chip
   document.querySelectorAll('#squadreChips .chip-squadra').forEach(c => c.classList.remove('active'));
   const allChip = document.querySelector('#squadreChips .chip-squadra[data-id="all"]');
   if (allChip) allChip.classList.add('active');
   squadreSelezionate = new Set(['all']);
   
-  // Mostra le viste giuste
   if (vistaCorrente === 'card') {
     document.getElementById('vistaCardContainer').classList.remove('hidden');
   } else {
@@ -271,9 +373,7 @@ function toggleRuoloMio(btn) {
 }
 
 function applyFilters() {
-  // Se siamo in vista singola, non applicare filtri che nascondono la squadra
   if (singolaSquadraSelezionata) {
-    // Aggiorna solo i filtri di ricerca nella vista singola
     const searchInput = document.getElementById('searchInput');
     searchTerm = searchInput.value.toLowerCase().trim();
     renderSingolaSquadra(singolaSquadraSelezionata);
@@ -310,7 +410,6 @@ function applyFilters() {
 }
 
 function resetFiltri() {
-  // Torna al listone completo
   singolaSquadraSelezionata = null;
   document.getElementById('vistaSingolaSquadra').classList.add('hidden');
   
@@ -356,7 +455,6 @@ function renderListone(squadreDaRenderizzare) {
   }
   emptyState.classList.add('hidden');
   
-  // RENDER CARD
   let cardHtml = '';
   squadreDaRenderizzare.forEach(squadra => {
     const ruoliMap = new Map();
@@ -375,16 +473,14 @@ function renderListone(squadreDaRenderizzare) {
     });
     
     cardHtml += `
-      <div class="card-squadra" onclick="apriSingolaSquadra(${squadra.id})" style="cursor:pointer;">
+      <div class="card-squadra" onclick="apriSingolaSquadra(${squadra.id})">
         <div class="squadra-header">
           <div class="squadra-icon">
             ${squadra.logo_url ? `<img src="${squadra.logo_url}" alt="${squadra.nome}" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\'squadra-icon-fallback\\'>${squadra.nome.charAt(0)}</span>'" />` : `<span class="squadra-icon-fallback">${squadra.nome.charAt(0)}</span>`}
           </div>
           <h2>${squadra.nome}</h2>
           <span class="giocatori-count">${squadra.giocatori.length}</span>
-          <span style="font-size:0.7rem;color:rgba(255,255,255,0.5);margin-left:auto;">
-            <i class="fas fa-chevron-right"></i>
-          </span>
+          <i class="fas fa-chevron-right"></i>
         </div>
     `;
     
@@ -417,7 +513,6 @@ function renderListone(squadreDaRenderizzare) {
   cardContainer.innerHTML = cardHtml;
   cardContainer.classList.remove('hidden');
   
-  // RENDER TABELLA
   let tableHtml = '';
   squadreDaRenderizzare.forEach(squadra => {
     squadra.giocatori.forEach(g => {
@@ -432,7 +527,7 @@ function renderListone(squadreDaRenderizzare) {
             </div>
           </td>
           <td>
-            <div class="td-squadra-cell" style="cursor:pointer;" onclick="apriSingolaSquadra(${squadra.id})">
+            <div class="td-squadra-cell" onclick="apriSingolaSquadra(${squadra.id})">
               ${squadra.logo_url ? `<img src="${squadra.logo_url}" alt="${squadra.nome}" class="td-logo" onerror="this.style.display='none'" />` : ''}
               ${squadra.nome}
             </div>
@@ -453,7 +548,6 @@ function renderListone(squadreDaRenderizzare) {
   tableBody.innerHTML = tableHtml;
   tabContainer.classList.remove('hidden');
   
-  // Mostra solo la vista attiva
   if (vistaCorrente === 'card') {
     cardContainer.classList.remove('hidden');
     tabContainer.classList.add('hidden');
@@ -472,7 +566,6 @@ function apriSingolaSquadra(id) {
   document.getElementById('vistaTabContainer').classList.add('hidden');
   document.getElementById('vistaSingolaSquadra').classList.remove('hidden');
   
-  // Aggiorna i chip
   document.querySelectorAll('#squadreChips .chip-squadra').forEach(c => {
     c.classList.toggle('active', String(c.dataset.id) === String(id));
   });
@@ -512,7 +605,6 @@ function toggleMioListone(nome, squadra, ruolo, logo_url, numero) {
     showToast(`Aggiunto ${nome} al listone!`, 'fa-plus-circle');
   }
   saveMioListone();
-  // Aggiorna la vista corrente
   if (singolaSquadraSelezionata) {
     renderSingolaSquadra(singolaSquadraSelezionata);
   } else {
@@ -569,7 +661,10 @@ function renderMioListone() {
   }
   
   if (filtroSquadraMio !== 'all') {
-    filtered = filtered.filter(m => m.squadra === squadre.find(s => String(s.id) === filtroSquadraMio)?.nome);
+    const squadraNome = squadre.find(s => String(s.id) === filtroSquadraMio)?.nome;
+    if (squadraNome) {
+      filtered = filtered.filter(m => m.squadra === squadraNome);
+    }
   }
   
   if (filtered.length === 0) {
@@ -580,12 +675,9 @@ function renderMioListone() {
   }
   empty.classList.add('hidden');
   
-  // Riepilogo
   const ruoliCount = {};
-  const squadreCount = {};
   mioListone.forEach(m => {
     ruoliCount[m.ruolo] = (ruoliCount[m.ruolo] || 0) + 1;
-    squadreCount[m.squadra] = (squadreCount[m.squadra] || 0) + 1;
   });
   const total = mioListone.length;
   riepilogo.innerHTML = `

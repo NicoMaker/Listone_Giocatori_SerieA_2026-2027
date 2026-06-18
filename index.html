@@ -113,8 +113,19 @@
           </div>
         </div>
       </div>
-      <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
-        <button class="btn-danger" onclick="clearMioListone()"><i class="fas fa-trash"></i> Svuota tutto</button>
+      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;">
+        <span id="salvataggioInfo" style="font-size:0.7rem;color:var(--text-3);display:flex;align-items:center;gap:0.3rem;">
+          <i class="fas fa-save" style="color:var(--green);"></i>
+          <span id="ultimoSalvataggio">Salvato</span>
+        </span>
+        <button class="btn-export" onclick="esportaListone()" title="Esporta listone in JSON">
+          <i class="fas fa-download"></i> Esporta
+        </button>
+        <button class="btn-import" onclick="document.getElementById('fileInput').click()" title="Importa listone da JSON">
+          <i class="fas fa-upload"></i> Importa
+        </button>
+        <input type="file" id="fileInput" accept=".json" style="display:none" onchange="importaListone(event)" />
+        <button class="btn-danger" onclick="clearMioListone()"><i class="fas fa-trash"></i> Svuota</button>
       </div>
     </div>
   </div>
@@ -134,15 +145,25 @@
       <!-- Vista CARD -->
       <div id="vistaCardContainer" class="squadre-grid"></div>
 
-      <!-- Vista SINGOLA SQUADRA (dettaglio) -->
+      <!-- Vista SINGOLA SQUADRA -->
       <div id="vistaSingolaSquadra" class="hidden">
         <div class="singola-squadra-header">
           <button class="btn-back" onclick="tornaAlListone()">
             <i class="fas fa-arrow-left"></i> Torna al listone
           </button>
           <div id="singolaSquadraInfo"></div>
+          <!-- Vista toggle per singola squadra -->
+          <div class="singola-vista-btns" style="margin-top:1rem;">
+            <button class="btn-vista-singola active" onclick="setVistaSingola('griglia', this)">
+              <i class="fas fa-grip"></i> Griglia
+            </button>
+            <button class="btn-vista-singola" onclick="setVistaSingola('lista', this)">
+              <i class="fas fa-list"></i> Lista
+            </button>
+          </div>
         </div>
         <div id="singolaSquadraContent"></div>
+        <div id="singolaSquadraLista" class="hidden"></div>
       </div>
 
       <!-- Vista TABELLA -->
