@@ -1,85 +1,98 @@
 /* ============================================================
-   DESIGN TOKENS
+   DESIGN TOKENS — Listone Fantacalcio · Tema Italia
+   Palette: bandiera italiana verde/bianco/rosso + oro Serie A
    ============================================================ */
-*,
-*::before,
-*::after {
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
 :root {
-  /* Core palette */
-  --ink: #0d1117;
-  --ink-2: #161b22;
-  --ink-3: #21262d;
-  --surface: #ffffff;
-  --surface-2: #f6f8fa;
-  --surface-3: #edf0f4;
+  /* ── Bandiera Italiana ── */
+  --it-verde:  #009246;
+  --it-verde-d: #006d33;
+  --it-verde-l: #d4f0e0;
+  --it-bianco: #ffffff;
+  --it-rosso:  #CE2B37;
+  --it-rosso-d: #a01f28;
+  --it-rosso-l: #fde8ea;
 
-  --border: #d0d7de;
-  --border-2: #e8ecf0;
+  /* ── Oro Serie A ── */
+  --oro:       #C9A84C;
+  --oro-l:     #f0d78c;
+  --oro-bg:    #fdf8ec;
+  --oro-d:     #9a7930;
 
-  --text: #0d1117;
-  --text-2: #57606a;
-  --text-3: #8c959f;
+  /* ── Superfici ── */
+  --ink:       #0f1923;
+  --ink-2:     #1a2535;
+  --ink-3:     #243044;
+  --surface:   #ffffff;
+  --surface-2: #f5f7f9;
+  --surface-3: #eaecef;
 
-  /* Accent: indigo instead of generic blue */
-  --accent: #6366f1;
-  --accent-2: #818cf8;
-  --accent-bg: #eef2ff;
-  --accent-dark: #4338ca;
+  /* ── Bordi ── */
+  --border:    #dde1e7;
+  --border-2:  #edf0f3;
 
-  /* Gold highlight */
-  --gold: #f59e0b;
-  --gold-light: #fcd34d;
-  --gold-bg: #fffbeb;
+  /* ── Testo ── */
+  --text:      #0f1923;
+  --text-2:    #4a5568;
+  --text-3:    #8a95a3;
 
-  /* Role colors */
-  --por-c: #8b5cf6;
-  --por-bg: #f5f3ff;
-  --dif-c: #0ea5e9;
-  --dif-bg: #e0f2fe;
-  --cen-c: #f59e0b;
-  --cen-bg: #fef3c7;
-  --att-c: #ef4444;
-  --att-bg: #fee2e2;
+  /* ── Accento primario: verde Italia ── */
+  --accent:    #009246;
+  --accent-2:  #4db87a;
+  --accent-bg: #e8f8ef;
+  --accent-dark:#006d33;
 
-  /* Semantics */
-  --green: #10b981;
-  --red: #ef4444;
+  /* ── Accento secondario: rosso Italia ── */
+  --red-accent: #CE2B37;
+  --red:        #e53e3e;
 
-  /* Shape */
-  --r-xs: 4px;
-  --r-sm: 6px;
-  --r: 10px;
-  --r-lg: 14px;
-  --r-xl: 20px;
-  --r-full: 9999px;
+  /* ── Colori per ruolo ── */
+  --por-c:   #7c3aed;  /* Portiere → viola */
+  --por-bg:  #f3f0ff;
+  --dif-c:   #0369a1;  /* Difensore → blu */
+  --dif-bg:  #e0f2fe;
+  --cen-c:   #b45309;  /* Centrocampista → ambra */
+  --cen-bg:  #fef3c7;
+  --att-c:   #CE2B37;  /* Attaccante → rosso Italia */
+  --att-bg:  #fde8ea;
 
-  /* Shadows */
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.06);
-  --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.04);
-  --shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.04);
-  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.14), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  /* ── Semantici ── */
+  --green:   #009246;
 
-  /* Typography */
+  /* ── Shape ── */
+  --r-xs:    4px;
+  --r-sm:    6px;
+  --r:       10px;
+  --r-lg:    14px;
+  --r-xl:    20px;
+  --r-full:  9999px;
+
+  /* ── Ombre ── */
+  --shadow-xs: 0 1px 2px rgba(0,0,0,.06);
+  --shadow-sm: 0 1px 4px rgba(0,0,0,.08), 0 0 0 1px rgba(0,0,0,.04);
+  --shadow:    0 4px 14px rgba(0,0,0,.1),  0 0 0 1px rgba(0,0,0,.04);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,.15),0 0 0 1px rgba(0,0,0,.04);
+
+  /* ── Tipografia ── */
   --font-display: "Oswald", sans-serif;
-  --font-body: "Inter", sans-serif;
+  --font-body:    "Inter", sans-serif;
 
-  /* Motion */
-  --fast: 120ms cubic-bezier(0.4, 0, 0.2, 1);
-  --base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
-  --slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  /* ── Moto ── */
+  --fast: 120ms cubic-bezier(0.4,0,0.2,1);
+  --base: 200ms cubic-bezier(0.4,0,0.2,1);
+  --slow: 350ms cubic-bezier(0.4,0,0.2,1);
 }
 
 /* ============================================================
    BASE
    ============================================================ */
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
+
 body {
   font-family: var(--font-body);
   background: var(--surface-2);
@@ -91,23 +104,13 @@ body {
   line-height: 1.5;
 }
 
-::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 10px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--text-3);
-}
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-3); }
 
 /* ============================================================
-   HEADER
+   HEADER — Tricolore statement
    ============================================================ */
 .site-header {
   background: var(--ink);
@@ -118,20 +121,22 @@ body {
   border-bottom: 1px solid var(--ink-3);
 }
 
-/* Subtle pitch texture line */
+/* Striscia tricolore sotto l'header — elemento signature */
 .site-header::after {
   content: "";
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 2px;
+  height: 3px;
   background: linear-gradient(
     90deg,
-    transparent 0%,
-    var(--gold) 30%,
-    var(--accent) 70%,
-    transparent 100%
+    var(--it-verde) 0%,
+    var(--it-verde) 33.33%,
+    #ffffff 33.33%,
+    #ffffff 66.66%,
+    var(--it-rosso) 66.66%,
+    var(--it-rosso) 100%
   );
 }
 
@@ -153,20 +158,20 @@ body {
 }
 
 .brand-logo {
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   background: var(--ink-3);
   border-radius: var(--r-sm);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255,255,255,.12);
   flex-shrink: 0;
   transition: var(--base);
 }
 .brand-logo:hover {
-  border-color: var(--gold);
+  border-color: var(--oro);
   transform: rotate(-3deg);
 }
 .brand-logo img {
@@ -180,8 +185,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--gold);
-  font-size: 1.2rem;
+  color: var(--oro);
+  font-size: 1.3rem;
 }
 
 .brand-text {
@@ -191,21 +196,22 @@ body {
 }
 .brand-title {
   font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 700;
-  letter-spacing: 4px;
+  letter-spacing: 5px;
   color: #fff;
+  text-transform: uppercase;
 }
-.brand-title span {
-  color: var(--gold);
-}
+/* NE in verde */
+.brand-title span { color: var(--it-verde); }
+
 .brand-sub {
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255,255,255,.4);
   letter-spacing: 2.5px;
   text-transform: uppercase;
-  margin-top: 1px;
+  margin-top: 2px;
 }
 
 .header-meta {
@@ -217,8 +223,8 @@ body {
 
 .meta-pill {
   background: var(--ink-3);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255,255,255,.08);
+  color: rgba(255,255,255,.6);
   padding: 0.28rem 0.8rem;
   border-radius: var(--r-full);
   font-size: 0.75rem;
@@ -230,15 +236,15 @@ body {
   transition: var(--fast);
 }
 .meta-pill.accent {
-  background: rgba(245, 158, 11, 0.12);
-  border-color: rgba(245, 158, 11, 0.25);
-  color: var(--gold-light);
+  background: rgba(201,168,76,.13);
+  border-color: rgba(201,168,76,.28);
+  color: var(--oro-l);
 }
 
 .btn-tab {
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(255,255,255,.14);
+  color: rgba(255,255,255,.55);
   padding: 0.35rem 1rem;
   border-radius: var(--r-full);
   font-family: var(--font-body);
@@ -253,12 +259,12 @@ body {
 }
 .btn-tab:hover {
   color: #fff;
-  border-color: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255,255,255,.3);
 }
 .btn-tab.active {
-  background: var(--gold);
-  border-color: var(--gold);
-  color: var(--ink);
+  background: var(--it-verde);
+  border-color: var(--it-verde);
+  color: #fff;
   font-weight: 700;
 }
 
@@ -299,7 +305,7 @@ body {
   gap: 0.3rem;
 }
 
-/* Chips */
+/* ── Chips squadre ── */
 .squadre-chips-wrap {
   display: flex;
   flex-wrap: wrap;
@@ -336,11 +342,9 @@ body {
   border-color: var(--ink);
   color: #fff;
 }
-.chip-squadra[data-id="all"].active {
-  background: var(--ink);
-}
+.chip-squadra[data-id="all"].active { background: var(--ink); }
 
-/* Ruolo buttons */
+/* ── Pulsanti ruolo ── */
 .ruolo-btns {
   display: flex;
   gap: 0.28rem;
@@ -358,39 +362,24 @@ body {
   color: var(--text-2);
   white-space: nowrap;
 }
-.btn-ruolo:hover {
-  transform: translateY(-1px);
-}
+.btn-ruolo:hover { transform: translateY(-1px); }
 .btn-ruolo.active {
   color: #fff;
   border-color: transparent;
 }
-.btn-ruolo.active[data-ruolo="all"] {
-  background: var(--ink);
-}
-.btn-ruolo.active[data-ruolo="Portiere"] {
-  background: var(--por-c);
-}
-.btn-ruolo.active[data-ruolo="Difensore"] {
-  background: var(--dif-c);
-}
-.btn-ruolo.active[data-ruolo="Centrocampista"] {
-  background: var(--cen-c);
-  color: var(--ink);
-}
-.btn-ruolo.active[data-ruolo="Attaccante"] {
-  background: var(--att-c);
-}
+.btn-ruolo.active[data-ruolo="all"]           { background: var(--ink); }
+.btn-ruolo.active[data-ruolo="Portiere"]      { background: var(--por-c); }
+.btn-ruolo.active[data-ruolo="Difensore"]     { background: var(--dif-c); }
+.btn-ruolo.active[data-ruolo="Centrocampista"]{ background: var(--cen-c); color: var(--ink); }
+.btn-ruolo.active[data-ruolo="Attaccante"]    { background: var(--att-c); }
 
-/* Search */
+/* ── Ricerca ── */
 .search-block {
   flex: 1;
   min-width: 180px;
   max-width: 260px;
 }
-.search-wrap {
-  position: relative;
-}
+.search-wrap { position: relative; }
 .search-wrap input {
   width: 100%;
   padding: 0.38rem 2.2rem 0.38rem 0.9rem;
@@ -405,7 +394,7 @@ body {
 }
 .search-wrap input:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+  box-shadow: 0 0 0 3px rgba(0,146,70,.14);
   background: var(--surface);
 }
 .search-icon {
@@ -418,7 +407,7 @@ body {
   pointer-events: none;
 }
 
-/* Vista & Reset */
+/* ── Vista & Reset ── */
 .vista-controls {
   display: flex;
   align-items: center;
@@ -438,15 +427,8 @@ body {
   justify-content: center;
   font-size: 0.85rem;
 }
-.btn-vista:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-.btn-vista.active {
-  background: var(--ink);
-  border-color: var(--ink);
-  color: #fff;
-}
+.btn-vista:hover { border-color: var(--accent); color: var(--accent); }
+.btn-vista.active { background: var(--ink); border-color: var(--ink); color: #fff; }
 
 .btn-reset {
   padding: 0.28rem 1rem;
@@ -463,9 +445,9 @@ body {
   gap: 0.3rem;
 }
 .btn-reset:hover {
-  background: #fee2e2;
-  border-color: #fca5a5;
-  color: var(--red);
+  background: var(--it-rosso-l);
+  border-color: #f5b3b7;
+  color: var(--it-rosso);
 }
 
 /* ============================================================
@@ -483,14 +465,8 @@ body {
   animation: fadeUp 0.3s ease both;
 }
 @keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
+  from { opacity:0; transform: translateY(10px); }
+  to   { opacity:1; transform: none; }
 }
 
 /* ============================================================
@@ -509,18 +485,15 @@ body {
   width: 44px;
   height: 44px;
   border: 2px solid var(--border);
-  border-top-color: var(--accent);
+  border-top-color: var(--it-verde);
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
 }
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
+@keyframes spin { to { transform: rotate(360deg); } }
 
 /* ============================================================
-   SQUAD CARD GRID — signature element: color-bar accent
+   SQUAD CARD GRID
+   Signature: striscia colorata sinistra + header col verde/rosso
    ============================================================ */
 .squadre-grid {
   display: grid;
@@ -540,7 +513,7 @@ body {
   cursor: pointer;
   position: relative;
 }
-/* The signature: 4px color-bar on the left, color from JS via --team-color */
+/* Striscia colore squadra a sinistra */
 .card-squadra::before {
   content: "";
   position: absolute;
@@ -548,18 +521,16 @@ body {
   left: 0;
   width: 4px;
   height: 100%;
-  background: var(--team-color, var(--accent));
-  opacity: 0.7;
+  background: var(--team-color, var(--it-verde));
+  opacity: 0.75;
   transition: var(--base);
 }
 .card-squadra:hover {
   box-shadow: var(--shadow-lg);
   transform: translateY(-3px);
-  border-color: rgba(99, 102, 241, 0.2);
+  border-color: rgba(0,146,70,.2);
 }
-.card-squadra:hover::before {
-  opacity: 1;
-}
+.card-squadra:hover::before { opacity: 1; }
 
 .squadra-header {
   display: flex;
@@ -571,30 +542,31 @@ body {
   position: relative;
   overflow: hidden;
 }
-/* Subtle dot-grid texture */
+/* Texture prato da calcio */
 .squadra-header::after {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.04) 1px,
-    transparent 1px
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(255,255,255,.025) 0px,
+    rgba(255,255,255,.025) 18px,
+    transparent 18px,
+    transparent 36px
   );
-  background-size: 14px 14px;
   pointer-events: none;
 }
 
 .squadra-icon {
   width: 40px;
   height: 40px;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255,255,255,.09);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border: 1.5px solid rgba(255, 255, 255, 0.14);
+  border: 1.5px solid rgba(255,255,255,.15);
   flex-shrink: 0;
 }
 .squadra-icon img {
@@ -605,7 +577,7 @@ body {
 .squadra-icon-fallback {
   font-size: 1.1rem;
   font-weight: 800;
-  color: var(--gold);
+  color: var(--oro);
   font-family: var(--font-display);
 }
 
@@ -619,35 +591,33 @@ body {
   z-index: 1;
 }
 .giocatori-count {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.12);
   border-radius: var(--r-full);
   padding: 0.12rem 0.6rem;
   font-size: 0.68rem;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255,255,255,.75);
   position: relative;
   z-index: 1;
 }
 .squadra-header .fa-chevron-right {
   font-size: 0.65rem;
-  color: rgba(255, 255, 255, 0.25);
+  color: rgba(255,255,255,.25);
   transition: var(--fast);
   position: relative;
   z-index: 1;
 }
 .card-squadra:hover .fa-chevron-right {
   transform: translateX(3px);
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255,255,255,.6);
 }
 
 .ruolo-section {
   padding: 0.55rem 1.2rem 0.45rem 1.3rem;
   border-bottom: 1px solid var(--border-2);
 }
-.ruolo-section:last-child {
-  border-bottom: none;
-}
+.ruolo-section:last-child { border-bottom: none; }
 
 .ruolo-label {
   font-size: 0.62rem;
@@ -663,6 +633,7 @@ body {
   gap: 0.28rem 0.4rem;
 }
 
+/* ── Player tags ── */
 .giocatore-tag {
   display: inline-flex;
   align-items: center;
@@ -688,17 +659,13 @@ body {
   color: var(--text-3);
   transition: var(--fast);
 }
-.giocatore-tag:hover .tag-add {
-  color: var(--accent);
-}
+.giocatore-tag:hover .tag-add { color: var(--accent); }
 .giocatore-tag.nel-listone {
-  background: #d1fae5;
-  border-color: #6ee7b7;
-  color: #065f46;
+  background: var(--accent-bg);
+  border-color: var(--accent-2);
+  color: var(--accent-dark);
 }
-.giocatore-tag.nel-listone .tag-add {
-  color: var(--green);
-}
+.giocatore-tag.nel-listone .tag-add { color: var(--it-verde); }
 .giocatore-tag.nel-listone .tag-add::before {
   content: "\f058";
   font-family: "Font Awesome 6 Free";
@@ -713,9 +680,7 @@ body {
 /* ============================================================
    SINGOLA SQUADRA
    ============================================================ */
-.singola-squadra-header {
-  margin-bottom: 1.8rem;
-}
+.singola-squadra-header { margin-bottom: 1.8rem; }
 
 .btn-back {
   display: inline-flex;
@@ -749,49 +714,40 @@ body {
   border: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
   flex-wrap: wrap;
+  /* Fascia tricolore sottile in cima alla card */
+  border-top: 3px solid transparent;
+  border-image: linear-gradient(90deg, var(--it-verde) 33%, #fff 33% 66%, var(--it-rosso) 66%) 1;
 }
 #singolaSquadraInfo .squadra-logo-grande {
-  width: 60px;
-  height: 60px;
-  object-fit: contain;
+  width: 60px; height: 60px; object-fit: contain;
 }
 #singolaSquadraInfo .squadra-logo-grande-fallback {
-  width: 60px;
-  height: 60px;
+  width: 60px; height: 60px;
   background: var(--surface-2);
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.6rem;
-  font-weight: 800;
-  color: var(--ink);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem; font-weight: 800; color: var(--ink);
   border: 1px solid var(--border);
 }
 #singolaSquadraInfo .squadra-dettaglio h2 {
   font-family: var(--font-display);
-  font-size: 1.6rem;
-  font-weight: 700;
+  font-size: 1.6rem; font-weight: 700;
 }
 #singolaSquadraInfo .squadra-dettaglio .squadra-citta {
-  color: var(--text-2);
-  font-size: 0.86rem;
+  color: var(--text-2); font-size: 0.86rem;
 }
 #singolaSquadraInfo .squadra-count {
   margin-left: auto;
   background: var(--surface-2);
   padding: 0.28rem 1rem;
   border-radius: var(--r-full);
-  font-weight: 700;
-  font-size: 0.85rem;
+  font-weight: 700; font-size: 0.85rem;
   color: var(--text-2);
   border: 1px solid var(--border);
 }
 
 .singola-vista-btns {
-  display: flex;
-  gap: 0.4rem;
-  flex-wrap: wrap;
+  display: flex; gap: 0.4rem; flex-wrap: wrap;
 }
 .btn-vista-singola {
   padding: 0.3rem 1.1rem;
@@ -799,29 +755,15 @@ body {
   border: 1px solid var(--border);
   background: var(--surface-2);
   color: var(--text-2);
-  font-size: 0.77rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--fast);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
+  font-size: 0.77rem; font-weight: 600;
+  cursor: pointer; transition: var(--fast);
+  display: inline-flex; align-items: center; gap: 0.35rem;
 }
-.btn-vista-singola:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-.btn-vista-singola.active {
-  background: var(--ink);
-  border-color: var(--ink);
-  color: #fff;
-}
+.btn-vista-singola:hover { border-color: var(--accent); color: var(--accent); }
+.btn-vista-singola.active { background: var(--ink); border-color: var(--ink); color: #fff; }
 
 .singola-squadra-ruoli {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-  margin-top: 1.2rem;
+  display: flex; flex-direction: column; gap: 1.2rem; margin-top: 1.2rem;
 }
 .singola-squadra-ruoli .ruolo-section {
   background: var(--surface);
@@ -832,38 +774,21 @@ body {
   transition: var(--base);
   border-bottom: 1px solid var(--border);
 }
-.singola-squadra-ruoli .ruolo-section:hover {
-  box-shadow: var(--shadow);
-}
+.singola-squadra-ruoli .ruolo-section:hover { box-shadow: var(--shadow); }
 .singola-squadra-ruoli .ruolo-section .ruolo-label {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: 0.7rem;
-  padding-bottom: 0.45rem;
+  font-size: 0.8rem; font-weight: 700; color: var(--text);
+  margin-bottom: 0.7rem; padding-bottom: 0.45rem;
   border-bottom: 1px solid var(--border-2);
 }
-.singola-squadra-ruoli .lista-giocatori {
-  gap: 0.4rem;
-}
-.singola-squadra-ruoli .giocatore-tag {
-  padding: 0.32rem 0.9rem;
-  font-size: 0.82rem;
-}
+.singola-squadra-ruoli .lista-giocatori { gap: 0.4rem; }
+.singola-squadra-ruoli .giocatore-tag { padding: 0.32rem 0.9rem; font-size: 0.82rem; }
 
-/* ============================================================
-   LISTA SINGOLA SQUADRA (riga)
-   ============================================================ */
+/* ── Lista singola squadra ── */
 .singola-lista-giocatori {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  margin-top: 1rem;
+  display: flex; flex-direction: column; gap: 0.4rem; margin-top: 1rem;
 }
 .singola-riga-giocatore {
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
+  display: flex; align-items: center; gap: 0.9rem;
   padding: 0.55rem 1rem;
   background: var(--surface);
   border: 1px solid var(--border);
@@ -876,78 +801,46 @@ body {
   transform: translateX(3px);
 }
 .singola-riga-giocatore .riga-posizione {
-  font-size: 0.65rem;
-  font-weight: 700;
-  color: var(--text-3);
-  min-width: 24px;
+  font-size: 0.65rem; font-weight: 700; color: var(--text-3); min-width: 24px;
 }
 .singola-riga-giocatore .riga-nome {
-  flex: 1;
-  font-weight: 600;
-  font-size: 0.87rem;
+  flex: 1; font-weight: 600; font-size: 0.87rem;
 }
 .singola-riga-giocatore .riga-ruolo {
-  font-size: 0.7rem;
-  padding: 0.1rem 0.55rem;
-  border-radius: var(--r-full);
-  font-weight: 600;
+  font-size: 0.7rem; padding: 0.1rem 0.55rem;
+  border-radius: var(--r-full); font-weight: 600;
 }
-.singola-riga-giocatore .riga-ruolo.por {
-  background: var(--por-bg);
-  color: var(--por-c);
-}
-.singola-riga-giocatore .riga-ruolo.dif {
-  background: var(--dif-bg);
-  color: var(--dif-c);
-}
-.singola-riga-giocatore .riga-ruolo.cen {
-  background: var(--cen-bg);
-  color: var(--cen-c);
-}
-.singola-riga-giocatore .riga-ruolo.att {
-  background: var(--att-bg);
-  color: var(--att-c);
-}
+.singola-riga-giocatore .riga-ruolo.por { background: var(--por-bg); color: var(--por-c); }
+.singola-riga-giocatore .riga-ruolo.dif { background: var(--dif-bg); color: var(--dif-c); }
+.singola-riga-giocatore .riga-ruolo.cen { background: var(--cen-bg); color: var(--cen-c); }
+.singola-riga-giocatore .riga-ruolo.att { background: var(--att-bg); color: var(--att-c); }
 .singola-riga-giocatore .riga-quota {
-  font-size: 0.73rem;
-  font-weight: 700;
-  color: #854d0e;
-  background: var(--gold-bg);
+  font-size: 0.73rem; font-weight: 700;
+  color: var(--oro-d);
+  background: var(--oro-bg);
   padding: 0.1rem 0.55rem;
   border-radius: var(--r-full);
-  min-width: 32px;
-  text-align: center;
-  border: 1px solid rgba(245, 158, 11, 0.2);
+  min-width: 32px; text-align: center;
+  border: 1px solid rgba(201,168,76,.25);
 }
 .singola-riga-giocatore .riga-add {
-  width: 30px;
-  height: 30px;
+  width: 30px; height: 30px;
   border-radius: 50%;
   border: 1px solid var(--border);
   background: var(--surface-2);
   color: var(--text-3);
-  cursor: pointer;
-  transition: var(--fast);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.75rem;
-  flex-shrink: 0;
+  cursor: pointer; transition: var(--fast);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem; flex-shrink: 0;
 }
 .singola-riga-giocatore .riga-add:hover {
-  background: var(--accent);
-  color: #fff;
-  border-color: var(--accent);
+  background: var(--it-verde); color: #fff; border-color: var(--it-verde);
 }
 .singola-riga-giocatore .riga-add.added {
-  background: #d1fae5;
-  border-color: #6ee7b7;
-  color: #065f46;
+  background: var(--accent-bg); border-color: var(--accent-2); color: var(--accent-dark);
 }
 .singola-riga-giocatore .riga-add.added:hover {
-  background: var(--red);
-  border-color: var(--red);
-  color: #fff;
+  background: var(--it-rosso); border-color: var(--it-rosso); color: #fff;
 }
 
 /* ============================================================
@@ -982,82 +875,44 @@ body {
   border-bottom: 1px solid var(--border-2);
   transition: var(--fast);
 }
-.table-giocatori tbody tr:last-child {
-  border-bottom: none;
-}
-.table-giocatori tbody tr:hover {
-  background: var(--accent-bg);
-}
-.table-giocatori td {
-  padding: 0.6rem 1.1rem;
-}
-.td-nome {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-}
-.td-logo {
-  width: 22px;
-  height: 22px;
-  object-fit: contain;
-}
+.table-giocatori tbody tr:last-child { border-bottom: none; }
+.table-giocatori tbody tr:hover { background: var(--accent-bg); }
+.table-giocatori td { padding: 0.6rem 1.1rem; }
+.td-nome { display: flex; align-items: center; gap: 0.45rem; }
+.td-logo { width: 22px; height: 22px; object-fit: contain; }
 .td-squadra-cell {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  cursor: pointer;
-  transition: var(--fast);
+  display: flex; align-items: center; gap: 0.35rem;
+  cursor: pointer; transition: var(--fast);
 }
-.td-squadra-cell:hover {
-  color: var(--accent);
-}
+.td-squadra-cell:hover { color: var(--accent); }
 
 .badge-ruolo {
   display: inline-block;
   padding: 0.1rem 0.55rem;
   border-radius: var(--r-full);
-  font-size: 0.67rem;
-  font-weight: 700;
+  font-size: 0.67rem; font-weight: 700;
 }
-.badge-ruolo.por {
-  background: var(--por-bg);
-  color: var(--por-c);
-}
-.badge-ruolo.dif {
-  background: var(--dif-bg);
-  color: var(--dif-c);
-}
-.badge-ruolo.cen {
-  background: var(--cen-bg);
-  color: var(--cen-c);
-}
-.badge-ruolo.att {
-  background: var(--att-bg);
-  color: var(--att-c);
-}
+.badge-ruolo.por { background: var(--por-bg); color: var(--por-c); }
+.badge-ruolo.dif { background: var(--dif-bg); color: var(--dif-c); }
+.badge-ruolo.cen { background: var(--cen-bg); color: var(--cen-c); }
+.badge-ruolo.att { background: var(--att-bg); color: var(--att-c); }
 
 .quota-badge {
   display: inline-block;
   padding: 0.1rem 0.6rem;
   border-radius: var(--r-full);
-  font-size: 0.74rem;
-  font-weight: 700;
-  background: var(--gold-bg);
-  color: #854d0e;
-  border: 1px solid rgba(245, 158, 11, 0.2);
+  font-size: 0.74rem; font-weight: 700;
+  background: var(--oro-bg); color: var(--oro-d);
+  border: 1px solid rgba(201,168,76,.25);
 }
 
 .btn-add-table {
   padding: 0.22rem 0.85rem;
   border-radius: var(--r-full);
   border: 1px solid;
-  font-size: 0.72rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: var(--fast);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.28rem;
+  font-size: 0.72rem; font-weight: 700;
+  cursor: pointer; transition: var(--fast);
+  display: inline-flex; align-items: center; gap: 0.28rem;
   white-space: nowrap;
 }
 .btn-add-table.add {
@@ -1066,30 +921,23 @@ body {
   color: var(--accent-dark);
 }
 .btn-add-table.add:hover {
-  background: var(--accent);
-  color: #fff;
-  border-color: var(--accent);
+  background: var(--it-verde); color: #fff; border-color: var(--it-verde);
 }
 .btn-add-table.added {
-  border-color: #6ee7b7;
-  background: #d1fae5;
-  color: #065f46;
+  border-color: var(--accent-2);
+  background: var(--accent-bg);
+  color: var(--accent-dark);
 }
 .btn-add-table.added:hover {
-  background: var(--red);
-  border-color: var(--red);
-  color: #fff;
+  background: var(--it-rosso); border-color: var(--it-rosso); color: #fff;
 }
 
 /* ============================================================
    MIO LISTONE
    ============================================================ */
 .riepilogo-bar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.55rem;
-  padding-bottom: 1.2rem;
-  margin-bottom: 1.4rem;
+  display: flex; flex-wrap: wrap; gap: 0.55rem;
+  padding-bottom: 1.2rem; margin-bottom: 1.4rem;
   border-bottom: 1px solid var(--border);
 }
 .riepilogo-card {
@@ -1097,36 +945,26 @@ body {
   border: 1px solid var(--border);
   border-radius: var(--r);
   padding: 0.55rem 1.2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.08rem;
+  display: flex; flex-direction: column; gap: 0.08rem;
   box-shadow: var(--shadow-xs);
   min-width: 90px;
   transition: var(--base);
 }
 .riepilogo-card:hover {
-  box-shadow: var(--shadow);
-  transform: translateY(-2px);
+  box-shadow: var(--shadow); transform: translateY(-2px);
 }
 .riepilogo-num {
   font-family: var(--font-display);
-  font-size: 1.7rem;
-  font-weight: 700;
-  line-height: 1;
+  font-size: 1.7rem; font-weight: 700; line-height: 1;
 }
 .riepilogo-label {
-  font-size: 0.66rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.4px;
+  font-size: 0.66rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.4px;
   color: var(--text-3);
 }
 
 .mio-vista-btns {
-  display: flex;
-  gap: 0.4rem;
-  margin-bottom: 1.4rem;
-  flex-wrap: wrap;
+  display: flex; gap: 0.4rem; margin-bottom: 1.4rem; flex-wrap: wrap;
 }
 .btn-vista-mio {
   padding: 0.35rem 1.2rem;
@@ -1134,77 +972,39 @@ body {
   border: 1px solid var(--border);
   background: var(--surface-2);
   color: var(--text-2);
-  font-size: 0.79rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--fast);
-  display: flex;
-  align-items: center;
-  gap: 0.38rem;
+  font-size: 0.79rem; font-weight: 600;
+  cursor: pointer; transition: var(--fast);
+  display: flex; align-items: center; gap: 0.38rem;
 }
-.btn-vista-mio:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-.btn-vista-mio.active {
-  background: var(--ink);
-  border-color: var(--ink);
-  color: #fff;
-}
+.btn-vista-mio:hover { border-color: var(--accent); color: var(--accent); }
+.btn-vista-mio.active { background: var(--ink); border-color: var(--ink); color: #fff; }
 
-.mio-ruolo-section {
-  margin-bottom: 2rem;
-}
+.mio-ruolo-section { margin-bottom: 2rem; }
 .mio-ruolo-title {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
+  display: flex; align-items: center; gap: 0.6rem;
   font-family: var(--font-display);
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  margin-bottom: 0.9rem;
-  padding-bottom: 0.45rem;
+  font-size: 1rem; font-weight: 600; letter-spacing: 0.5px;
+  margin-bottom: 0.9rem; padding-bottom: 0.45rem;
   border-bottom: 1px solid var(--border);
 }
 .mio-ruolo-title .dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  flex-shrink: 0;
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
 }
 
-.mio-squadra-section {
-  margin-bottom: 2rem;
-}
+.mio-squadra-section { margin-bottom: 2rem; }
 .mio-squadra-title {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
+  display: flex; align-items: center; gap: 0.6rem;
   font-family: var(--font-display);
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  margin-bottom: 0.9rem;
-  padding-bottom: 0.45rem;
+  font-size: 1rem; font-weight: 600; letter-spacing: 0.5px;
+  margin-bottom: 0.9rem; padding-bottom: 0.45rem;
   border-bottom: 1px solid var(--border);
 }
-.mio-squadra-title .logo-mini {
-  width: 26px;
-  height: 26px;
-  object-fit: contain;
-}
+.mio-squadra-title .logo-mini { width: 26px; height: 26px; object-fit: contain; }
 .mio-squadra-title .logo-mini-fallback {
-  width: 26px;
-  height: 26px;
-  background: var(--surface-2);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.65rem;
-  font-weight: 800;
-  color: var(--ink);
+  width: 26px; height: 26px;
+  background: var(--surface-2); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.65rem; font-weight: 800; color: var(--ink);
   border: 1px solid var(--border);
 }
 
@@ -1219,9 +1019,7 @@ body {
   border: 1px solid var(--border);
   border-radius: var(--r);
   padding: 0.7rem 0.9rem;
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
+  display: flex; align-items: center; gap: 0.7rem;
   box-shadow: var(--shadow-xs);
   transition: var(--base);
 }
@@ -1231,291 +1029,191 @@ body {
   transform: translateY(-1px);
 }
 .mio-logo {
-  width: 34px;
-  height: 34px;
-  background: var(--surface-2);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  border: 1px solid var(--border);
-  flex-shrink: 0;
+  width: 34px; height: 34px;
+  background: var(--surface-2); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; border: 1px solid var(--border); flex-shrink: 0;
 }
-.mio-logo img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-.mio-logo-fb {
-  font-size: 0.65rem;
-  font-weight: 800;
-  color: var(--ink);
-}
-.mio-info {
-  flex: 1;
-  min-width: 0;
-}
+.mio-logo img { width: 100%; height: 100%; object-fit: contain; }
+.mio-logo-fb { font-size: 0.65rem; font-weight: 800; color: var(--ink); }
+.mio-info { flex: 1; min-width: 0; }
 .mio-nome {
-  font-weight: 600;
-  font-size: 0.85rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-weight: 600; font-size: 0.85rem;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-.mio-squadra {
-  font-size: 0.72rem;
-  color: var(--text-2);
-  margin-top: 0.02rem;
-}
+.mio-squadra { font-size: 0.72rem; color: var(--text-2); margin-top: 0.02rem; }
 .mio-quota {
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: #854d0e;
-  background: var(--gold-bg);
+  font-size: 0.72rem; font-weight: 700;
+  color: var(--oro-d);
+  background: var(--oro-bg);
   padding: 0.1rem 0.45rem;
   border-radius: var(--r-full);
   white-space: nowrap;
-  border: 1px solid rgba(245, 158, 11, 0.2);
+  border: 1px solid rgba(201,168,76,.25);
 }
 .btn-remove {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  border: none;
-  background: #fee2e2;
-  color: var(--red);
-  font-size: 0.7rem;
-  cursor: pointer;
-  transition: var(--fast);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+  width: 28px; height: 28px; border-radius: 50%;
+  border: none; background: var(--it-rosso-l); color: var(--it-rosso);
+  font-size: 0.7rem; cursor: pointer; transition: var(--fast);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
-.btn-remove:hover {
-  background: var(--red);
-  color: #fff;
-  transform: scale(1.1);
-}
+.btn-remove:hover { background: var(--it-rosso); color: #fff; transform: scale(1.1); }
 
 /* ============================================================
-   EXPORT/IMPORT/DANGER BUTTONS
+   EXPORT / IMPORT / DANGER
    ============================================================ */
-.btn-export,
-.btn-import {
+.btn-export, .btn-import {
   padding: 0.28rem 1rem;
   border-radius: var(--r-full);
   border: 1px solid var(--border);
   background: var(--surface-2);
   color: var(--text-2);
-  font-size: 0.74rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--fast);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
+  font-size: 0.74rem; font-weight: 600;
+  cursor: pointer; transition: var(--fast);
+  display: inline-flex; align-items: center; gap: 0.35rem;
 }
 .btn-export:hover {
-  background: #d1fae5;
-  border-color: #6ee7b7;
-  color: #065f46;
-}
-.btn-import:hover {
   background: var(--accent-bg);
   border-color: var(--accent-2);
   color: var(--accent-dark);
 }
+.btn-import:hover {
+  background: #e0f2fe; border-color: #7dd3fc; color: #0369a1;
+}
 .btn-danger {
   padding: 0.28rem 1rem;
   border-radius: var(--r-full);
-  border: 1px solid #fca5a5;
-  background: #fff5f5;
-  color: var(--red);
-  font-size: 0.74rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--fast);
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
+  border: 1px solid #f5b3b7;
+  background: var(--it-rosso-l);
+  color: var(--it-rosso);
+  font-size: 0.74rem; font-weight: 600;
+  cursor: pointer; transition: var(--fast);
+  display: flex; align-items: center; gap: 0.35rem;
 }
-.btn-danger:hover {
-  background: var(--red);
-  color: #fff;
-}
+.btn-danger:hover { background: var(--it-rosso); color: #fff; }
 
 /* ============================================================
    TOAST
    ============================================================ */
 .toast {
   position: fixed;
-  bottom: 1.5rem;
-  left: 50%;
+  bottom: 1.5rem; left: 50%;
   transform: translateX(-50%) translateY(8px);
   background: var(--ink);
   color: #fff;
   padding: 0.7rem 1.6rem;
   border-radius: var(--r);
-  font-size: 0.85rem;
-  font-weight: 600;
+  font-size: 0.85rem; font-weight: 600;
   box-shadow: var(--shadow-lg);
-  z-index: 999;
-  opacity: 0;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 999; opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
   pointer-events: none;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  border: 1px solid rgba(255,255,255,.08);
+  display: flex; align-items: center; gap: 0.5rem;
   white-space: nowrap;
 }
-.toast.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-.toast i {
-  color: var(--gold);
-}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.toast i { color: var(--it-verde); }
 
 /* ============================================================
    EMPTY STATE
    ============================================================ */
 .empty-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 250px;
-  gap: 0.6rem;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  min-height: 250px; gap: 0.6rem;
   background: var(--surface);
   border: 1.5px dashed var(--border);
   border-radius: var(--r-xl);
   color: var(--text-3);
-  text-align: center;
-  padding: 2.5rem;
+  text-align: center; padding: 2.5rem;
   grid-column: 1 / -1;
 }
-.empty-state i {
-  font-size: 2.2rem;
-  opacity: 0.25;
-  color: var(--accent);
-}
-.empty-state p {
-  font-weight: 600;
-  color: var(--text-2);
-}
-.empty-state small {
-  font-size: 0.8rem;
-}
+.empty-state i { font-size: 2.2rem; opacity: 0.25; color: var(--it-verde); }
+.empty-state p { font-weight: 600; color: var(--text-2); }
+.empty-state small { font-size: 0.8rem; }
 
 /* ============================================================
-   FOOTER
+   FOOTER — tricolore bottom
    ============================================================ */
 .site-footer {
   background: var(--ink);
-  color: rgba(255, 255, 255, 0.35);
-  padding: 0.9rem 1.5rem;
+  color: rgba(255,255,255,.35);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+}
+
+/* Striscia tricolore sopra il footer */
+.site-footer::before {
+  content: "";
+  display: block;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--it-verde) 0%,
+    var(--it-verde) 33.33%,
+    #ffffff 33.33%,
+    #ffffff 66.66%,
+    var(--it-rosso) 66.66%,
+    var(--it-rosso) 100%
+  );
+}
+
+.site-footer-inner {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   gap: 0.4rem;
   font-size: 0.72rem;
-  margin-top: auto;
+  padding: 0.9rem 1.5rem;
   border-top: 1px solid var(--ink-3);
 }
-.site-footer strong {
-  color: rgba(255, 255, 255, 0.6);
-}
-.site-footer i {
-  color: var(--gold);
-  opacity: 0.5;
-}
+
+.site-footer strong { color: rgba(255,255,255,.6); }
+.site-footer i { color: var(--it-verde); opacity: 0.7; }
 
 /* ============================================================
    UTILITY
    ============================================================ */
-.hidden {
-  display: none !important;
-}
+.hidden { display: none !important; }
 
 /* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 900px) {
-  .toolbar {
-    top: 62px;
-  }
-  .toolbar-inner {
-    gap: 0.7rem 1.2rem;
-    padding: 0.6rem 1rem;
-  }
-  .squadre-chips-wrap {
-    max-width: 100%;
-  }
-  .search-block {
-    max-width: 100%;
-  }
-  .squadre-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-  .mio-giocatori-grid {
-    grid-template-columns: 1fr 1fr;
-  }
+  .toolbar { top: 62px; }
+  .toolbar-inner { gap: 0.7rem 1.2rem; padding: 0.6rem 1rem; }
+  .squadre-chips-wrap { max-width: 100%; }
+  .search-block { max-width: 100%; }
+  .squadre-grid { grid-template-columns: 1fr 1fr; }
+  .mio-giocatori-grid { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 700px) {
-  .squadre-grid {
-    grid-template-columns: 1fr;
-  }
-  .mio-giocatori-grid {
-    grid-template-columns: 1fr;
-  }
-  .main-content {
-    padding: 1.2rem 1rem 2rem;
-  }
-  .brand-title {
-    font-size: 1.25rem;
-  }
-  .header-inner {
-    padding: 0.6rem 1rem;
-  }
-  .site-footer {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+  .squadre-grid { grid-template-columns: 1fr; }
+  .mio-giocatori-grid { grid-template-columns: 1fr; }
+  .main-content { padding: 1.2rem 1rem 2rem; }
+  .brand-title { font-size: 1.25rem; }
+  .header-inner { padding: 0.6rem 1rem; }
+  .site-footer-inner { flex-direction: column; align-items: flex-start; }
 }
 
 @media (max-width: 500px) {
-  .meta-pill {
-    display: none;
-  }
-  .header-meta {
-    gap: 0.3rem;
-  }
-  .btn-tab {
-    padding: 0.3rem 0.75rem;
-    font-size: 0.73rem;
-  }
-  .toolbar {
-    top: 56px;
-  }
+  .meta-pill { display: none; }
+  .header-meta { gap: 0.3rem; }
+  .btn-tab { padding: 0.3rem 0.75rem; font-size: 0.73rem; }
+  .toolbar { top: 56px; }
   #singolaSquadraInfo {
-    flex-direction: column;
-    text-align: center;
-    padding: 1rem;
+    flex-direction: column; text-align: center; padding: 1rem;
   }
-  #singolaSquadraInfo .squadra-count {
-    margin-left: 0;
-  }
+  #singolaSquadraInfo .squadra-count { margin-left: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
