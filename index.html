@@ -38,7 +38,7 @@
     </div>
   </header>
 
-  <!-- ===== TOOLBAR FILTRI ===== -->
+  <!-- ===== TOOLBAR LISTONE ===== -->
   <div class="toolbar" id="toolbarListone">
     <div class="toolbar-inner">
 
@@ -87,10 +87,11 @@
     </div>
   </div>
 
-  <!-- Toolbar "Il Mio Listone" -->
+  <!-- ===== TOOLBAR MIO LISTONE ===== -->
   <div class="toolbar hidden" id="toolbarMio">
     <div class="toolbar-inner" style="justify-content:space-between">
       <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+        <!-- Filtro ruolo per Mio Listone -->
         <div class="filter-block">
           <label class="filter-label"><i class="fas fa-tshirt"></i> Ruolo</label>
           <div class="ruolo-btns">
@@ -101,8 +102,20 @@
             <button class="btn-ruolo att" data-ruolo="Attaccante" onclick="toggleRuoloMio(this)">⚽ Att</button>
           </div>
         </div>
+        <!-- Filtro squadra per Mio Listone -->
+        <div class="filter-block">
+          <label class="filter-label"><i class="fas fa-shield-halved"></i> Squadra</label>
+          <div class="squadre-chips-wrap" id="mioSquadreChips">
+            <button class="chip-squadra active" data-id="all" onclick="toggleMioSquadraChip(this)">
+              <span>Tutte</span>
+            </button>
+            <div id="mioSquadreChipsList"></div>
+          </div>
+        </div>
       </div>
-      <button class="btn-danger" onclick="clearMioListone()"><i class="fas fa-trash"></i> Svuota tutto</button>
+      <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+        <button class="btn-danger" onclick="clearMioListone()"><i class="fas fa-trash"></i> Svuota tutto</button>
+      </div>
     </div>
   </div>
 
@@ -120,6 +133,17 @@
 
       <!-- Vista CARD -->
       <div id="vistaCardContainer" class="squadre-grid"></div>
+
+      <!-- Vista SINGOLA SQUADRA (dettaglio) -->
+      <div id="vistaSingolaSquadra" class="hidden">
+        <div class="singola-squadra-header">
+          <button class="btn-back" onclick="tornaAlListone()">
+            <i class="fas fa-arrow-left"></i> Torna al listone
+          </button>
+          <div id="singolaSquadraInfo"></div>
+        </div>
+        <div id="singolaSquadraContent"></div>
+      </div>
 
       <!-- Vista TABELLA -->
       <div id="vistaTabContainer" class="hidden">
@@ -151,6 +175,16 @@
 
       <!-- Riepilogo -->
       <div class="riepilogo-bar" id="riepilogoBar"></div>
+
+      <!-- Vista per ruolo o squadra -->
+      <div class="mio-vista-btns">
+        <button class="btn-vista-mio active" onclick="setMioVista('ruolo', this)">
+          <i class="fas fa-layer-group"></i> Per Ruolo
+        </button>
+        <button class="btn-vista-mio" onclick="setMioVista('squadra', this)">
+          <i class="fas fa-shield-halved"></i> Per Squadra
+        </button>
+      </div>
 
       <!-- Grid per ruolo -->
       <div id="mioListoneGrid"></div>

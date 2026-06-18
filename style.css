@@ -599,3 +599,342 @@ body {
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
 ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+
+/* ============================================================
+   MIO LISTONE - VISTA PER SQUADRA
+   ============================================================ */
+.mio-vista-btns {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.btn-vista-mio {
+  padding: 0.4rem 1.2rem;
+  border-radius: 30px;
+  border: 1.5px solid var(--border);
+  background: var(--cream);
+  color: var(--text-2);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.btn-vista-mio:hover {
+  border-color: var(--blue-light);
+  color: var(--blue);
+}
+.btn-vista-mio.active {
+  background: var(--blue-dark);
+  border-color: var(--blue-dark);
+  color: #fff;
+}
+
+.mio-squadra-section {
+  margin-bottom: 2.2rem;
+}
+.mio-squadra-title {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--border);
+}
+.mio-squadra-title .logo-mini {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+.mio-squadra-title .logo-mini-fallback {
+  width: 28px;
+  height: 28px;
+  background: var(--cream);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--blue-dark);
+  border: 1px solid var(--border);
+}
+
+/* ============================================================
+   TOOLTIP PER SALVATAGGIO
+   ============================================================ */
+.toast {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--navy);
+  color: #fff;
+  padding: 0.8rem 1.8rem;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-lg);
+  z-index: 999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.toast.show {
+  opacity: 1;
+}
+.toast i {
+  margin-right: 0.5rem;
+  color: var(--green);
+}
+
+/* ============================================================
+   VISTA SINGOLA SQUADRA
+   ============================================================ */
+.singola-squadra-header {
+  margin-bottom: 2rem;
+}
+
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 30px;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  color: var(--text-2);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  margin-bottom: 1rem;
+}
+.btn-back:hover {
+  background: var(--blue-dark);
+  border-color: var(--blue-dark);
+  color: #fff;
+}
+
+#singolaSquadraInfo {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1rem 1.5rem;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+#singolaSquadraInfo .squadra-logo-grande {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+#singolaSquadraInfo .squadra-logo-grande-fallback {
+  width: 64px;
+  height: 64px;
+  background: var(--cream);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--blue-dark);
+  border: 2px solid var(--border);
+}
+#singolaSquadraInfo .squadra-dettaglio h2 {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+#singolaSquadraInfo .squadra-dettaglio .squadra-citta {
+  color: var(--text-2);
+  font-size: 0.9rem;
+}
+#singolaSquadraInfo .squadra-count {
+  margin-left: auto;
+  background: var(--cream);
+  padding: 0.3rem 1rem;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--text-2);
+}
+
+.singola-squadra-ruoli {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+.singola-squadra-ruoli .ruolo-section {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  padding: 1rem 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+.singola-squadra-ruoli .ruolo-section .ruolo-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--border);
+}
+.singola-squadra-ruoli .lista-giocatori {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.singola-squadra-ruoli .giocatore-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 1rem;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  background: var(--cream);
+  border: 1px solid var(--border);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.singola-squadra-ruoli .giocatore-tag:hover {
+  background: #e0eeff;
+  border-color: #93c5fd;
+}
+.singola-squadra-ruoli .giocatore-tag.nel-listone {
+  background: #d1fae5;
+  border-color: #6ee7b7;
+  color: #065f46;
+}
+.singola-squadra-ruoli .giocatore-tag .tag-add {
+  font-size: 0.7rem;
+  color: var(--text-3);
+  transition: color 0.15s;
+}
+.singola-squadra-ruoli .giocatore-tag:hover .tag-add {
+  color: var(--blue);
+}
+.singola-squadra-ruoli .giocatore-tag.nel-listone .tag-add {
+  color: var(--green);
+}
+.singola-squadra-ruoli .giocatore-tag.nel-listone .tag-add::before {
+  content: "\f058";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+}
+.singola-squadra-ruoli .giocatore-tag:not(.nel-listone) .tag-add::before {
+  content: "\f055";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+}
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+.toast {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--navy);
+  color: #fff;
+  padding: 0.8rem 1.8rem;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-lg);
+  z-index: 999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.toast.show {
+  opacity: 1;
+}
+.toast i {
+  margin-right: 0.5rem;
+  color: var(--green);
+}
+
+/* ============================================================
+   MIO LISTONE - VISTA PER SQUADRA
+   ============================================================ */
+.mio-vista-btns {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.btn-vista-mio {
+  padding: 0.4rem 1.2rem;
+  border-radius: 30px;
+  border: 1.5px solid var(--border);
+  background: var(--cream);
+  color: var(--text-2);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.btn-vista-mio:hover {
+  border-color: var(--blue-light);
+  color: var(--blue);
+}
+.btn-vista-mio.active {
+  background: var(--blue-dark);
+  border-color: var(--blue-dark);
+  color: #fff;
+}
+
+.mio-squadra-section {
+  margin-bottom: 2.2rem;
+}
+.mio-squadra-title {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--border);
+}
+.mio-squadra-title .logo-mini {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+.mio-squadra-title .logo-mini-fallback {
+  width: 28px;
+  height: 28px;
+  background: var(--cream);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--blue-dark);
+  border: 1px solid var(--border);
+}
