@@ -619,8 +619,10 @@ function renderListone(squadreDaRenderizzare) {
         ruoliOrdinati.push({ ruolo, giocatori: nomi });
     });
 
+    const teamColor =
+      squadra.colori && squadra.colori[0] ? squadra.colori[0] : "var(--accent)";
     cardHtml += `
-      <div class="card-squadra" onclick="apriSingolaSquadra(${squadra.id})">
+      <div class="card-squadra" style="--team-color:${teamColor}" onclick="apriSingolaSquadra(${squadra.id})">
         <div class="squadra-header">
           <div class="squadra-icon">
             ${squadra.logo_url ? `<img src="${squadra.logo_url}" alt="${squadra.nome}" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\'squadra-icon-fallback\\'>${squadra.nome.charAt(0)}</span>'" />` : `<span class="squadra-icon-fallback">${squadra.nome.charAt(0)}</span>`}
