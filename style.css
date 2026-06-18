@@ -15,7 +15,7 @@
   --serie-a-gold: #ffd700;
   --serie-a-white: #ffffff;
   --serie-a-dark: #1a1a2e;
-  
+
   /* Colori di sistema */
   --navy: #0a0e27;
   --blue-dark: #0f2b6e;
@@ -52,9 +52,9 @@
   --radius-full: 9999px;
 
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
-  --shadow: 0 4px 16px rgba(0, 51, 204, 0.10);
+  --shadow: 0 4px 16px rgba(0, 51, 204, 0.1);
   --shadow-lg: 0 10px 40px rgba(0, 51, 204, 0.15);
-  --shadow-xl: 0 20px 60px rgba(0, 51, 204, 0.20);
+  --shadow-xl: 0 20px 60px rgba(0, 51, 204, 0.2);
 
   /* Font */
   --font-display: "Oswald", sans-serif;
@@ -99,7 +99,12 @@ body {
    HEADER - GLASS EFFECT
    ============================================================ */
 .site-header {
-  background: linear-gradient(135deg, var(--navy) 0%, var(--blue-dark) 60%, var(--blue) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--navy) 0%,
+    var(--blue-dark) 60%,
+    var(--blue) 100%
+  );
   color: #fff;
   position: sticky;
   top: 0;
@@ -129,7 +134,7 @@ body {
 .brand-logo {
   width: 48px;
   height: 48px;
-  background: rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: var(--radius);
   display: flex;
   align-items: center;
@@ -176,7 +181,7 @@ body {
 .brand-sub {
   font-size: 0.7rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.50);
+  color: rgba(255, 255, 255, 0.5);
   letter-spacing: 2px;
   text-transform: uppercase;
 }
@@ -207,14 +212,14 @@ body {
 }
 .meta-pill.accent {
   background: rgba(245, 184, 10, 0.18);
-  border-color: rgba(245, 184, 10, 0.30);
+  border-color: rgba(245, 184, 10, 0.3);
   color: var(--gold-light);
 }
 
 .btn-tab {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  color: rgba(255, 255, 255, 0.70);
+  color: rgba(255, 255, 255, 0.7);
   padding: 0.4rem 1.2rem;
   border-radius: var(--radius-full);
   font-family: var(--font-body);
@@ -236,11 +241,11 @@ body {
   background: linear-gradient(135deg, var(--gold), #f59e0b);
   border-color: var(--gold);
   color: var(--navy);
-  box-shadow: 0 4px 15px rgba(245, 184, 10, 0.30);
+  box-shadow: 0 4px 15px rgba(245, 184, 10, 0.3);
 }
 .btn-tab.active:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 25px rgba(245, 184, 10, 0.40);
+  box-shadow: 0 6px 25px rgba(245, 184, 10, 0.4);
 }
 
 /* ============================================================
@@ -322,7 +327,7 @@ body {
   background: linear-gradient(135deg, var(--blue-dark), var(--blue));
   border-color: var(--blue-dark);
   color: #fff;
-  box-shadow: 0 2px 12px rgba(26, 92, 181, 0.30);
+  box-shadow: 0 2px 12px rgba(26, 92, 181, 0.3);
 }
 .chip-squadra[data-id="all"].active {
   background: linear-gradient(135deg, var(--navy), var(--blue-dark));
@@ -534,13 +539,18 @@ body {
   position: relative;
 }
 .card-squadra::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, var(--gold), var(--blue-light), var(--gold));
+  background: linear-gradient(
+    90deg,
+    var(--gold),
+    var(--blue-light),
+    var(--gold)
+  );
   opacity: 0;
   transition: var(--transition);
 }
@@ -564,25 +574,29 @@ body {
   overflow: hidden;
 }
 .squadra-header::after {
-  content: '';
+  content: "";
   position: absolute;
   top: -50%;
   right: -20%;
   width: 100%;
   height: 200%;
-  background: radial-gradient(circle, rgba(255,215,0,0.08) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 215, 0, 0.08) 0%,
+    transparent 70%
+  );
   pointer-events: none;
 }
 .squadra-icon {
   width: 44px;
   height: 44px;
-  background: rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border: 2px solid rgba(255, 215, 0, 0.20);
+  border: 2px solid rgba(255, 215, 0, 0.2);
   flex-shrink: 0;
 }
 .squadra-icon img {
@@ -614,12 +628,12 @@ body {
 }
 .squadra-header .fa-chevron-right {
   font-size: 0.7rem;
-  color: rgba(255, 255, 255, 0.30);
+  color: rgba(255, 255, 255, 0.3);
   transition: var(--transition);
 }
 .card-squadra:hover .fa-chevron-right {
   transform: translateX(4px);
-  color: rgba(255, 255, 255, 0.70);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .ruolo-section {
@@ -1251,7 +1265,7 @@ body {
   opacity: 0;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
-  border: 1px solid rgba(255,215,0,0.15);
+  border: 1px solid rgba(255, 215, 0, 0.15);
 }
 .toast.show {
   opacity: 1;
@@ -1299,7 +1313,7 @@ body {
    ============================================================ */
 .site-footer {
   background: var(--navy);
-  color: rgba(255, 255, 255, 0.40);
+  color: rgba(255, 255, 255, 0.4);
   padding: 1rem 1.5rem;
   display: flex;
   justify-content: space-between;
@@ -1308,10 +1322,10 @@ body {
   gap: 0.5rem;
   font-size: 0.75rem;
   margin-top: auto;
-  border-top: 1px solid rgba(255,215,0,0.08);
+  border-top: 1px solid rgba(255, 215, 0, 0.08);
 }
 .site-footer strong {
-  color: rgba(255, 255, 255, 0.70);
+  color: rgba(255, 255, 255, 0.7);
 }
 .site-footer i {
   color: var(--gold);
@@ -1468,7 +1482,7 @@ body {
   background: var(--red);
   color: #fff;
   transform: translateY(-1px);
-  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.30);
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
 }
 
 /* ============================================================
