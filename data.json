@@ -6,7 +6,7 @@
       "nome": "Atalanta",
       "citta": "Bergamo",
       "colori": ["#004A9F", "#000000"],
-      "logo": "img/atalanta.png",
+      "logo": "img/Atalanta.jpg",
       "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/6/66/Atalanta_BC_logo.svg/180px-Atalanta_BC_logo.svg.png",
       "giocatori": [
         { "nome": "Carnesecchi", "ruolo": "Portiere", "nazionalita": "ITA", "numero": 29 },
