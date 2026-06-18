@@ -11,6 +11,7 @@ let filtroSquadraMio = 'all';
 let squadreSelezionate = new Set(['all']);
 let vistaCorrente = 'card';
 let mioVistaCorrente = 'ruolo';
+let vistaSingolaCorrente = 'griglia'; // 'griglia' o 'lista'
 let searchTerm = '';
 let singolaSquadraSelezionata = null;
 
@@ -120,7 +121,6 @@ function importaListone(event) {
       const data = JSON.parse(e.target.result);
       let giocatori = [];
       
-      // Supporta sia il formato con { giocatori: [...] } che array diretto
       if (data.giocatori && Array.isArray(data.giocatori)) {
         giocatori = data.giocatori;
       } else if (Array.isArray(data)) {
@@ -129,7 +129,6 @@ function importaListone(event) {
         throw new Error('Formato non valido');
       }
       
-      // Verifica che i dati siano validi
       if (giocatori.length === 0) {
         showToast('Nessun giocatore da importare.', 'fa-exclamation-circle');
         return;
@@ -153,7 +152,6 @@ function importaListone(event) {
     }
   };
   reader.readAsText(file);
-  // Reset del file input per permettere di caricare lo stesso file
   event.target.value = '';
 }
 
@@ -268,13 +266,43 @@ function toggleMioSquadraChip(chip) {
 }
 
 // ============================================================
+//  VISTA SINGOLA SQUADRA
+// ============================================================
+function setVistaSingola(vista, btn) {
+  vistaSingolaCorrente = vista;
+  document.querySelectorAll('.btn-vista-singola').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  
+  if (singolaSquadraSelezionata) {
+    renderSingolaSquadra(singolaSquadraSelezionata);
+  }
+}
+
+// ============================================================
 //  RENDER SINGOLA SQUADRA
 // ============================================================
 function renderSingolaSquadra(id) {
   const squadra = squadre.find(s => String(s.id) === String(id));
   if (!squadra) return;
   
-  const container = document.getElementById('singolaSquadraContent');
+  // Applica filtri per la vista singola
+  const searchInput = document.getElementById('searchInput');
+  const searchTermLocal = searchInput ? searchInput.value.toLowerCase().trim() : '';
+  
+  let giocatoriFiltrati = squadra.giocatori;
+  
+  // Filtro per ruolo
+  if (filtroRuolo !== 'all') {
+    giocatoriFiltrati = giocatoriFiltrati.filter(g => g.ruolo === filtroRuolo);
+  }
+  
+  // Filtro per ricerca
+  if (searchTermLocal) {
+    giocatoriFiltrati = giocatoriFiltrati.filter(g => 
+      g.nome.toLowerCase().includes(searchTermLocal)
+    );
+  }
+  
   const info = document.getElementById('singolaSquadraInfo');
   
   info.innerHTML = `
@@ -290,25 +318,46 @@ function renderSingolaSquadra(id) {
           ${squadra.colori.map(c => `<span style="display:inline-block;width:20px;height:20px;border-radius:50%;background:${c};border:1px solid #ddd;"></span>`).join('')}
         </div>
       </div>
-      <div class="squadra-count"><i class="fas fa-users"></i> ${squadra.giocatori.length} giocatori</div>
+      <div class="squadra-count"><i class="fas fa-users"></i> ${giocatoriFiltrati.length} giocatori</div>
     </div>
   `;
   
+  const containerGriglia = document.getElementById('singolaSquadraContent');
+  const containerLista = document.getElementById('singolaSquadraLista');
+  
+  // Se non ci sono giocatori filtrati
+  if (giocatoriFiltrati.length === 0) {
+    containerGriglia.innerHTML = `
+      <div class="empty-state" style="grid-column:1/-1;">
+        <i class="fas fa-search"></i>
+        <p>Nessun giocatore trovato con questi filtri</p>
+        <small>Prova a modificare i filtri</small>
+      </div>
+    `;
+    containerLista.innerHTML = '';
+    containerGriglia.classList.remove('hidden');
+    containerLista.classList.add('hidden');
+    return;
+  }
+  
+  // Raggruppa per ruolo
   const ruoliMap = new Map();
-  squadra.giocatori.forEach(g => {
+  giocatoriFiltrati.forEach(g => {
     if (!ruoliMap.has(g.ruolo)) ruoliMap.set(g.ruolo, []);
     ruoliMap.get(g.ruolo).push(g);
   });
   
   const ordineRuoli = ["Portiere", "Difensore", "Centrocampista", "Attaccante"];
   const iconMap = { Portiere: "🧤", Difensore: "🛡️", Centrocampista: "⚡", Attaccante: "⚽" };
+  const ruoloClassMap = { Portiere: 'por', Difensore: 'dif', Centrocampista: 'cen', Attaccante: 'att' };
   
-  let html = '<div class="singola-squadra-ruoli">';
+  // ===== VISTA GRIGLIA =====
+  let gridHtml = '<div class="singola-squadra-ruoli">';
   ordineRuoli.forEach(ruolo => {
     const giocatori = ruoliMap.get(ruolo) || [];
     if (giocatori.length === 0) return;
     
-    html += `
+    gridHtml += `
       <div class="ruolo-section">
         <div class="ruolo-label">${iconMap[ruolo] || ''} ${ruolo} (${giocatori.length})</div>
         <div class="lista-giocatori">
@@ -316,7 +365,7 @@ function renderSingolaSquadra(id) {
     
     giocatori.forEach(g => {
       const isInMio = mioListone.some(m => m.nome === g.nome && m.squadra === squadra.nome);
-      html += `
+      gridHtml += `
         <span class="giocatore-tag ${isInMio ? 'nel-listone' : ''}" onclick="toggleMioListone('${g.nome.replace(/'/g, "\\'")}', '${squadra.nome.replace(/'/g, "\\'")}', '${g.ruolo}', '${squadra.logo_url || ''}', ${g.numero || 0})">
           <i class="fas fa-user"></i> ${g.nome}
           <span class="tag-add"></span>
@@ -324,14 +373,47 @@ function renderSingolaSquadra(id) {
       `;
     });
     
-    html += `
+    gridHtml += `
         </div>
       </div>
     `;
   });
-  html += '</div>';
+  gridHtml += '</div>';
+  containerGriglia.innerHTML = gridHtml;
   
-  container.innerHTML = html;
+  // ===== VISTA LISTA (RIGA) =====
+  let listaHtml = '<div class="singola-lista-giocatori">';
+  let index = 0;
+  ordineRuoli.forEach(ruolo => {
+    const giocatori = ruoliMap.get(ruolo) || [];
+    giocatori.forEach(g => {
+      index++;
+      const isInMio = mioListone.some(m => m.nome === g.nome && m.squadra === squadra.nome);
+      const rClass = ruoloClassMap[g.ruolo] || '';
+      listaHtml += `
+        <div class="singola-riga-giocatore">
+          <span class="riga-posizione">${index}</span>
+          <span class="riga-nome"><i class="fas fa-user" style="color:var(--text-3);font-size:0.7rem;margin-right:0.3rem;"></i> ${g.nome}</span>
+          <span class="riga-ruolo ${rClass}">${g.ruolo}</span>
+          ${g.numero ? `<span class="riga-quota">${g.numero}</span>` : ''}
+          <button class="riga-add ${isInMio ? 'added' : ''}" onclick="toggleMioListone('${g.nome.replace(/'/g, "\\'")}', '${squadra.nome.replace(/'/g, "\\'")}', '${g.ruolo}', '${squadra.logo_url || ''}', ${g.numero || 0})" title="${isInMio ? 'Rimuovi' : 'Aggiungi'}">
+            <i class="fas ${isInMio ? 'fa-check' : 'fa-plus'}"></i>
+          </button>
+        </div>
+      `;
+    });
+  });
+  listaHtml += '</div>';
+  containerLista.innerHTML = listaHtml;
+  
+  // Mostra la vista corretta
+  if (vistaSingolaCorrente === 'griglia') {
+    containerGriglia.classList.remove('hidden');
+    containerLista.classList.add('hidden');
+  } else {
+    containerGriglia.classList.add('hidden');
+    containerLista.classList.remove('hidden');
+  }
 }
 
 // ============================================================
@@ -374,8 +456,6 @@ function toggleRuoloMio(btn) {
 
 function applyFilters() {
   if (singolaSquadraSelezionata) {
-    const searchInput = document.getElementById('searchInput');
-    searchTerm = searchInput.value.toLowerCase().trim();
     renderSingolaSquadra(singolaSquadraSelezionata);
     return;
   }
