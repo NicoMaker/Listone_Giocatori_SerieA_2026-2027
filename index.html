@@ -2,7 +2,10 @@
 <html lang="it">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.5"
+    />
     <title>Listone Fantacalcio · Serie A 2026–27</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -10,11 +13,13 @@
       href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=Oswald:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-
     <!-- ===== TRICOLORE TOP BAR ===== -->
     <div class="tricolore-top-bar">
       <span class="tc-verde"></span>
@@ -30,14 +35,19 @@
             <img
               src="img/logo-serie-a.png"
               alt="Serie A"
-              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+              onerror="
+                this.style.display = 'none';
+                this.nextElementSibling.style.display = 'flex';
+              "
             />
-            <div class="brand-logo-fallback" style="display:none">
+            <div class="brand-logo-fallback" style="display: none">
               <i class="fas fa-futbol"></i>
             </div>
           </div>
           <div class="brand-text">
-            <span class="brand-title">LISTO<span class="brand-accent">NE</span></span>
+            <span class="brand-title"
+              >LISTO<span class="brand-accent">NE</span></span
+            >
             <span class="brand-sub">⚽ Serie A 2026 · 2027</span>
           </div>
         </div>
@@ -65,7 +75,11 @@
             <span class="meta-label">nel mio listone</span>
           </div>
           <div class="tab-group">
-            <button class="btn-tab active" id="tabListone" onclick="switchTab('listone')">
+            <button
+              class="btn-tab active"
+              id="tabListone"
+              onclick="switchTab('listone')"
+            >
               <i class="fas fa-list"></i> Listone
             </button>
             <button class="btn-tab" id="tabMio" onclick="switchTab('mio')">
@@ -80,9 +94,15 @@
     <div class="toolbar" id="toolbarListone">
       <div class="toolbar-inner">
         <div class="filter-block">
-          <label class="filter-label"><i class="fas fa-shield-halved"></i> Squadre</label>
+          <label class="filter-label"
+            ><i class="fas fa-shield-halved"></i> Squadre</label
+          >
           <div class="squadre-chips-wrap">
-            <button class="chip-squadra active" data-id="all" onclick="toggleSquadraChip(this)">
+            <button
+              class="chip-squadra active"
+              data-id="all"
+              onclick="toggleSquadraChip(this)"
+            >
               <span>Tutte</span>
             </button>
             <div id="squadreChips"></div>
@@ -90,30 +110,87 @@
         </div>
 
         <div class="filter-block">
-          <label class="filter-label"><i class="fas fa-tshirt"></i> Ruolo</label>
+          <label class="filter-label"
+            ><i class="fas fa-tshirt"></i> Ruolo</label
+          >
           <div class="ruolo-btns">
-            <button class="btn-ruolo active" data-ruolo="all"            onclick="toggleRuolo(this)">Tutti</button>
-            <button class="btn-ruolo por"   data-ruolo="Portiere"        onclick="toggleRuolo(this)">🧤 Por</button>
-            <button class="btn-ruolo dif"   data-ruolo="Difensore"       onclick="toggleRuolo(this)">🛡️ Dif</button>
-            <button class="btn-ruolo cen"   data-ruolo="Centrocampista"  onclick="toggleRuolo(this)">⚡ Cen</button>
-            <button class="btn-ruolo att"   data-ruolo="Attaccante"      onclick="toggleRuolo(this)">⚽ Att</button>
+            <button
+              class="btn-ruolo active"
+              data-ruolo="all"
+              onclick="toggleRuolo(this)"
+            >
+              Tutti
+            </button>
+            <button
+              class="btn-ruolo por"
+              data-ruolo="Portiere"
+              onclick="toggleRuolo(this)"
+            >
+              🧤 Por
+            </button>
+            <button
+              class="btn-ruolo dif"
+              data-ruolo="Difensore"
+              onclick="toggleRuolo(this)"
+            >
+              🛡️ Dif
+            </button>
+            <button
+              class="btn-ruolo cen"
+              data-ruolo="Centrocampista"
+              onclick="toggleRuolo(this)"
+            >
+              ⚡ Cen
+            </button>
+            <button
+              class="btn-ruolo att"
+              data-ruolo="Attaccante"
+              onclick="toggleRuolo(this)"
+            >
+              ⚽ Att
+            </button>
           </div>
         </div>
 
         <div class="filter-block search-block">
-          <label class="filter-label"><i class="fas fa-magnifying-glass"></i> Cerca</label>
+          <label class="filter-label"
+            ><i class="fas fa-magnifying-glass"></i> Cerca</label
+          >
           <div class="search-wrap">
-            <input type="text" id="searchInput" placeholder="Nome giocatore…" oninput="applyFilters()" />
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Nome giocatore…"
+              oninput="applyFilters()"
+            />
             <i class="fas fa-magnifying-glass search-icon"></i>
           </div>
         </div>
 
         <div class="filter-block controls-block">
-          <label class="filter-label"><i class="fas fa-sliders"></i> Vista</label>
+          <label class="filter-label"
+            ><i class="fas fa-sliders"></i> Vista</label
+          >
           <div class="vista-controls">
-            <button class="btn-vista active" id="vistaCard"    onclick="setVista('card', this)"    title="Card squadre"><i class="fas fa-grip"></i></button>
-            <button class="btn-vista"        id="vistaTabella" onclick="setVista('tabella', this)" title="Tabella unica"><i class="fas fa-table-list"></i></button>
-            <button class="btn-reset" onclick="resetFiltri()"><i class="fas fa-rotate-left"></i> Reset</button>
+            <button
+              class="btn-vista active"
+              id="vistaCard"
+              onclick="setVista('card', this)"
+              title="Card squadre"
+            >
+              <i class="fas fa-grip"></i>
+            </button>
+            <button
+              class="btn-vista"
+              id="vistaTabella"
+              onclick="setVista('tabella', this)"
+              title="Tabella unica"
+            >
+              <i class="fas fa-table-list"></i>
+            </button>
+            <button class="btn-reset" onclick="resetFiltri()">
+              <i class="fas fa-rotate-left"></i> Reset
+            </button>
           </div>
         </div>
       </div>
@@ -121,22 +198,62 @@
 
     <!-- ===== TOOLBAR MIO LISTONE ===== -->
     <div class="toolbar hidden" id="toolbarMio">
-      <div class="toolbar-inner" style="justify-content:space-between">
-        <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+      <div class="toolbar-inner" style="justify-content: space-between">
+        <div
+          style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap"
+        >
           <div class="filter-block">
-            <label class="filter-label"><i class="fas fa-tshirt"></i> Ruolo</label>
+            <label class="filter-label"
+              ><i class="fas fa-tshirt"></i> Ruolo</label
+            >
             <div class="ruolo-btns">
-              <button class="btn-ruolo active" data-ruolo="all"           onclick="toggleRuoloMio(this)">Tutti</button>
-              <button class="btn-ruolo por"    data-ruolo="Portiere"       onclick="toggleRuoloMio(this)">🧤 Por</button>
-              <button class="btn-ruolo dif"    data-ruolo="Difensore"      onclick="toggleRuoloMio(this)">🛡️ Dif</button>
-              <button class="btn-ruolo cen"    data-ruolo="Centrocampista" onclick="toggleRuoloMio(this)">⚡ Cen</button>
-              <button class="btn-ruolo att"    data-ruolo="Attaccante"     onclick="toggleRuoloMio(this)">⚽ Att</button>
+              <button
+                class="btn-ruolo active"
+                data-ruolo="all"
+                onclick="toggleRuoloMio(this)"
+              >
+                Tutti
+              </button>
+              <button
+                class="btn-ruolo por"
+                data-ruolo="Portiere"
+                onclick="toggleRuoloMio(this)"
+              >
+                🧤 Por
+              </button>
+              <button
+                class="btn-ruolo dif"
+                data-ruolo="Difensore"
+                onclick="toggleRuoloMio(this)"
+              >
+                🛡️ Dif
+              </button>
+              <button
+                class="btn-ruolo cen"
+                data-ruolo="Centrocampista"
+                onclick="toggleRuoloMio(this)"
+              >
+                ⚡ Cen
+              </button>
+              <button
+                class="btn-ruolo att"
+                data-ruolo="Attaccante"
+                onclick="toggleRuoloMio(this)"
+              >
+                ⚽ Att
+              </button>
             </div>
           </div>
           <div class="filter-block">
-            <label class="filter-label"><i class="fas fa-shield-halved"></i> Squadra</label>
+            <label class="filter-label"
+              ><i class="fas fa-shield-halved"></i> Squadra</label
+            >
             <div class="squadre-chips-wrap" id="mioSquadreChips">
-              <button class="chip-squadra active" data-id="all" onclick="toggleMioSquadraChip(this)">
+              <button
+                class="chip-squadra active"
+                data-id="all"
+                onclick="toggleMioSquadraChip(this)"
+              >
                 <span>Tutte</span>
               </button>
               <div id="mioSquadreChipsList"></div>
@@ -144,18 +261,48 @@
           </div>
         </div>
 
-        <div style="display:flex;gap:.4rem;flex-wrap:wrap;align-items:center">
-          <span id="salvataggioInfo" style="font-size:.68rem;color:var(--text-3);display:flex;align-items:center;gap:.28rem">
-            <i class="fas fa-save" style="color:var(--it-verde)"></i>
+        <div
+          style="
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            align-items: center;
+          "
+        >
+          <span
+            id="salvataggioInfo"
+            style="
+              font-size: 0.68rem;
+              color: var(--text-3);
+              display: flex;
+              align-items: center;
+              gap: 0.28rem;
+            "
+          >
+            <i class="fas fa-save" style="color: var(--it-verde)"></i>
             <span id="ultimoSalvataggio">Salvato</span>
           </span>
-          <button class="btn-export" onclick="esportaListone()" title="Esporta JSON">
+          <button
+            class="btn-export"
+            onclick="esportaListone()"
+            title="Esporta JSON"
+          >
             <i class="fas fa-download"></i> Esporta
           </button>
-          <button class="btn-import" onclick="document.getElementById('fileInput').click()" title="Importa JSON">
+          <button
+            class="btn-import"
+            onclick="document.getElementById('fileInput').click()"
+            title="Importa JSON"
+          >
             <i class="fas fa-upload"></i> Importa
           </button>
-          <input type="file" id="fileInput" accept=".json" style="display:none" onchange="importaListone(event)" />
+          <input
+            type="file"
+            id="fileInput"
+            accept=".json"
+            style="display: none"
+            onchange="importaListone(event)"
+          />
           <button class="btn-danger" onclick="clearMioListone()">
             <i class="fas fa-trash"></i> Svuota
           </button>
@@ -185,11 +332,17 @@
               <i class="fas fa-arrow-left"></i> Torna al listone
             </button>
             <div id="singolaSquadraInfo"></div>
-            <div class="singola-vista-btns" style="margin-top:.9rem">
-              <button class="btn-vista-singola active" onclick="setVistaSingola('griglia', this)">
+            <div class="singola-vista-btns" style="margin-top: 0.9rem">
+              <button
+                class="btn-vista-singola active"
+                onclick="setVistaSingola('griglia', this)"
+              >
                 <i class="fas fa-grip"></i> Griglia
               </button>
-              <button class="btn-vista-singola" onclick="setVistaSingola('lista', this)">
+              <button
+                class="btn-vista-singola"
+                onclick="setVistaSingola('lista', this)"
+              >
                 <i class="fas fa-list"></i> Lista
               </button>
             </div>
@@ -226,7 +379,10 @@
       <div id="panelMio" class="panel hidden">
         <div class="riepilogo-bar" id="riepilogoBar"></div>
         <div class="mio-vista-btns">
-          <button class="btn-vista-mio active" onclick="setMioVista('ruolo', this)">
+          <button
+            class="btn-vista-mio active"
+            onclick="setMioVista('ruolo', this)"
+          >
             <i class="fas fa-layer-group"></i> Per Ruolo
           </button>
           <button class="btn-vista-mio" onclick="setMioVista('squadra', this)">
@@ -237,7 +393,10 @@
         <div id="emptyMio" class="empty-state hidden">
           <div class="empty-icon"><i class="fas fa-star"></i></div>
           <p>Il tuo listone è vuoto</p>
-          <small>Clicca <i class="fas fa-plus-circle"></i> su un giocatore nel Listone per aggiungerlo</small>
+          <small
+            >Clicca <i class="fas fa-plus-circle"></i> su un giocatore nel
+            Listone per aggiungerlo</small
+          >
         </div>
       </div>
     </main>
@@ -253,7 +412,10 @@
         <div class="footer-left">
           <span class="footer-logo-text"><strong>LISTONE</strong></span>
           <span class="footer-sep">·</span>
-          <span><i class="fas fa-database"></i> Dati da <strong>data.json</strong> · Stagione 2026/2027</span>
+          <span
+            ><i class="fas fa-database"></i> Dati da
+            <strong>data.json</strong> · Stagione 2026/2027</span
+          >
         </div>
         <span class="footer-date">Aggiornato al 18 Giugno 2026</span>
       </div>
