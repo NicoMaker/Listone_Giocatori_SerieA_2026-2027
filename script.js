@@ -191,9 +191,9 @@ async function loadData() {
   } catch (error) {
     console.error("Errore:", error);
     loading.innerHTML = `
-      <i class="fas fa-exclamation-triangle" style="font-size: 2.5rem; color: #e74c3c;"></i>
-      <p style="margin-top: 1rem; color: #c0392b; font-weight: 600;">Impossibile caricare data.json</p>
-      <p style="font-size: 0.9rem; color: #5d7b99;">Verifica che il file sia nella stessa cartella</p>
+      <i class="fas fa-exclamation-triangle" style="font-size: 2.5rem; color: #ef4444;"></i>
+      <p style="margin-top: 1rem; color: #dc2626; font-weight: 600;">Impossibile caricare data.json</p>
+      <p style="font-size: 0.9rem; color: var(--text-3);">Verifica che il file sia nella stessa cartella</p>
     `;
   }
 }
@@ -314,7 +314,6 @@ function renderSingolaSquadra(id) {
   const squadra = squadre.find((s) => String(s.id) === String(id));
   if (!squadra) return;
 
-  // Applica filtri per la vista singola
   const searchInput = document.getElementById("searchInput");
   const searchTermLocal = searchInput
     ? searchInput.value.toLowerCase().trim()
@@ -322,14 +321,12 @@ function renderSingolaSquadra(id) {
 
   let giocatoriFiltrati = squadra.giocatori;
 
-  // Filtro per ruolo
   if (filtroRuolo !== "all") {
     giocatoriFiltrati = giocatoriFiltrati.filter(
       (g) => g.ruolo === filtroRuolo,
     );
   }
 
-  // Filtro per ricerca
   if (searchTermLocal) {
     giocatoriFiltrati = giocatoriFiltrati.filter((g) =>
       g.nome.toLowerCase().includes(searchTermLocal),
@@ -348,7 +345,7 @@ function renderSingolaSquadra(id) {
         <h2>${squadra.nome}</h2>
         <div class="squadra-citta"><i class="fas fa-map-pin"></i> ${squadra.citta}</div>
         <div style="display:flex;gap:0.5rem;margin-top:0.3rem;flex-wrap:wrap;">
-          ${squadra.colori.map((c) => `<span style="display:inline-block;width:20px;height:20px;border-radius:50%;background:${c};border:1px solid #ddd;"></span>`).join("")}
+          ${squadra.colori.map((c) => `<span style="display:inline-block;width:20px;height:20px;border-radius:50%;background:${c};border:2px solid var(--border);"></span>`).join("")}
         </div>
       </div>
       <div class="squadra-count"><i class="fas fa-users"></i> ${giocatoriFiltrati.length} giocatori</div>
@@ -358,7 +355,6 @@ function renderSingolaSquadra(id) {
   const containerGriglia = document.getElementById("singolaSquadraContent");
   const containerLista = document.getElementById("singolaSquadraLista");
 
-  // Se non ci sono giocatori filtrati
   if (giocatoriFiltrati.length === 0) {
     containerGriglia.innerHTML = `
       <div class="empty-state" style="grid-column:1/-1;">
@@ -373,7 +369,6 @@ function renderSingolaSquadra(id) {
     return;
   }
 
-  // Raggruppa per ruolo
   const ruoliMap = new Map();
   giocatoriFiltrati.forEach((g) => {
     if (!ruoliMap.has(g.ruolo)) ruoliMap.set(g.ruolo, []);
@@ -426,7 +421,7 @@ function renderSingolaSquadra(id) {
   gridHtml += "</div>";
   containerGriglia.innerHTML = gridHtml;
 
-  // ===== VISTA LISTA (RIGA) =====
+  // ===== VISTA LISTA =====
   let listaHtml = '<div class="singola-lista-giocatori">';
   let index = 0;
   ordineRuoli.forEach((ruolo) => {
@@ -453,7 +448,6 @@ function renderSingolaSquadra(id) {
   listaHtml += "</div>";
   containerLista.innerHTML = listaHtml;
 
-  // Mostra la vista corretta
   if (vistaSingolaCorrente === "griglia") {
     containerGriglia.classList.remove("hidden");
     containerLista.classList.add("hidden");
