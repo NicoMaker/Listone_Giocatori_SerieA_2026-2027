@@ -605,6 +605,7 @@ a:focus-visible {
 }
 .btn-ruolo.active[data-ruolo="all"] {
   background: var(--text-1);
+  color: var(--pitch);
 }
 .btn-ruolo.por.active {
   background: var(--por-c);
