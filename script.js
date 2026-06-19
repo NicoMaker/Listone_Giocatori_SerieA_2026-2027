@@ -441,7 +441,7 @@ function renderSingolaSquadra(id) {
       gridHtml += `
         <span class="giocatore-tag ${isInMio ? "nel-listone" : ""}" onclick="toggleMioListone('${g.nome.replace(/'/g, "\\'")}', '${squadra.nome.replace(/'/g, "\\'")}', '${g.ruolo}', '${squadra.logo_url || ""}', ${g.numero || 0})">
           <i class="fas fa-user"></i> ${g.nome}
-          ${g.numero ? `<span class="tag-num">${g.numero}</span>` : ""}
+          ${g.numero ? `<span class="tag-num">#${g.numero}</span>` : ""}
           <span class="tag-add"></span>
         </span>
       `;
@@ -471,7 +471,7 @@ function renderSingolaSquadra(id) {
           <span class="riga-posizione">${index}</span>
           <span class="riga-nome"><i class="fas fa-user" style="color:var(--text-3);font-size:0.7rem;margin-right:0.3rem;"></i> ${g.nome}</span>
           <span class="riga-ruolo ${rClass}">${g.ruolo}</span>
-          ${g.numero ? `<span class="riga-quota">${g.numero}</span>` : ""}
+          ${g.numero ? `<span class="riga-quota">#${g.numero}</span>` : ""}
           <button class="riga-add ${isInMio ? "added" : ""}" onclick="toggleMioListone('${g.nome.replace(/'/g, "\\'")}', '${squadra.nome.replace(/'/g, "\\'")}', '${g.ruolo}', '${squadra.logo_url || ""}', ${g.numero || 0})" title="${isInMio ? "Rimuovi" : "Aggiungi"}">
             <i class="fas ${isInMio ? "fa-check" : "fa-plus"}"></i>
           </button>
@@ -690,7 +690,7 @@ function renderListone(squadreDaRenderizzare) {
         cardHtml += `
           <span class="giocatore-tag ${isInMio ? "nel-listone" : ""}" onclick="event.stopPropagation(); toggleMioListone('${g.nome.replace(/'/g, "\\'")}', '${squadra.nome.replace(/'/g, "\\'")}', '${g.ruolo}', '${squadra.logo_url || ""}', ${g.numero || 0})">
             <i class="fas fa-user"></i> ${g.nome}
-            ${g.numero ? `<span class="tag-num">${g.numero}</span>` : ""}
+            ${g.numero ? `<span class="tag-num">#${g.numero}</span>` : ""}
             <span class="tag-add"></span>
           </span>
         `;
@@ -735,7 +735,7 @@ function renderListone(squadreDaRenderizzare) {
             </div>
           </td>
           <td><span class="badge-ruolo ${ruoloClass}">${g.ruolo}</span></td>
-          <td><span class="quota-badge">${g.numero || "—"}</span></td>
+          <td><span class="quota-badge">${g.numero ? "#" + g.numero : "—"}</span></td>
           <td>
             <button class="btn-add-table ${isInMio ? "added" : "add"}" onclick="toggleMioListone('${g.nome.replace(/'/g, "\\'")}', '${squadra.nome.replace(/'/g, "\\'")}', '${g.ruolo}', '${squadra.logo_url || ""}', ${g.numero || 0})">
               <i class="fas ${isInMio ? "fa-check" : "fa-plus"}"></i>
@@ -987,7 +987,7 @@ function createMioCard(g) {
         <div class="mio-nome">${g.nome}</div>
         <div class="mio-squadra">${g.squadra}</div>
       </div>
-      ${g.numero ? `<span class="mio-quota">${g.numero}</span>` : ""}
+      ${g.numero ? `<span class="mio-quota">#${g.numero}</span>` : ""}
       <button class="btn-remove" onclick="removeFromMioListone('${g.nome.replace(/'/g, "\\'")}', '${g.squadra.replace(/'/g, "\\'")}')" title="Rimuovi">
         <i class="fas fa-times"></i>
       </button>
