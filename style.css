@@ -42,7 +42,8 @@
   --r-lg: 20px;
   --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.4);
   --shadow-2: 0 10px 30px -8px rgba(0, 0, 0, 0.55);
-  --shadow-glow: 0 0 0 1px rgba(31, 145, 80, 0.25), 0 0 24px -4px rgba(31, 145, 80, 0.35);
+  --shadow-glow:
+    0 0 0 1px rgba(31, 145, 80, 0.25), 0 0 24px -4px rgba(31, 145, 80, 0.35);
 
   /* type */
   --font-display: "Oswald", "Inter", sans-serif;
@@ -83,7 +84,8 @@
 
   --shadow-1: 0 1px 2px rgba(20, 30, 20, 0.08);
   --shadow-2: 0 10px 26px -10px rgba(20, 30, 20, 0.22);
-  --shadow-glow: 0 0 0 1px rgba(25, 122, 67, 0.18), 0 0 20px -6px rgba(25, 122, 67, 0.25);
+  --shadow-glow:
+    0 0 0 1px rgba(25, 122, 67, 0.18), 0 0 20px -6px rgba(25, 122, 67, 0.25);
 
   --chrome-bg: rgba(255, 255, 255, 0.86);
   --chrome-bg-soft: rgba(242, 244, 235, 0.92);
@@ -98,8 +100,16 @@
       rgba(255, 255, 255, 0) 60px,
       rgba(255, 255, 255, 0) 120px
     ),
-    radial-gradient(ellipse 1100px 600px at 50% -10%, rgba(25, 122, 67, 0.1), transparent 60%),
-    radial-gradient(ellipse 800px 500px at 100% 0%, rgba(201, 58, 53, 0.05), transparent 55%);
+    radial-gradient(
+      ellipse 1100px 600px at 50% -10%,
+      rgba(25, 122, 67, 0.1),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 800px 500px at 100% 0%,
+      rgba(201, 58, 53, 0.05),
+      transparent 55%
+    );
 }
 
 [data-theme="light"] .btn-tab.active,
@@ -161,8 +171,16 @@ body::before {
       rgba(255, 255, 255, 0) 60px,
       rgba(255, 255, 255, 0) 120px
     ),
-    radial-gradient(ellipse 1100px 600px at 50% -10%, rgba(31, 145, 80, 0.16), transparent 60%),
-    radial-gradient(ellipse 800px 500px at 100% 0%, rgba(214, 69, 63, 0.07), transparent 55%);
+    radial-gradient(
+      ellipse 1100px 600px at 50% -10%,
+      rgba(31, 145, 80, 0.16),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 800px 500px at 100% 0%,
+      rgba(214, 69, 63, 0.07),
+      transparent 55%
+    );
 }
 
 a {
@@ -436,7 +454,9 @@ a:focus-visible {
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  transition: background 0.2s var(--ease), color 0.2s var(--ease);
+  transition:
+    background 0.2s var(--ease),
+    color 0.2s var(--ease);
 }
 .btn-tab:hover {
   color: var(--text-1);
@@ -645,7 +665,9 @@ a:focus-visible {
   padding: 0.5rem 0.8rem 0.5rem 2rem;
   color: var(--text-1);
   font-size: 0.84rem;
-  transition: border-color 0.18s var(--ease), background 0.18s var(--ease);
+  transition:
+    border-color 0.18s var(--ease),
+    background 0.18s var(--ease);
 }
 #searchInput::placeholder {
   color: var(--text-3);
@@ -856,7 +878,10 @@ a:focus-visible {
   border-radius: var(--r-lg);
   padding: 1.1rem 1.1rem 1.3rem;
   cursor: pointer;
-  transition: transform 0.22s var(--ease), border-color 0.22s var(--ease), box-shadow 0.22s var(--ease);
+  transition:
+    transform 0.22s var(--ease),
+    border-color 0.22s var(--ease),
+    box-shadow 0.22s var(--ease);
   overflow: hidden;
 }
 .card-squadra::before {
@@ -871,7 +896,9 @@ a:focus-visible {
 .card-squadra:hover {
   transform: translateY(-3px);
   border-color: var(--border-strong);
-  box-shadow: var(--shadow-2), 0 0 0 1px color-mix(in srgb, var(--team-color) 40%, transparent);
+  box-shadow:
+    var(--shadow-2),
+    0 0 0 1px color-mix(in srgb, var(--team-color) 40%, transparent);
 }
 
 .squadra-header {
@@ -1534,7 +1561,9 @@ a:focus-visible {
   border: 1px solid var(--border);
   border-radius: var(--r-md);
   padding: 0.6rem 0.7rem;
-  transition: border-color 0.18s var(--ease), transform 0.18s var(--ease);
+  transition:
+    border-color 0.18s var(--ease),
+    transform 0.18s var(--ease);
 }
 .mio-card:hover {
   border-color: var(--border-strong);
@@ -1675,7 +1704,9 @@ a:focus-visible {
   box-shadow: var(--shadow-2);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
+  transition:
+    opacity 0.25s var(--ease),
+    transform 0.25s var(--ease);
   z-index: 100;
 }
 .toast i {

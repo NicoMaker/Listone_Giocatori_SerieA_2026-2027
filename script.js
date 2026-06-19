@@ -28,7 +28,9 @@ function initTheme() {
   if (saved) {
     applyTheme(saved);
   } else {
-    const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+    const prefersLight = window.matchMedia(
+      "(prefers-color-scheme: light)",
+    ).matches;
     applyTheme(prefersLight ? "light" : "dark");
   }
 }
