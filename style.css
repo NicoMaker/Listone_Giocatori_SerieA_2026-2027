@@ -52,6 +52,62 @@
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* ---------- LIGHT THEME ---------- */
+[data-theme="light"] {
+  --pitch: #f2efe4;
+  --surface: #ffffff;
+  --surface-2: #eef1e7;
+  --surface-3: #e2e7d9;
+  --border: rgba(20, 30, 22, 0.1);
+  --border-strong: rgba(20, 30, 22, 0.2);
+
+  --text-1: #16201a;
+  --text-2: #4c594f;
+  --text-3: #7c897e;
+
+  --it-verde: #197a43;
+  --it-verde-deep: #0f5c30;
+  --it-bianco: #ffffff;
+  --it-rosso: #c93a35;
+
+  --gold: #b87f12;
+
+  --por-c: #b87f12;
+  --dif-c: #2768a8;
+  --cen-c: #1f8a51;
+  --att-c: #c4423b;
+
+  --shadow-1: 0 1px 2px rgba(20, 30, 20, 0.08);
+  --shadow-2: 0 10px 26px -10px rgba(20, 30, 20, 0.22);
+  --shadow-glow: 0 0 0 1px rgba(25, 122, 67, 0.18), 0 0 20px -6px rgba(25, 122, 67, 0.25);
+}
+
+[data-theme="light"] body::before {
+  background:
+    repeating-linear-gradient(
+      125deg,
+      rgba(25, 122, 67, 0.05) 0px,
+      rgba(25, 122, 67, 0.05) 60px,
+      rgba(255, 255, 255, 0) 60px,
+      rgba(255, 255, 255, 0) 120px
+    ),
+    radial-gradient(ellipse 1100px 600px at 50% -10%, rgba(25, 122, 67, 0.1), transparent 60%),
+    radial-gradient(ellipse 800px 500px at 100% 0%, rgba(201, 58, 53, 0.05), transparent 55%);
+}
+
+[data-theme="light"] .btn-tab.active,
+[data-theme="light"] .chip-squadra.active,
+[data-theme="light"] .btn-vista.active,
+[data-theme="light"] .btn-vista-singola.active,
+[data-theme="light"] .btn-vista-mio.active {
+  color: #fff;
+}
+
+[data-theme="light"] .meta-num,
+[data-theme="light"] .meta-pill.accent .meta-num {
+  text-shadow: none;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -382,6 +438,37 @@ a:focus-visible {
   background: var(--it-verde);
   color: #06160c;
   box-shadow: var(--shadow-1);
+}
+
+.btn-theme {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text-2);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.5rem 0.75rem;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.18s var(--ease);
+}
+.btn-theme:hover {
+  color: var(--gold);
+  border-color: var(--border-strong);
+}
+.btn-theme i {
+  font-size: 0.85rem;
+  color: var(--gold);
+}
+.theme-toggle-label {
+  display: none;
+}
+@media (min-width: 560px) {
+  .theme-toggle-label {
+    display: inline;
+  }
 }
 
 /* ============================================================
@@ -837,6 +924,40 @@ a:focus-visible {
   color: var(--text-1);
 }
 
+.squadra-titleblock {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.22rem;
+  min-width: 0;
+}
+.squadra-titleblock h2 {
+  margin: 0;
+}
+
+/* small Italian flag kicker shown above team names */
+.mini-flag-it {
+  display: flex;
+  width: 22px;
+  height: 8px;
+  border-radius: 2px;
+  overflow: hidden;
+  border: 1px solid var(--border-strong);
+  flex-shrink: 0;
+}
+.mini-flag-it span {
+  flex: 1;
+}
+.mini-flag-it span:nth-child(1) {
+  background: var(--it-verde);
+}
+.mini-flag-it span:nth-child(2) {
+  background: var(--it-bianco);
+}
+.mini-flag-it span:nth-child(3) {
+  background: var(--it-rosso);
+}
+
 .ruolo-section + .ruolo-section {
   margin-top: 0.7rem;
 }
@@ -871,6 +992,20 @@ a:focus-visible {
 .giocatore-tag i.fa-user {
   font-size: 0.62rem;
   color: var(--text-3);
+}
+.tag-num {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 700;
+  color: var(--text-3);
+  background: var(--surface-3);
+  border-radius: 5px;
+  padding: 0.05rem 0.32rem;
+  line-height: 1.4;
+}
+.giocatore-tag.nel-listone .tag-num {
+  color: var(--gold);
+  background: rgba(224, 170, 62, 0.16);
 }
 .giocatore-tag:hover {
   border-color: var(--gold);
@@ -955,6 +1090,9 @@ a:focus-visible {
 .squadra-dettaglio {
   flex: 1;
   min-width: 160px;
+}
+.squadra-dettaglio .mini-flag-it {
+  margin-bottom: 0.4rem;
 }
 .squadra-dettaglio h2 {
   font-family: var(--font-display);

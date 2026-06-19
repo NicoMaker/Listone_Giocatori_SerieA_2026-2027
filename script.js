@@ -2,6 +2,37 @@
 //  APP LOGICA · CARICAMENTO DATA.JSON + RENDER + FILTRI
 // ============================================================
 
+// ============================================================
+//  TEMA CHIARO / SCURO
+// ============================================================
+function applyTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  localStorage.setItem("listoneTheme", theme);
+  const icon = document.getElementById("themeToggleIcon");
+  if (icon) {
+    icon.className = theme === "light" ? "fas fa-moon" : "fas fa-sun";
+  }
+  const label = document.getElementById("themeToggleLabel");
+  if (label) {
+    label.textContent = theme === "light" ? "Scuro" : "Chiaro";
+  }
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute("data-theme") || "dark";
+  applyTheme(current === "dark" ? "light" : "dark");
+}
+
+function initTheme() {
+  const saved = localStorage.getItem("listoneTheme");
+  if (saved) {
+    applyTheme(saved);
+  } else {
+    const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+    applyTheme(prefersLight ? "light" : "dark");
+  }
+}
+
 let serieAData = null;
 let squadre = [];
 let mioListone = [];
@@ -174,6 +205,7 @@ function importaListone(event) {
 //  CARICAMENTO DATI
 // ============================================================
 document.addEventListener("DOMContentLoaded", () => {
+  initTheme();
   loadMioListone();
   loadData();
 });
@@ -342,6 +374,7 @@ function renderSingolaSquadra(id) {
         <div class="squadra-logo-grande-fallback" style="${squadra.logo_url ? "display:none" : ""}">${squadra.nome.charAt(0)}</div>
       </div>
       <div class="squadra-dettaglio">
+        <span class="mini-flag-it"><span></span><span></span><span></span></span>
         <h2>${squadra.nome}</h2>
         <div class="squadra-citta"><i class="fas fa-map-pin"></i> ${squadra.citta}</div>
         <div style="display:flex;gap:0.5rem;margin-top:0.3rem;flex-wrap:wrap;">
@@ -408,6 +441,7 @@ function renderSingolaSquadra(id) {
       gridHtml += `
         <span class="giocatore-tag ${isInMio ? "nel-listone" : ""}" onclick="toggleMioListone('${g.nome.replace(/'/g, "\\'")}', '${squadra.nome.replace(/'/g, "\\'")}', '${g.ruolo}', '${squadra.logo_url || ""}', ${g.numero || 0})">
           <i class="fas fa-user"></i> ${g.nome}
+          ${g.numero ? `<span class="tag-num">${g.numero}</span>` : ""}
           <span class="tag-add"></span>
         </span>
       `;
@@ -627,7 +661,10 @@ function renderListone(squadreDaRenderizzare) {
           <div class="squadra-icon">
             ${squadra.logo_url ? `<img src="${squadra.logo_url}" alt="${squadra.nome}" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\'squadra-icon-fallback\\'>${squadra.nome.charAt(0)}</span>'" />` : `<span class="squadra-icon-fallback">${squadra.nome.charAt(0)}</span>`}
           </div>
-          <h2>${squadra.nome}</h2>
+          <div class="squadra-titleblock">
+            <span class="mini-flag-it"><span></span><span></span><span></span></span>
+            <h2>${squadra.nome}</h2>
+          </div>
           <span class="giocatori-count">${squadra.giocatori.length}</span>
           <i class="fas fa-chevron-right"></i>
         </div>
@@ -653,6 +690,7 @@ function renderListone(squadreDaRenderizzare) {
         cardHtml += `
           <span class="giocatore-tag ${isInMio ? "nel-listone" : ""}" onclick="event.stopPropagation(); toggleMioListone('${g.nome.replace(/'/g, "\\'")}', '${squadra.nome.replace(/'/g, "\\'")}', '${g.ruolo}', '${squadra.logo_url || ""}', ${g.numero || 0})">
             <i class="fas fa-user"></i> ${g.nome}
+            ${g.numero ? `<span class="tag-num">${g.numero}</span>` : ""}
             <span class="tag-add"></span>
           </span>
         `;
