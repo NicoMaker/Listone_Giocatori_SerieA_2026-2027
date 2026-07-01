@@ -9,96 +9,46 @@
       "logo": "img/Atalanta.jpg",
       "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/6/66/Atalanta_BC_logo.svg/180px-Atalanta_BC_logo.svg.png",
       "giocatori": [
-        {
-          "nome": "Carnesecchi",
-          "ruolo": "Portiere",
-          "nazionalita": "ITA",
-          "numero": 29
-        },
-        {
-          "nome": "Musso",
-          "ruolo": "Portiere",
-          "nazionalita": "ARG",
-          "numero": 1
-        },
-        {
-          "nome": "Djimsiti",
-          "ruolo": "Difensore",
-          "nazionalita": "ALB",
-          "numero": 19
-        },
-        {
-          "nome": "Hien",
-          "ruolo": "Difensore",
-          "nazionalita": "SWE",
-          "numero": 5
-        },
-        {
-          "nome": "Kolasinac",
-          "ruolo": "Difensore",
-          "nazionalita": "BIH",
-          "numero": 3
-        },
-        {
-          "nome": "Scalvini",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 42
-        },
-        {
-          "nome": "Zappacosta",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 77
-        },
-        {
-          "nome": "De Roon",
-          "ruolo": "Centrocampista",
-          "nazionalita": "NED",
-          "numero": 15
-        },
-        {
-          "nome": "Ederson",
-          "ruolo": "Centrocampista",
-          "nazionalita": "BRA",
-          "numero": 13
-        },
-        {
-          "nome": "Pasalic",
-          "ruolo": "Centrocampista",
-          "nazionalita": "CRO",
-          "numero": 88
-        },
-        {
-          "nome": "Koopmeiners",
-          "ruolo": "Centrocampista",
-          "nazionalita": "NED",
-          "numero": 7
-        },
-        {
-          "nome": "Lookman",
-          "ruolo": "Attaccante",
-          "nazionalita": "NGA",
-          "numero": 11
-        },
-        {
-          "nome": "Scamacca",
-          "ruolo": "Attaccante",
-          "nazionalita": "ITA",
-          "numero": 90
-        },
-        {
-          "nome": "Muriel",
-          "ruolo": "Attaccante",
-          "nazionalita": "COL",
-          "numero": 9
-        },
-        {
-          "nome": "De Ketelaere",
-          "ruolo": "Attaccante",
-          "nazionalita": "BEL",
-          "numero": 17
-        }
+        { "nome": "Carnesecchi", "ruolo": "Portiere" },
+        { "nome": "Rossi", "ruolo": "Portiere" },
+        { "nome": "Sportiello", "ruolo": "Portiere" },
+        { "nome": "Vismara", "ruolo": "Portiere" },
+        { "nome": "Ahanor", "ruolo": "Difensore" },
+        { "nome": "Bakker", "ruolo": "Difensore" },
+        { "nome": "Bellanova", "ruolo": "Difensore" },
+        { "nome": "Bergonzi", "ruolo": "Difensore" },
+        { "nome": "Bernasconi", "ruolo": "Difensore" },
+        { "nome": "Bonfanti", "ruolo": "Difensore" },
+        { "nome": "Ceresoli", "ruolo": "Difensore" },
+        { "nome": "Cittadini", "ruolo": "Difensore" },
+        { "nome": "Del Lungo", "ruolo": "Difensore" },
+        { "nome": "Djimsiti", "ruolo": "Difensore" },
+        { "nome": "Hien", "ruolo": "Difensore" },
+        { "nome": "Kolasinac", "ruolo": "Difensore" },
+        { "nome": "Kossounou", "ruolo": "Difensore" },
+        { "nome": "Palestra", "ruolo": "Difensore" },
+        { "nome": "Scalvini", "ruolo": "Difensore" },
+        { "nome": "Zappacosta", "ruolo": "Difensore" },
+        { "nome": "Cortinovis", "ruolo": "Centrocampista" },
+        { "nome": "De Roon", "ruolo": "Centrocampista" },
+        { "nome": "Ederson", "ruolo": "Centrocampista" },
+        { "nome": "Giovane", "ruolo": "Centrocampista" },
+        { "nome": "Oliveri", "ruolo": "Centrocampista" },
+        { "nome": "Pasalic", "ruolo": "Centrocampista" },
+        { "nome": "Samardzic", "ruolo": "Centrocampista" },
+        { "nome": "I. Sulemana", "ruolo": "Centrocampista" },
+        { "nome": "Zalewski", "ruolo": "Centrocampista" },
+        { "nome": "Zuccon", "ruolo": "Centrocampista" },
+        { "nome": "M. Cissé", "ruolo": "Attaccante" },
+        { "nome": "De Ketelaere", "ruolo": "Attaccante" },
+        { "nome": "De Nipoti", "ruolo": "Attaccante" },
+        { "nome": "Italeng", "ruolo": "Attaccante" },
+        { "nome": "Krstovic", "ruolo": "Attaccante" },
+        { "nome": "Maldini", "ruolo": "Attaccante" },
+        { "nome": "Raspadori", "ruolo": "Attaccante" },
+        { "nome": "Scamacca", "ruolo": "Attaccante" },
+        { "nome": "K. Sulemana", "ruolo": "Attaccante" },
+        { "nome": "Touré", "ruolo": "Attaccante" }
       ]
     },
     {
@@ -109,96 +59,44 @@
       "logo": "img/bologna.png",
       "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Bologna_F.C._1909_logo.svg/180px-Bologna_F.C._1909_logo.svg.png",
       "giocatori": [
-        {
-          "nome": "Skorupski",
-          "ruolo": "Portiere",
-          "nazionalita": "POL",
-          "numero": 28
-        },
-        {
-          "nome": "Bagnolini",
-          "ruolo": "Portiere",
-          "nazionalita": "ITA",
-          "numero": 1
-        },
-        {
-          "nome": "Posch",
-          "ruolo": "Difensore",
-          "nazionalita": "AUT",
-          "numero": 25
-        },
-        {
-          "nome": "Beukema",
-          "ruolo": "Difensore",
-          "nazionalita": "NED",
-          "numero": 6
-        },
-        {
-          "nome": "Lucumí",
-          "ruolo": "Difensore",
-          "nazionalita": "COL",
-          "numero": 3
-        },
-        {
-          "nome": "Kristiansen",
-          "ruolo": "Difensore",
-          "nazionalita": "DEN",
-          "numero": 17
-        },
-        {
-          "nome": "Calafiori",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 33
-        },
-        {
-          "nome": "Aebischer",
-          "ruolo": "Centrocampista",
-          "nazionalita": "SUI",
-          "numero": 24
-        },
-        {
-          "nome": "Ferguson",
-          "ruolo": "Centrocampista",
-          "nazionalita": "SCO",
-          "numero": 13
-        },
-        {
-          "nome": "Freuler",
-          "ruolo": "Centrocampista",
-          "nazionalita": "SUI",
-          "numero": 8
-        },
-        {
-          "nome": "Fabbian",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ITA",
-          "numero": 7
-        },
-        {
-          "nome": "Orsolini",
-          "ruolo": "Attaccante",
-          "nazionalita": "ITA",
-          "numero": 7
-        },
-        {
-          "nome": "Zirkzee",
-          "ruolo": "Attaccante",
-          "nazionalita": "NED",
-          "numero": 9
-        },
-        {
-          "nome": "Saelemaekers",
-          "ruolo": "Attaccante",
-          "nazionalita": "BEL",
-          "numero": 21
-        },
-        {
-          "nome": "Ndoye",
-          "ruolo": "Attaccante",
-          "nazionalita": "SUI",
-          "numero": 11
-        }
+        { "nome": "Franzini", "ruolo": "Portiere" },
+        { "nome": "Pessina", "ruolo": "Portiere" },
+        { "nome": "Raffaelli", "ruolo": "Portiere" },
+        { "nome": "Ravaglia", "ruolo": "Portiere" },
+        { "nome": "Skorupski", "ruolo": "Portiere" },
+        { "nome": "Amey", "ruolo": "Difensore" },
+        { "nome": "Casale", "ruolo": "Difensore" },
+        { "nome": "De Silvestri*", "ruolo": "Difensore" },
+        { "nome": "Heggem", "ruolo": "Difensore" },
+        { "nome": "Helland", "ruolo": "Difensore" },
+        { "nome": "Holm", "ruolo": "Difensore" },
+        { "nome": "M. Ilic", "ruolo": "Difensore" },
+        { "nome": "Lucumi", "ruolo": "Difensore" },
+        { "nome": "J. Miranda", "ruolo": "Difensore" },
+        { "nome": "Motolese", "ruolo": "Difensore" },
+        { "nome": "Stivanello", "ruolo": "Difensore" },
+        { "nome": "Vitik", "ruolo": "Difensore" },
+        { "nome": "Zortea", "ruolo": "Difensore" },
+        { "nome": "Barbaro", "ruolo": "Centrocampista" },
+        { "nome": "El Azzouzi", "ruolo": "Centrocampista" },
+        { "nome": "Ferguson", "ruolo": "Centrocampista" },
+        { "nome": "Menegazzo", "ruolo": "Centrocampista" },
+        { "nome": "N. Moro", "ruolo": "Centrocampista" },
+        { "nome": "Pobega", "ruolo": "Centrocampista" },
+        { "nome": "Pyythia", "ruolo": "Centrocampista" },
+        { "nome": "Rosetti", "ruolo": "Centrocampista" },
+        { "nome": "Anatriello", "ruolo": "Attaccante" },
+        { "nome": "Bernardeschi", "ruolo": "Attaccante" },
+        { "nome": "Cambiaghi", "ruolo": "Attaccante" },
+        { "nome": "Castro", "ruolo": "Attaccante" },
+        { "nome": "Dallinga", "ruolo": "Attaccante" },
+        { "nome": "Dominguez", "ruolo": "Attaccante" },
+        { "nome": "Ebone", "ruolo": "Attaccante" },
+        { "nome": "Karlsson", "ruolo": "Attaccante" },
+        { "nome": "Odgaard", "ruolo": "Attaccante" },
+        { "nome": "Orsolini", "ruolo": "Attaccante" },
+        { "nome": "Raimondo", "ruolo": "Attaccante" },
+        { "nome": "Rowe", "ruolo": "Attaccante" }
       ]
     },
     {
@@ -209,90 +107,38 @@
       "logo": "img/cagliari.png",
       "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/6/60/Cagliari_Calcio_1920.svg/180px-Cagliari_Calcio_1920.svg.png",
       "giocatori": [
-        {
-          "nome": "Scuffet",
-          "ruolo": "Portiere",
-          "nazionalita": "ITA",
-          "numero": 1
-        },
-        {
-          "nome": "Radunovic",
-          "ruolo": "Portiere",
-          "nazionalita": "SRB",
-          "numero": 28
-        },
-        {
-          "nome": "Mina",
-          "ruolo": "Difensore",
-          "nazionalita": "COL",
-          "numero": 5
-        },
-        {
-          "nome": "Obert",
-          "ruolo": "Difensore",
-          "nazionalita": "SVK",
-          "numero": 23
-        },
-        {
-          "nome": "Augello",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 3
-        },
-        {
-          "nome": "Zappa",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 25
-        },
-        {
-          "nome": "Makoumbou",
-          "ruolo": "Centrocampista",
-          "nazionalita": "CGO",
-          "numero": 29
-        },
-        {
-          "nome": "Deiola",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ITA",
-          "numero": 18
-        },
-        {
-          "nome": "Nandez",
-          "ruolo": "Centrocampista",
-          "nazionalita": "URU",
-          "numero": 18
-        },
-        {
-          "nome": "Gaetano",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ITA",
-          "numero": 7
-        },
-        {
-          "nome": "Pavoletti",
-          "ruolo": "Attaccante",
-          "nazionalita": "ITA",
-          "numero": 30
-        },
-        {
-          "nome": "Luvumbo",
-          "ruolo": "Attaccante",
-          "nazionalita": "ANG",
-          "numero": 77
-        },
-        {
-          "nome": "Lapadula",
-          "ruolo": "Attaccante",
-          "nazionalita": "ITA",
-          "numero": 9
-        },
-        {
-          "nome": "Petagna",
-          "ruolo": "Attaccante",
-          "nazionalita": "ITA",
-          "numero": 37
-        }
+        { "nome": "Caprile", "ruolo": "Portiere" },
+        { "nome": "Ciocci", "ruolo": "Portiere" },
+        { "nome": "Iliev", "ruolo": "Portiere" },
+        { "nome": "Radunovic", "ruolo": "Portiere" },
+        { "nome": "Sherri", "ruolo": "Portiere" },
+        { "nome": "Gallea", "ruolo": "Difensore" },
+        { "nome": "Idrissi", "ruolo": "Difensore" },
+        { "nome": "Mina", "ruolo": "Difensore" },
+        { "nome": "Obert", "ruolo": "Difensore" },
+        { "nome": "Pintus", "ruolo": "Difensore" },
+        { "nome": "Raterink", "ruolo": "Difensore" },
+        { "nome": "Ju. Rodriguez", "ruolo": "Difensore" },
+        { "nome": "Veroli", "ruolo": "Difensore" },
+        { "nome": "Wieteska", "ruolo": "Difensore" },
+        { "nome": "Zappa", "ruolo": "Difensore" },
+        { "nome": "Zé Pedro", "ruolo": "Difensore" },
+        { "nome": "Adopo", "ruolo": "Centrocampista" },
+        { "nome": "Cavuoti", "ruolo": "Centrocampista" },
+        { "nome": "Deiola", "ruolo": "Centrocampista" },
+        { "nome": "Felici", "ruolo": "Centrocampista" },
+        { "nome": "Gaetano", "ruolo": "Centrocampista" },
+        { "nome": "Liteta", "ruolo": "Centrocampista" },
+        { "nome": "Prati", "ruolo": "Centrocampista" },
+        { "nome": "Albarracin", "ruolo": "Attaccante" },
+        { "nome": "Borrelli", "ruolo": "Attaccante" },
+        { "nome": "Di Paolo", "ruolo": "Attaccante" },
+        { "nome": "S. Esposito", "ruolo": "Attaccante" },
+        { "nome": "Luvumbo", "ruolo": "Attaccante" },
+        { "nome": "Mendy", "ruolo": "Attaccante" },
+        { "nome": "Mutandwa", "ruolo": "Attaccante" },
+        { "nome": "Trepy", "ruolo": "Attaccante" },
+        { "nome": "Vinciguerra", "ruolo": "Attaccante" }
       ]
     },
     {
@@ -303,90 +149,46 @@
       "logo": "img/como.png",
       "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/c/ce/Como_1907.svg/180px-Como_1907.svg.png",
       "giocatori": [
-        {
-          "nome": "Audero",
-          "ruolo": "Portiere",
-          "nazionalita": "ITA",
-          "numero": 1
-        },
-        {
-          "nome": "Reina",
-          "ruolo": "Portiere",
-          "nazionalita": "ESP",
-          "numero": 25
-        },
-        {
-          "nome": "Goldaniga",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 4
-        },
-        {
-          "nome": "Curto",
-          "ruolo": "Difensore",
-          "nazionalita": "ESP",
-          "numero": 5
-        },
-        {
-          "nome": "Iovine",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 33
-        },
-        {
-          "nome": "Van der Brempt",
-          "ruolo": "Difensore",
-          "nazionalita": "BEL",
-          "numero": 2
-        },
-        {
-          "nome": "Bellemo",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ITA",
-          "numero": 6
-        },
-        {
-          "nome": "Baselli",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ITA",
-          "numero": 8
-        },
-        {
-          "nome": "Fadera",
-          "ruolo": "Centrocampista",
-          "nazionalita": "GAM",
-          "numero": 22
-        },
-        {
-          "nome": "Braunöder",
-          "ruolo": "Centrocampista",
-          "nazionalita": "AUT",
-          "numero": 11
-        },
-        {
-          "nome": "Cutrone",
-          "ruolo": "Attaccante",
-          "nazionalita": "ITA",
-          "numero": 9
-        },
-        {
-          "nome": "Gabrielloni",
-          "ruolo": "Attaccante",
-          "nazionalita": "ITA",
-          "numero": 10
-        },
-        {
-          "nome": "Da Cunha",
-          "ruolo": "Attaccante",
-          "nazionalita": "FRA",
-          "numero": 14
-        },
-        {
-          "nome": "Strefezza",
-          "ruolo": "Attaccante",
-          "nazionalita": "BRA",
-          "numero": 7
-        }
+        { "nome": "Audero", "ruolo": "Portiere" },
+        { "nome": "Butez", "ruolo": "Portiere" },
+        { "nome": "Tornqvist", "ruolo": "Portiere" },
+        { "nome": "Dossena", "ruolo": "Difensore" },
+        { "nome": "Cassandro", "ruolo": "Difensore" },
+        { "nome": "A. Cuenca", "ruolo": "Difensore" },
+        { "nome": "Fellipe Jack", "ruolo": "Difensore" },
+        { "nome": "Goldaniga", "ruolo": "Difensore" },
+        { "nome": "Kempf", "ruolo": "Difensore" },
+        { "nome": "Ramon", "ruolo": "Difensore" },
+        { "nome": "Posch", "ruolo": "Difensore" },
+        { "nome": "Smolcic", "ruolo": "Difensore" },
+        { "nome": "Valle", "ruolo": "Difensore" },
+        { "nome": "Van der Brempt", "ruolo": "Difensore" },
+        { "nome": "Vojvoda", "ruolo": "Difensore" },
+        { "nome": "Braunoder", "ruolo": "Centrocampista" },
+        { "nome": "Caqueret", "ruolo": "Centrocampista" },
+        { "nome": "Da Cunha", "ruolo": "Centrocampista" },
+        { "nome": "Engelhardt", "ruolo": "Centrocampista" },
+        { "nome": "Lahdo", "ruolo": "Centrocampista" },
+        { "nome": "Le Borgne", "ruolo": "Centrocampista" },
+        { "nome": "Mazzitelli", "ruolo": "Centrocampista" },
+        { "nome": "Perrone", "ruolo": "Centrocampista" },
+        { "nome": "Rispoli", "ruolo": "Centrocampista" },
+        { "nome": "Addai", "ruolo": "Attaccante" },
+        { "nome": "Azon", "ruolo": "Attaccante" },
+        { "nome": "Baturina", "ruolo": "Attaccante" },
+        { "nome": "Chinetti", "ruolo": "Attaccante" },
+        { "nome": "Diao", "ruolo": "Attaccante" },
+        { "nome": "Douvikas", "ruolo": "Attaccante" },
+        { "nome": "Fadera", "ruolo": "Attaccante" },
+        { "nome": "Fumagalli", "ruolo": "Attaccante" },
+        { "nome": "Gabrielloni", "ruolo": "Attaccante" },
+        { "nome": "Jasim", "ruolo": "Attaccante" },
+        { "nome": "Kuhn", "ruolo": "Attaccante" },
+        { "nome": "N. Paz", "ruolo": "Attaccante" },
+        { "nome": "Morata", "ruolo": "Attaccante" },
+        { "nome": "Mustapha", "ruolo": "Attaccante" },
+        { "nome": "Simonetta", "ruolo": "Attaccante" },
+        { "nome": "Je. Rodriguez", "ruolo": "Attaccante" }
       ]
     },
     {
@@ -397,90 +199,52 @@
       "logo": "img/fiorentina.png",
       "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/ACF_Fiorentina_logo.svg/180px-ACF_Fiorentina_logo.svg.png",
       "giocatori": [
-        {
-          "nome": "Terracciano",
-          "ruolo": "Portiere",
-          "nazionalita": "ITA",
-          "numero": 1
-        },
-        {
-          "nome": "Christensen",
-          "ruolo": "Portiere",
-          "nazionalita": "DEN",
-          "numero": 25
-        },
-        {
-          "nome": "Milenkovic",
-          "ruolo": "Difensore",
-          "nazionalita": "SRB",
-          "numero": 4
-        },
-        {
-          "nome": "Martinez Quarta",
-          "ruolo": "Difensore",
-          "nazionalita": "ARG",
-          "numero": 28
-        },
-        {
-          "nome": "Biraghi",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 3
-        },
-        {
-          "nome": "Kayode",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 2
-        },
-        {
-          "nome": "Bonaventura",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ITA",
-          "numero": 5
-        },
-        {
-          "nome": "Mandragora",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ITA",
-          "numero": 38
-        },
-        {
-          "nome": "Arthur",
-          "ruolo": "Centrocampista",
-          "nazionalita": "BRA",
-          "numero": 63
-        },
-        {
-          "nome": "Barak",
-          "ruolo": "Centrocampista",
-          "nazionalita": "CZE",
-          "numero": 10
-        },
-        {
-          "nome": "González",
-          "ruolo": "Attaccante",
-          "nazionalita": "ARG",
-          "numero": 22
-        },
-        {
-          "nome": "Beltran",
-          "ruolo": "Attaccante",
-          "nazionalita": "ARG",
-          "numero": 9
-        },
-        {
-          "nome": "Nzola",
-          "ruolo": "Attaccante",
-          "nazionalita": "ANG",
-          "numero": 14
-        },
-        {
-          "nome": "Sottil",
-          "ruolo": "Attaccante",
-          "nazionalita": "ITA",
-          "numero": 7
-        }
+        { "nome": "Christensen", "ruolo": "Portiere" },
+        { "nome": "De Gea", "ruolo": "Portiere" },
+        { "nome": "Lezzerini", "ruolo": "Portiere" },
+        { "nome": "Martinelli", "ruolo": "Portiere" },
+        { "nome": "Vannucchi", "ruolo": "Portiere" },
+        { "nome": "Balbo", "ruolo": "Difensore" },
+        { "nome": "Baroncelli", "ruolo": "Difensore" },
+        { "nome": "Comuzzo", "ruolo": "Difensore" },
+        { "nome": "Dodo", "ruolo": "Difensore" },
+        { "nome": "Elia", "ruolo": "Difensore" },
+        { "nome": "Fortini", "ruolo": "Difensore" },
+        { "nome": "Gosens", "ruolo": "Difensore" },
+        { "nome": "Kospo", "ruolo": "Difensore" },
+        { "nome": "Kouadio", "ruolo": "Difensore" },
+        { "nome": "Moreno", "ruolo": "Difensore" },
+        { "nome": "Parisi", "ruolo": "Difensore" },
+        { "nome": "Pongracic", "ruolo": "Difensore" },
+        { "nome": "Ranieri", "ruolo": "Difensore" },
+        { "nome": "Romani", "ruolo": "Difensore" },
+        { "nome": "Scuderi", "ruolo": "Difensore" },
+        { "nome": "Valentini", "ruolo": "Difensore" },
+        { "nome": "Amatucci", "ruolo": "Centrocampista" },
+        { "nome": "Barak", "ruolo": "Centrocampista" },
+        { "nome": "Bianco", "ruolo": "Centrocampista" },
+        { "nome": "Brescianini", "ruolo": "Centrocampista" },
+        { "nome": "Fabbian", "ruolo": "Centrocampista" },
+        { "nome": "Fagioli", "ruolo": "Centrocampista" },
+        { "nome": "Fazzini", "ruolo": "Centrocampista" },
+        { "nome": "Harder", "ruolo": "Centrocampista" },
+        { "nome": "Ievoli", "ruolo": "Centrocampista" },
+        { "nome": "Mandragora", "ruolo": "Centrocampista" },
+        { "nome": "Ndour", "ruolo": "Centrocampista" },
+        { "nome": "Richardson", "ruolo": "Centrocampista" },
+        { "nome": "Sohm", "ruolo": "Centrocampista" },
+        { "nome": "Spaggiari", "ruolo": "Centrocampista" },
+        { "nome": "Beltran", "ruolo": "Attaccante" },
+        { "nome": "Braschi", "ruolo": "Attaccante" },
+        { "nome": "Caprini", "ruolo": "Attaccante" },
+        { "nome": "Distefano", "ruolo": "Attaccante" },
+        { "nome": "Gudmundsson", "ruolo": "Attaccante" },
+        { "nome": "Kean", "ruolo": "Attaccante" },
+        { "nome": "Nzola", "ruolo": "Attaccante" },
+        { "nome": "Piccoli", "ruolo": "Attaccante" },
+        { "nome": "Rubino", "ruolo": "Attaccante" },
+        { "nome": "Sottil", "ruolo": "Attaccante" },
+        { "nome": "Tarantino", "ruolo": "Attaccante" }
       ]
     },
     {
@@ -491,90 +255,26 @@
       "logo": "img/frosinone.png",
       "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/b/b3/Frosinone_Calcio.svg/180px-Frosinone_Calcio.svg.png",
       "giocatori": [
-        {
-          "nome": "Turati",
-          "ruolo": "Portiere",
-          "nazionalita": "ITA",
-          "numero": 1
-        },
-        {
-          "nome": "Cerofolini",
-          "ruolo": "Portiere",
-          "nazionalita": "ITA",
-          "numero": 23
-        },
-        {
-          "nome": "Romagnoli",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 6
-        },
-        {
-          "nome": "Marchizza",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 3
-        },
-        {
-          "nome": "Lirola",
-          "ruolo": "Difensore",
-          "nazionalita": "ESP",
-          "numero": 2
-        },
-        {
-          "nome": "Okoli",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 4
-        },
-        {
-          "nome": "Mazzitelli",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ITA",
-          "numero": 8
-        },
-        {
-          "nome": "Brescianini",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ITA",
-          "numero": 27
-        },
-        {
-          "nome": "Garritano",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ITA",
-          "numero": 11
-        },
-        {
-          "nome": "Gelli",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ITA",
-          "numero": 30
-        },
-        {
-          "nome": "Soulé",
-          "ruolo": "Attaccante",
-          "nazionalita": "ARG",
-          "numero": 27
-        },
-        {
-          "nome": "Cheddira",
-          "ruolo": "Attaccante",
-          "nazionalita": "MAR",
-          "numero": 9
-        },
-        {
-          "nome": "Baez",
-          "ruolo": "Attaccante",
-          "nazionalita": "ARG",
-          "numero": 10
-        },
-        {
-          "nome": "Reinier",
-          "ruolo": "Attaccante",
-          "nazionalita": "BRA",
-          "numero": 7
-        }
+        { "nome": "Bracaglia", "ruolo": "Portiere" },
+        { "nome": "Lolic", "ruolo": "Portiere" },
+        { "nome": "Palmisani", "ruolo": "Portiere" },
+        { "nome": "Corrado", "ruolo": "Difensore" },
+        { "nome": "J. Gelli", "ruolo": "Difensore" },
+        { "nome": "Monterisi", "ruolo": "Difensore" },
+        { "nome": "A. Oyono", "ruolo": "Difensore" },
+        { "nome": "J. Oyono", "ruolo": "Difensore" },
+        { "nome": "Calò", "ruolo": "Centrocampista" },
+        { "nome": "Cichella", "ruolo": "Centrocampista" },
+        { "nome": "F. Gelli", "ruolo": "Centrocampista" },
+        { "nome": "Grosso", "ruolo": "Centrocampista" },
+        { "nome": "B. Kone", "ruolo": "Centrocampista" },
+        { "nome": "Koutsoupias", "ruolo": "Centrocampista" },
+        { "nome": "Ndow", "ruolo": "Centrocampista" },
+        { "nome": "Barcella", "ruolo": "Attaccante" },
+        { "nome": "Dixon", "ruolo": "Attaccante" },
+        { "nome": "Ghedjemis", "ruolo": "Attaccante" },
+        { "nome": "Gori", "ruolo": "Attaccante" },
+        { "nome": "Kvernadze", "ruolo": "Attaccante" }
       ]
     },
     {
@@ -585,96 +285,42 @@
       "logo": "img/genoa.png",
       "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/a/ab/Genoa_CFC.svg/180px-Genoa_CFC.svg.png",
       "giocatori": [
-        {
-          "nome": "Martínez",
-          "ruolo": "Portiere",
-          "nazionalita": "ESP",
-          "numero": 1
-        },
-        {
-          "nome": "Leali",
-          "ruolo": "Portiere",
-          "nazionalita": "ITA",
-          "numero": 25
-        },
-        {
-          "nome": "Vásquez",
-          "ruolo": "Difensore",
-          "nazionalita": "MEX",
-          "numero": 18
-        },
-        {
-          "nome": "Bani",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 5
-        },
-        {
-          "nome": "Martin",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 3
-        },
-        {
-          "nome": "De Winter",
-          "ruolo": "Difensore",
-          "nazionalita": "BEL",
-          "numero": 4
-        },
-        {
-          "nome": "Sabelli",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 2
-        },
-        {
-          "nome": "Frendrup",
-          "ruolo": "Centrocampista",
-          "nazionalita": "DEN",
-          "numero": 8
-        },
-        {
-          "nome": "Badelj",
-          "ruolo": "Centrocampista",
-          "nazionalita": "CRO",
-          "numero": 30
-        },
-        {
-          "nome": "Thorsby",
-          "ruolo": "Centrocampista",
-          "nazionalita": "NOR",
-          "numero": 29
-        },
-        {
-          "nome": "Malinovskyi",
-          "ruolo": "Centrocampista",
-          "nazionalita": "UKR",
-          "numero": 6
-        },
-        {
-          "nome": "Retegui",
-          "ruolo": "Attaccante",
-          "nazionalita": "ITA",
-          "numero": 32
-        },
-        {
-          "nome": "Gudmundsson",
-          "ruolo": "Attaccante",
-          "nazionalita": "ISL",
-          "numero": 11
-        },
-        {
-          "nome": "Messias",
-          "ruolo": "Attaccante",
-          "nazionalita": "BRA",
-          "numero": 30
-        },
-        {
-          "nome": "Ekuban",
-          "ruolo": "Attaccante",
-          "nazionalita": "GHA",
-          "numero": 19
-        }
+        { "nome": "Bijlow", "ruolo": "Portiere" },
+        { "nome": "Calvani", "ruolo": "Portiere" },
+        { "nome": "Consiglio", "ruolo": "Portiere" },
+        { "nome": "Lysionok", "ruolo": "Portiere" },
+        { "nome": "Stolz", "ruolo": "Portiere" },
+        { "nome": "Barbini", "ruolo": "Difensore" },
+        { "nome": "Calvani", "ruolo": "Difensore" },
+        { "nome": "Gagliardi", "ruolo": "Difensore" },
+        { "nome": "Marcandalli", "ruolo": "Difensore" },
+        { "nome": "Martin", "ruolo": "Difensore" },
+        { "nome": "Matturro", "ruolo": "Difensore" },
+        { "nome": "Meconi", "ruolo": "Difensore" },
+        { "nome": "Norton-Cuffy", "ruolo": "Difensore" },
+        { "nome": "Ostigard", "ruolo": "Difensore" },
+        { "nome": "Otoa", "ruolo": "Difensore" },
+        { "nome": "Pittino", "ruolo": "Difensore" },
+        { "nome": "Sabelli", "ruolo": "Difensore" },
+        { "nome": "J. Vasquez", "ruolo": "Difensore" },
+        { "nome": "M. Vaz", "ruolo": "Difensore" },
+        { "nome": "Vogliacco", "ruolo": "Difensore" },
+        { "nome": "Amorim", "ruolo": "Centrocampista" },
+        { "nome": "Ellertsson", "ruolo": "Centrocampista" },
+        { "nome": "Frendrup", "ruolo": "Centrocampista" },
+        { "nome": "Masini", "ruolo": "Centrocampista" },
+        { "nome": "G. Rossi", "ruolo": "Centrocampista" },
+        { "nome": "Ankeye", "ruolo": "Attaccante" },
+        { "nome": "Baldanzi", "ruolo": "Attaccante" },
+        { "nome": "Lo. Colombo", "ruolo": "Attaccante" },
+        { "nome": "H. Cuenca", "ruolo": "Attaccante" },
+        { "nome": "Debenedetti", "ruolo": "Attaccante" },
+        { "nome": "Ekhator", "ruolo": "Attaccante" },
+        { "nome": "Fini", "ruolo": "Attaccante" },
+        { "nome": "Messias", "ruolo": "Attaccante" },
+        { "nome": "Pessolani", "ruolo": "Attaccante" },
+        { "nome": "Venturino", "ruolo": "Attaccante" },
+        { "nome": "Vitinha", "ruolo": "Attaccante" }
       ]
     },
     {
@@ -685,96 +331,39 @@
       "logo": "img/inter.png",
       "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/180px-FC_Internazionale_Milano_2021.svg.png",
       "giocatori": [
-        {
-          "nome": "Sommer",
-          "ruolo": "Portiere",
-          "nazionalita": "SUI",
-          "numero": 1
-        },
-        {
-          "nome": "Di Gennaro",
-          "ruolo": "Portiere",
-          "nazionalita": "ITA",
-          "numero": 21
-        },
-        {
-          "nome": "Pavard",
-          "ruolo": "Difensore",
-          "nazionalita": "FRA",
-          "numero": 28
-        },
-        {
-          "nome": "Acerbi",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 15
-        },
-        {
-          "nome": "Bastoni",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 95
-        },
-        {
-          "nome": "Darmian",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 36
-        },
-        {
-          "nome": "Dumfries",
-          "ruolo": "Difensore",
-          "nazionalita": "NED",
-          "numero": 2
-        },
-        {
-          "nome": "Barella",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ITA",
-          "numero": 23
-        },
-        {
-          "nome": "Calhanoglu",
-          "ruolo": "Centrocampista",
-          "nazionalita": "TUR",
-          "numero": 20
-        },
-        {
-          "nome": "Mkhitaryan",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ARM",
-          "numero": 22
-        },
-        {
-          "nome": "Frattesi",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ITA",
-          "numero": 16
-        },
-        {
-          "nome": "Lautaro",
-          "ruolo": "Attaccante",
-          "nazionalita": "ARG",
-          "numero": 10
-        },
-        {
-          "nome": "Thuram",
-          "ruolo": "Attaccante",
-          "nazionalita": "FRA",
-          "numero": 9
-        },
-        {
-          "nome": "Arnautovic",
-          "ruolo": "Attaccante",
-          "nazionalita": "AUT",
-          "numero": 8
-        },
-        {
-          "nome": "Sanchez",
-          "ruolo": "Attaccante",
-          "nazionalita": "CHI",
-          "numero": 7
-        }
+        { "nome": "Calligaris", "ruolo": "Portiere" },
+        { "nome": "Di Gennaro*", "ruolo": "Portiere" },
+        { "nome": "J. Martinez", "ruolo": "Portiere" },
+        { "nome": "Akanji", "ruolo": "Difensore" },
+        { "nome": "Bastoni", "ruolo": "Difensore" },
+        { "nome": "Bisseck", "ruolo": "Difensore" },
+        { "nome": "F. Carboni", "ruolo": "Difensore" },
+        { "nome": "Carlos Augusto", "ruolo": "Difensore" },
+        { "nome": "Cocchi", "ruolo": "Difensore" },
+        { "nome": "Dimarco", "ruolo": "Difensore" },
+        { "nome": "Dumfries", "ruolo": "Difensore" },
+        { "nome": "Luis Henrique", "ruolo": "Difensore" },
+        { "nome": "Pavard", "ruolo": "Difensore" },
+        { "nome": "Akinsanmiro", "ruolo": "Centrocampista" },
+        { "nome": "Asllani", "ruolo": "Centrocampista" },
+        { "nome": "Barella", "ruolo": "Centrocampista" },
+        { "nome": "Berenbruch", "ruolo": "Centrocampista" },
+        { "nome": "Calhanoglu", "ruolo": "Centrocampista" },
+        { "nome": "Diouf", "ruolo": "Centrocampista" },
+        { "nome": "Frattesi", "ruolo": "Centrocampista" },
+        { "nome": "Kamate", "ruolo": "Centrocampista" },
+        { "nome": "Massolin", "ruolo": "Centrocampista" },
+        { "nome": "Mkhitaryan", "ruolo": "Centrocampista" },
+        { "nome": "A. Stankovic", "ruolo": "Centrocampista" },
+        { "nome": "Sucic", "ruolo": "Centrocampista" },
+        { "nome": "Topalovic", "ruolo": "Centrocampista" },
+        { "nome": "Zielinski", "ruolo": "Centrocampista" },
+        { "nome": "Bonny", "ruolo": "Attaccante" },
+        { "nome": "F. Esposito", "ruolo": "Attaccante" },
+        { "nome": "L. Martinez", "ruolo": "Attaccante" },
+        { "nome": "Mosconi", "ruolo": "Attaccante" },
+        { "nome": "Spinaccè", "ruolo": "Attaccante" },
+        { "nome": "M. Thuram", "ruolo": "Attaccante" }
       ]
     },
     {
@@ -785,96 +374,43 @@
       "logo": "img/juventus.png",
       "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Juventus_FC_2017_icon_%28black%29.svg/180px-Juventus_FC_2017_icon_%28black%29.svg.png",
       "giocatori": [
-        {
-          "nome": "Szczesny",
-          "ruolo": "Portiere",
-          "nazionalita": "POL",
-          "numero": 1
-        },
-        {
-          "nome": "Perin",
-          "ruolo": "Portiere",
-          "nazionalita": "ITA",
-          "numero": 36
-        },
-        {
-          "nome": "Danilo",
-          "ruolo": "Difensore",
-          "nazionalita": "BRA",
-          "numero": 13
-        },
-        {
-          "nome": "Bremer",
-          "ruolo": "Difensore",
-          "nazionalita": "BRA",
-          "numero": 3
-        },
-        {
-          "nome": "Cambiaso",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 27
-        },
-        {
-          "nome": "Gatti",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 4
-        },
-        {
-          "nome": "Alex Sandro",
-          "ruolo": "Difensore",
-          "nazionalita": "BRA",
-          "numero": 12
-        },
-        {
-          "nome": "Locatelli",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ITA",
-          "numero": 5
-        },
-        {
-          "nome": "Rabiot",
-          "ruolo": "Centrocampista",
-          "nazionalita": "FRA",
-          "numero": 25
-        },
-        {
-          "nome": "McKennie",
-          "ruolo": "Centrocampista",
-          "nazionalita": "USA",
-          "numero": 16
-        },
-        {
-          "nome": "Fagioli",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ITA",
-          "numero": 34
-        },
-        {
-          "nome": "Chiesa",
-          "ruolo": "Attaccante",
-          "nazionalita": "ITA",
-          "numero": 7
-        },
-        {
-          "nome": "Vlahovic",
-          "ruolo": "Attaccante",
-          "nazionalita": "SRB",
-          "numero": 9
-        },
-        {
-          "nome": "Yildiz",
-          "ruolo": "Attaccante",
-          "nazionalita": "TUR",
-          "numero": 10
-        },
-        {
-          "nome": "Milik",
-          "ruolo": "Attaccante",
-          "nazionalita": "POL",
-          "numero": 14
-        }
+        { "nome": "Di Gregorio", "ruolo": "Portiere" },
+        { "nome": "Perin", "ruolo": "Portiere" },
+        { "nome": "Pinsoglio", "ruolo": "Portiere" },
+        { "nome": "Bremer", "ruolo": "Difensore" },
+        { "nome": "Cabal", "ruolo": "Difensore" },
+        { "nome": "Cambiaso", "ruolo": "Difensore" },
+        { "nome": "Gatti", "ruolo": "Difensore" },
+        { "nome": "Joao Mario", "ruolo": "Difensore" },
+        { "nome": "Kalulu", "ruolo": "Difensore" },
+        { "nome": "Kelly", "ruolo": "Difensore" },
+        { "nome": "Moruzzi", "ruolo": "Difensore" },
+        { "nome": "Pedro Felipe", "ruolo": "Difensore" },
+        { "nome": "Puczka", "ruolo": "Difensore" },
+        { "nome": "Rouhi", "ruolo": "Difensore" },
+        { "nome": "Rugani", "ruolo": "Difensore" },
+        { "nome": "Villa", "ruolo": "Difensore" },
+        { "nome": "Adzic", "ruolo": "Centrocampista" },
+        { "nome": "Arthur", "ruolo": "Centrocampista" },
+        { "nome": "Cudrig", "ruolo": "Centrocampista" },
+        { "nome": "Douglas Luiz", "ruolo": "Centrocampista" },
+        { "nome": "Faticanti", "ruolo": "Centrocampista" },
+        { "nome": "Koopmeiners", "ruolo": "Centrocampista" },
+        { "nome": "Locatelli", "ruolo": "Centrocampista" },
+        { "nome": "McKennie", "ruolo": "Centrocampista" },
+        { "nome": "Miretti", "ruolo": "Centrocampista" },
+        { "nome": "K. Thuram", "ruolo": "Centrocampista" },
+        { "nome": "Cerri", "ruolo": "Attaccante" },
+        { "nome": "Conceicao", "ruolo": "Attaccante" },
+        { "nome": "David", "ruolo": "Attaccante" },
+        { "nome": "N. Gonzalez", "ruolo": "Attaccante" },
+        { "nome": "Gunduz", "ruolo": "Attaccante" },
+        { "nome": "Milik", "ruolo": "Attaccante" },
+        { "nome": "Openda", "ruolo": "Attaccante" },
+        { "nome": "Pecorino", "ruolo": "Attaccante" },
+        { "nome": "Pietrelli", "ruolo": "Attaccante" },
+        { "nome": "Yildiz", "ruolo": "Attaccante" },
+        { "nome": "Zhegrova", "ruolo": "Attaccante" }
       ]
     },
     {
@@ -885,1096 +421,506 @@
       "logo": "img/lazio.png",
       "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/c/c7/SS_Lazio_Badge.svg/180px-SS_Lazio_Badge.svg.png",
       "giocatori": [
-        {
-          "nome": "Provedel",
-          "ruolo": "Portiere",
-          "nazionalita": "ITA",
-          "numero": 94
-        },
-        {
-          "nome": "Mandas",
-          "ruolo": "Portiere",
-          "nazionalita": "GRE",
-          "numero": 25
-        },
-        {
-          "nome": "Romagnoli",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 13
-        },
-        {
-          "nome": "Casale",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 28
-        },
-        {
-          "nome": "Hysaj",
-          "ruolo": "Difensore",
-          "nazionalita": "ALB",
-          "numero": 29
-        },
-        {
-          "nome": "Lazzari",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 29
-        },
-        {
-          "nome": "Marusic",
-          "ruolo": "Difensore",
-          "nazionalita": "MNE",
-          "numero": 77
-        },
-        {
-          "nome": "Rovella",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ITA",
-          "numero": 6
-        },
-        {
-          "nome": "Alberto",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ESP",
-          "numero": 10
-        },
-        {
-          "nome": "Cataldi",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ITA",
-          "numero": 32
-        },
-        {
-          "nome": "Guendouzi",
-          "ruolo": "Centrocampista",
-          "nazionalita": "FRA",
-          "numero": 8
-        },
-        {
-          "nome": "Zaccagni",
-          "ruolo": "Attaccante",
-          "nazionalita": "ITA",
-          "numero": 20
-        },
-        {
-          "nome": "Immobile",
-          "ruolo": "Attaccante",
-          "nazionalita": "ITA",
-          "numero": 17
-        },
-        {
-          "nome": "Pedro",
-          "ruolo": "Attaccante",
-          "nazionalita": "ESP",
-          "numero": 9
-        },
-        {
-          "nome": "Felipe Anderson",
-          "ruolo": "Attaccante",
-          "nazionalita": "BRA",
-          "numero": 7
-        }
+        { "nome": "Furlanetto", "ruolo": "Portiere" },
+        { "nome": "Mandas", "ruolo": "Portiere" },
+        { "nome": "Motta", "ruolo": "Portiere" },
+        { "nome": "Provedel", "ruolo": "Portiere" },
+        { "nome": "Renzetti", "ruolo": "Portiere" },
+        { "nome": "Bordon", "ruolo": "Difensore" },
+        { "nome": "Fares", "ruolo": "Difensore" },
+        { "nome": "Floriani Mussolini", "ruolo": "Difensore" },
+        { "nome": "Gigot", "ruolo": "Difensore" },
+        { "nome": "Gila", "ruolo": "Difensore" },
+        { "nome": "Lazzari", "ruolo": "Difensore" },
+        { "nome": "Marusic", "ruolo": "Difensore" },
+        { "nome": "Milani", "ruolo": "Difensore" },
+        { "nome": "Patric", "ruolo": "Difensore" },
+        { "nome": "Pedraza", "ruolo": "Difensore" },
+        { "nome": "Lu. Pellegrini", "ruolo": "Difensore" },
+        { "nome": "Provstgaard", "ruolo": "Difensore" },
+        { "nome": "Romagnoli", "ruolo": "Difensore" },
+        { "nome": "Tavares", "ruolo": "Difensore" },
+        { "nome": "Belahyane", "ruolo": "Centrocampista" },
+        { "nome": "Cataldi", "ruolo": "Centrocampista" },
+        { "nome": "Dele-Bashiru", "ruolo": "Centrocampista" },
+        { "nome": "Di Tommaso", "ruolo": "Centrocampista" },
+        { "nome": "Pinelli", "ruolo": "Centrocampista" },
+        { "nome": "Rovella", "ruolo": "Centrocampista" },
+        { "nome": "Taylor", "ruolo": "Centrocampista" },
+        { "nome": "Artistico", "ruolo": "Attaccante" },
+        { "nome": "Cancellieri", "ruolo": "Attaccante" },
+        { "nome": "Isaksen", "ruolo": "Attaccante" },
+        { "nome": "Noslin", "ruolo": "Attaccante" },
+        { "nome": "Przyborek", "ruolo": "Attaccante" },
+        { "nome": "Ratkov", "ruolo": "Attaccante" },
+        { "nome": "Zaccagni", "ruolo": "Attaccante" }
       ]
     },
     {
       "id": 11,
-      "nome": "Milan",
-      "citta": "Milano",
-      "colori": ["#FB090B", "#000000"],
-      "logo": "img/milan.png",
-      "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Logo_of_AC_Milan.svg/180px-Logo_of_AC_Milan.svg.png",
-      "giocatori": [
-        {
-          "nome": "Maignan",
-          "ruolo": "Portiere",
-          "nazionalita": "FRA",
-          "numero": 16
-        },
-        {
-          "nome": "Sportiello",
-          "ruolo": "Portiere",
-          "nazionalita": "ITA",
-          "numero": 57
-        },
-        {
-          "nome": "Tomori",
-          "ruolo": "Difensore",
-          "nazionalita": "ENG",
-          "numero": 23
-        },
-        {
-          "nome": "Thiaw",
-          "ruolo": "Difensore",
-          "nazionalita": "GER",
-          "numero": 28
-        },
-        {
-          "nome": "Theo Hernández",
-          "ruolo": "Difensore",
-          "nazionalita": "FRA",
-          "numero": 19
-        },
-        {
-          "nome": "Calabria",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 2
-        },
-        {
-          "nome": "Pavlovic",
-          "ruolo": "Difensore",
-          "nazionalita": "SRB",
-          "numero": 31
-        },
-        {
-          "nome": "Reijnders",
-          "ruolo": "Centrocampista",
-          "nazionalita": "NED",
-          "numero": 14
-        },
-        {
-          "nome": "Bennacer",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ALG",
-          "numero": 4
-        },
-        {
-          "nome": "Loftus-Cheek",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ENG",
-          "numero": 8
-        },
-        {
-          "nome": "Adli",
-          "ruolo": "Centrocampista",
-          "nazionalita": "FRA",
-          "numero": 7
-        },
-        {
-          "nome": "Leão",
-          "ruolo": "Attaccante",
-          "nazionalita": "POR",
-          "numero": 10
-        },
-        {
-          "nome": "Giroud",
-          "ruolo": "Attaccante",
-          "nazionalita": "FRA",
-          "numero": 9
-        },
-        {
-          "nome": "Pulisic",
-          "ruolo": "Attaccante",
-          "nazionalita": "USA",
-          "numero": 11
-        },
-        {
-          "nome": "Chukwueze",
-          "ruolo": "Attaccante",
-          "nazionalita": "NGA",
-          "numero": 21
-        }
-      ]
-    },
-    {
-      "id": 12,
-      "nome": "Napoli",
-      "citta": "Napoli",
-      "colori": ["#12A0C3", "#FFFFFF"],
-      "logo": "img/napoli.png",
-      "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/SSC_Napoli_2007.svg/180px-SSC_Napoli_2007.svg.png",
-      "giocatori": [
-        {
-          "nome": "Meret",
-          "ruolo": "Portiere",
-          "nazionalita": "ITA",
-          "numero": 1
-        },
-        {
-          "nome": "Gollini",
-          "ruolo": "Portiere",
-          "nazionalita": "ITA",
-          "numero": 25
-        },
-        {
-          "nome": "Di Lorenzo",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 22
-        },
-        {
-          "nome": "Rrahmani",
-          "ruolo": "Difensore",
-          "nazionalita": "KOS",
-          "numero": 13
-        },
-        {
-          "nome": "Juan Jesus",
-          "ruolo": "Difensore",
-          "nazionalita": "BRA",
-          "numero": 5
-        },
-        {
-          "nome": "Mario Rui",
-          "ruolo": "Difensore",
-          "nazionalita": "POR",
-          "numero": 6
-        },
-        {
-          "nome": "Natan",
-          "ruolo": "Difensore",
-          "nazionalita": "BRA",
-          "numero": 17
-        },
-        {
-          "nome": "Lobotka",
-          "ruolo": "Centrocampista",
-          "nazionalita": "SVK",
-          "numero": 68
-        },
-        {
-          "nome": "Zielinski",
-          "ruolo": "Centrocampista",
-          "nazionalita": "POL",
-          "numero": 20
-        },
-        {
-          "nome": "Anguissa",
-          "ruolo": "Centrocampista",
-          "nazionalita": "CMR",
-          "numero": 99
-        },
-        {
-          "nome": "Cajuste",
-          "ruolo": "Centrocampista",
-          "nazionalita": "SWE",
-          "numero": 28
-        },
-        {
-          "nome": "Kvaratskhelia",
-          "ruolo": "Attaccante",
-          "nazionalita": "GEO",
-          "numero": 77
-        },
-        {
-          "nome": "Osimhen",
-          "ruolo": "Attaccante",
-          "nazionalita": "NGA",
-          "numero": 9
-        },
-        {
-          "nome": "Politano",
-          "ruolo": "Attaccante",
-          "nazionalita": "ITA",
-          "numero": 21
-        },
-        {
-          "nome": "Lindstrom",
-          "ruolo": "Attaccante",
-          "nazionalita": "DEN",
-          "numero": 7
-        }
-      ]
-    },
-    {
-      "id": 13,
-      "nome": "Parma",
-      "citta": "Parma",
-      "colori": ["#FFD700", "#003087"],
-      "logo": "img/parma.png",
-      "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4f/Parma_Calcio_logo.svg/180px-Parma_Calcio_logo.svg.png",
-      "giocatori": [
-        {
-          "nome": "Buffon",
-          "ruolo": "Portiere",
-          "nazionalita": "ITA",
-          "numero": 1
-        },
-        {
-          "nome": "Corvi",
-          "ruolo": "Portiere",
-          "nazionalita": "ITA",
-          "numero": 23
-        },
-        {
-          "nome": "Del Prato",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 5
-        },
-        {
-          "nome": "Balogh",
-          "ruolo": "Difensore",
-          "nazionalita": "HUN",
-          "numero": 4
-        },
-        {
-          "nome": "Coulibaly",
-          "ruolo": "Difensore",
-          "nazionalita": "MAL",
-          "numero": 3
-        },
-        {
-          "nome": "Delprato",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 2
-        },
-        {
-          "nome": "Valenti",
-          "ruolo": "Difensore",
-          "nazionalita": "ARG",
-          "numero": 22
-        },
-        {
-          "nome": "Sohm",
-          "ruolo": "Centrocampista",
-          "nazionalita": "SUI",
-          "numero": 8
-        },
-        {
-          "nome": "Bernabé",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ESP",
-          "numero": 10
-        },
-        {
-          "nome": "Estevez",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ESP",
-          "numero": 6
-        },
-        {
-          "nome": "Hainaut",
-          "ruolo": "Centrocampista",
-          "nazionalita": "FRA",
-          "numero": 19
-        },
-        {
-          "nome": "Man",
-          "ruolo": "Attaccante",
-          "nazionalita": "ROU",
-          "numero": 7
-        },
-        {
-          "nome": "Benedyczak",
-          "ruolo": "Attaccante",
-          "nazionalita": "POL",
-          "numero": 9
-        },
-        {
-          "nome": "Mihaila",
-          "ruolo": "Attaccante",
-          "nazionalita": "ROU",
-          "numero": 17
-        },
-        {
-          "nome": "Bonny",
-          "ruolo": "Attaccante",
-          "nazionalita": "FRA",
-          "numero": 11
-        }
-      ]
-    },
-    {
-      "id": 14,
-      "nome": "Roma",
-      "citta": "Roma",
-      "colori": ["#8B0000", "#FFD700"],
-      "logo": "img/roma.png",
-      "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f7/AS_Roma_logo_%282017%29.svg/180px-AS_Roma_logo_%282017%29.svg.png",
-      "giocatori": [
-        {
-          "nome": "Svilar",
-          "ruolo": "Portiere",
-          "nazionalita": "SRB",
-          "numero": 99
-        },
-        {
-          "nome": "Rui Patrício",
-          "ruolo": "Portiere",
-          "nazionalita": "POR",
-          "numero": 1
-        },
-        {
-          "nome": "Mancini",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 23
-        },
-        {
-          "nome": "Ndicka",
-          "ruolo": "Difensore",
-          "nazionalita": "FRA",
-          "numero": 5
-        },
-        {
-          "nome": "Spinazzola",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 37
-        },
-        {
-          "nome": "Llorente",
-          "ruolo": "Difensore",
-          "nazionalita": "ESP",
-          "numero": 11
-        },
-        {
-          "nome": "Karsdorp",
-          "ruolo": "Difensore",
-          "nazionalita": "NED",
-          "numero": 2
-        },
-        {
-          "nome": "Cristante",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ITA",
-          "numero": 4
-        },
-        {
-          "nome": "Paredes",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ARG",
-          "numero": 16
-        },
-        {
-          "nome": "Pellegrini",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ITA",
-          "numero": 7
-        },
-        {
-          "nome": "Aouar",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ALG",
-          "numero": 21
-        },
-        {
-          "nome": "Dybala",
-          "ruolo": "Attaccante",
-          "nazionalita": "ARG",
-          "numero": 21
-        },
-        {
-          "nome": "Lukaku",
-          "ruolo": "Attaccante",
-          "nazionalita": "BEL",
-          "numero": 9
-        },
-        {
-          "nome": "El Shaarawy",
-          "ruolo": "Attaccante",
-          "nazionalita": "ITA",
-          "numero": 92
-        },
-        {
-          "nome": "Belotti",
-          "ruolo": "Attaccante",
-          "nazionalita": "ITA",
-          "numero": 11
-        }
-      ]
-    },
-    {
-      "id": 15,
-      "nome": "Sassuolo",
-      "citta": "Sassuolo",
-      "colori": ["#1B8335", "#000000"],
-      "logo": "img/sassuolo.png",
-      "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/7/72/US_Sassuolo_Calcio_logo.svg/180px-US_Sassuolo_Calcio_logo.svg.png",
-      "giocatori": [
-        {
-          "nome": "Consigli",
-          "ruolo": "Portiere",
-          "nazionalita": "ITA",
-          "numero": 47
-        },
-        {
-          "nome": "Pegolo",
-          "ruolo": "Portiere",
-          "nazionalita": "ITA",
-          "numero": 1
-        },
-        {
-          "nome": "Erlic",
-          "ruolo": "Difensore",
-          "nazionalita": "CRO",
-          "numero": 21
-        },
-        {
-          "nome": "Tressoldi",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 4
-        },
-        {
-          "nome": "Doig",
-          "ruolo": "Difensore",
-          "nazionalita": "SCO",
-          "numero": 13
-        },
-        {
-          "nome": "Toljan",
-          "ruolo": "Difensore",
-          "nazionalita": "GER",
-          "numero": 2
-        },
-        {
-          "nome": "Pedersen",
-          "ruolo": "Difensore",
-          "nazionalita": "NOR",
-          "numero": 16
-        },
-        {
-          "nome": "Frattesi",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ITA",
-          "numero": 8
-        },
-        {
-          "nome": "Thorstvedt",
-          "ruolo": "Centrocampista",
-          "nazionalita": "NOR",
-          "numero": 21
-        },
-        {
-          "nome": "Henrique",
-          "ruolo": "Centrocampista",
-          "nazionalita": "BRA",
-          "numero": 6
-        },
-        {
-          "nome": "Matheus Henrique",
-          "ruolo": "Centrocampista",
-          "nazionalita": "BRA",
-          "numero": 15
-        },
-        {
-          "nome": "Berardi",
-          "ruolo": "Attaccante",
-          "nazionalita": "ITA",
-          "numero": 25
-        },
-        {
-          "nome": "Pinamonti",
-          "ruolo": "Attaccante",
-          "nazionalita": "ITA",
-          "numero": 9
-        },
-        {
-          "nome": "Laurienté",
-          "ruolo": "Attaccante",
-          "nazionalita": "FRA",
-          "numero": 7
-        },
-        {
-          "nome": "Castillejo",
-          "ruolo": "Attaccante",
-          "nazionalita": "ESP",
-          "numero": 11
-        }
-      ]
-    },
-    {
-      "id": 16,
-      "nome": "Torino",
-      "citta": "Torino",
-      "colori": ["#8B0000", "#FFFFFF"],
-      "logo": "img/torino.png",
-      "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Logo_Torino_FC_2016.svg/180px-Logo_Torino_FC_2016.svg.png",
-      "giocatori": [
-        {
-          "nome": "Milinkovic-Savic",
-          "ruolo": "Portiere",
-          "nazionalita": "SRB",
-          "numero": 32
-        },
-        {
-          "nome": "Gemello",
-          "ruolo": "Portiere",
-          "nazionalita": "ITA",
-          "numero": 23
-        },
-        {
-          "nome": "Schuurs",
-          "ruolo": "Difensore",
-          "nazionalita": "NED",
-          "numero": 3
-        },
-        {
-          "nome": "Buongiorno",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 4
-        },
-        {
-          "nome": "Rodriguez",
-          "ruolo": "Difensore",
-          "nazionalita": "SUI",
-          "numero": 13
-        },
-        {
-          "nome": "Vojvoda",
-          "ruolo": "Difensore",
-          "nazionalita": "KOS",
-          "numero": 27
-        },
-        {
-          "nome": "Bellanova",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 2
-        },
-        {
-          "nome": "Ricci",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ITA",
-          "numero": 38
-        },
-        {
-          "nome": "Ilic",
-          "ruolo": "Centrocampista",
-          "nazionalita": "SRB",
-          "numero": 8
-        },
-        {
-          "nome": "Tameze",
-          "ruolo": "Centrocampista",
-          "nazionalita": "NED",
-          "numero": 61
-        },
-        {
-          "nome": "Linetty",
-          "ruolo": "Centrocampista",
-          "nazionalita": "POL",
-          "numero": 14
-        },
-        {
-          "nome": "Sanabria",
-          "ruolo": "Attaccante",
-          "nazionalita": "PAR",
-          "numero": 9
-        },
-        {
-          "nome": "Zapata",
-          "ruolo": "Attaccante",
-          "nazionalita": "COL",
-          "numero": 91
-        },
-        {
-          "nome": "Karamoh",
-          "ruolo": "Attaccante",
-          "nazionalita": "FRA",
-          "numero": 22
-        },
-        {
-          "nome": "Radonjic",
-          "ruolo": "Attaccante",
-          "nazionalita": "SRB",
-          "numero": 49
-        }
-      ]
-    },
-    {
-      "id": 17,
-      "nome": "Udinese",
-      "citta": "Udine",
-      "colori": ["#000000", "#FFFFFF"],
-      "logo": "img/udinese.png",
-      "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Udinese_Calcio_logo.svg/180px-Udinese_Calcio_logo.svg.png",
-      "giocatori": [
-        {
-          "nome": "Silvestri",
-          "ruolo": "Portiere",
-          "nazionalita": "ITA",
-          "numero": 1
-        },
-        {
-          "nome": "Okoye",
-          "ruolo": "Portiere",
-          "nazionalita": "NGA",
-          "numero": 22
-        },
-        {
-          "nome": "Becao",
-          "ruolo": "Difensore",
-          "nazionalita": "BRA",
-          "numero": 5
-        },
-        {
-          "nome": "Perez",
-          "ruolo": "Difensore",
-          "nazionalita": "CHL",
-          "numero": 14
-        },
-        {
-          "nome": "Kamara",
-          "ruolo": "Difensore",
-          "nazionalita": "GUI",
-          "numero": 17
-        },
-        {
-          "nome": "Kristensen",
-          "ruolo": "Difensore",
-          "nazionalita": "DEN",
-          "numero": 2
-        },
-        {
-          "nome": "Ferreira",
-          "ruolo": "Difensore",
-          "nazionalita": "POR",
-          "numero": 25
-        },
-        {
-          "nome": "Walace",
-          "ruolo": "Centrocampista",
-          "nazionalita": "BRA",
-          "numero": 5
-        },
-        {
-          "nome": "Lovric",
-          "ruolo": "Centrocampista",
-          "nazionalita": "SVN",
-          "numero": 8
-        },
-        {
-          "nome": "Samardzic",
-          "ruolo": "Centrocampista",
-          "nazionalita": "SRB",
-          "numero": 20
-        },
-        {
-          "nome": "Ebosele",
-          "ruolo": "Centrocampista",
-          "nazionalita": "IRL",
-          "numero": 77
-        },
-        {
-          "nome": "Thauvin",
-          "ruolo": "Attaccante",
-          "nazionalita": "FRA",
-          "numero": 11
-        },
-        {
-          "nome": "Lucca",
-          "ruolo": "Attaccante",
-          "nazionalita": "ITA",
-          "numero": 17
-        },
-        {
-          "nome": "Success",
-          "ruolo": "Attaccante",
-          "nazionalita": "NGA",
-          "numero": 7
-        },
-        {
-          "nome": "Pereyra",
-          "ruolo": "Attaccante",
-          "nazionalita": "ARG",
-          "numero": 6
-        }
-      ]
-    },
-    {
-      "id": 18,
-      "nome": "Venezia",
-      "citta": "Venezia",
-      "colori": ["#FF6600", "#000000"],
-      "logo": "img/venezia.png",
-      "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/5/50/Venezia_FC_logo.svg/180px-Venezia_FC_logo.svg.png",
-      "giocatori": [
-        {
-          "nome": "Joronen",
-          "ruolo": "Portiere",
-          "nazionalita": "FIN",
-          "numero": 1
-        },
-        {
-          "nome": "Bertinato",
-          "ruolo": "Portiere",
-          "nazionalita": "ITA",
-          "numero": 22
-        },
-        {
-          "nome": "Svoboda",
-          "ruolo": "Difensore",
-          "nazionalita": "CZE",
-          "numero": 5
-        },
-        {
-          "nome": "Idzes",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 3
-        },
-        {
-          "nome": "Zampano",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 25
-        },
-        {
-          "nome": "Candé",
-          "ruolo": "Difensore",
-          "nazionalita": "GUI",
-          "numero": 2
-        },
-        {
-          "nome": "Altare",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 4
-        },
-        {
-          "nome": "Nicolussi Caviglia",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ITA",
-          "numero": 23
-        },
-        {
-          "nome": "Duncan",
-          "ruolo": "Centrocampista",
-          "nazionalita": "GHA",
-          "numero": 29
-        },
-        {
-          "nome": "Busio",
-          "ruolo": "Centrocampista",
-          "nazionalita": "USA",
-          "numero": 8
-        },
-        {
-          "nome": "Bjarkason",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ISL",
-          "numero": 14
-        },
-        {
-          "nome": "Oristanio",
-          "ruolo": "Attaccante",
-          "nazionalita": "ITA",
-          "numero": 27
-        },
-        {
-          "nome": "Pohjanpalo",
-          "ruolo": "Attaccante",
-          "nazionalita": "FIN",
-          "numero": 9
-        },
-        {
-          "nome": "Gytkjaer",
-          "ruolo": "Attaccante",
-          "nazionalita": "DEN",
-          "numero": 11
-        },
-        {
-          "nome": "Pierini",
-          "ruolo": "Attaccante",
-          "nazionalita": "ITA",
-          "numero": 7
-        }
-      ]
-    },
-    {
-      "id": 19,
       "nome": "Lecce",
       "citta": "Lecce",
       "colori": ["#FFD700", "#8B0000"],
       "logo": "img/lecce.png",
       "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/0/04/US_Lecce_logo.svg/180px-US_Lecce_logo.svg.png",
       "giocatori": [
-        {
-          "nome": "Falcone",
-          "ruolo": "Portiere",
-          "nazionalita": "ITA",
-          "numero": 35
-        },
-        {
-          "nome": "Brancolini",
-          "ruolo": "Portiere",
-          "nazionalita": "ITA",
-          "numero": 1
-        },
-        {
-          "nome": "Baschirotto",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 15
-        },
-        {
-          "nome": "Pongracic",
-          "ruolo": "Difensore",
-          "nazionalita": "CRO",
-          "numero": 4
-        },
-        {
-          "nome": "Gallo",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 3
-        },
-        {
-          "nome": "Gendrey",
-          "ruolo": "Difensore",
-          "nazionalita": "FRA",
-          "numero": 22
-        },
-        {
-          "nome": "Venuti",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 6
-        },
-        {
-          "nome": "Blin",
-          "ruolo": "Centrocampista",
-          "nazionalita": "FRA",
-          "numero": 29
-        },
-        {
-          "nome": "Ramadani",
-          "ruolo": "Centrocampista",
-          "nazionalita": "KOS",
-          "numero": 8
-        },
-        {
-          "nome": "Oudin",
-          "ruolo": "Centrocampista",
-          "nazionalita": "FRA",
-          "numero": 10
-        },
-        {
-          "nome": "Gonzalez",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ARG",
-          "numero": 11
-        },
-        {
-          "nome": "Sansone",
-          "ruolo": "Attaccante",
-          "nazionalita": "ITA",
-          "numero": 18
-        },
-        {
-          "nome": "Krstovic",
-          "ruolo": "Attaccante",
-          "nazionalita": "MNE",
-          "numero": 9
-        },
-        {
-          "nome": "Almqvist",
-          "ruolo": "Attaccante",
-          "nazionalita": "SWE",
-          "numero": 7
-        },
-        {
-          "nome": "Piccoli",
-          "ruolo": "Attaccante",
-          "nazionalita": "ITA",
-          "numero": 91
-        }
+        { "nome": "Borbei", "ruolo": "Portiere" },
+        { "nome": "Falcone", "ruolo": "Portiere" },
+        { "nome": "Fruchtl", "ruolo": "Portiere" },
+        { "nome": "Samooja", "ruolo": "Portiere" },
+        { "nome": "Addo", "ruolo": "Difensore" },
+        { "nome": "Se. Esposito", "ruolo": "Difensore" },
+        { "nome": "Gallo", "ruolo": "Difensore" },
+        { "nome": "Gaspar", "ruolo": "Difensore" },
+        { "nome": "Kouassi", "ruolo": "Difensore" },
+        { "nome": "Ndaba", "ruolo": "Difensore" },
+        { "nome": "M. Perez", "ruolo": "Difensore" },
+        { "nome": "Siebert", "ruolo": "Difensore" },
+        { "nome": "Tiago Gabriel", "ruolo": "Difensore" },
+        { "nome": "Ubani", "ruolo": "Difensore" },
+        { "nome": "Veiga", "ruolo": "Difensore" },
+        { "nome": "Berisha", "ruolo": "Centrocampista" },
+        { "nome": "Coulibaly", "ruolo": "Centrocampista" },
+        { "nome": "S. Fofana", "ruolo": "Centrocampista" },
+        { "nome": "Gandelman", "ruolo": "Centrocampista" },
+        { "nome": "Gorter", "ruolo": "Centrocampista" },
+        { "nome": "Helgason", "ruolo": "Centrocampista" },
+        { "nome": "Kaba", "ruolo": "Centrocampista" },
+        { "nome": "Kovac", "ruolo": "Centrocampista" },
+        { "nome": "Maleh", "ruolo": "Centrocampista" },
+        { "nome": "Marchwinski", "ruolo": "Centrocampista" },
+        { "nome": "McJannet", "ruolo": "Centrocampista" },
+        { "nome": "Ngom", "ruolo": "Centrocampista" },
+        { "nome": "Ramadani", "ruolo": "Centrocampista" },
+        { "nome": "A. Sala", "ruolo": "Centrocampista" },
+        { "nome": "Banda", "ruolo": "Attaccante" },
+        { "nome": "Burnete", "ruolo": "Attaccante" },
+        { "nome": "Delle Monache", "ruolo": "Attaccante" },
+        { "nome": "Jovic", "ruolo": "Attaccante" },
+        { "nome": "N'Dri", "ruolo": "Attaccante" },
+        { "nome": "Pierotti", "ruolo": "Attaccante" },
+        { "nome": "Stulic", "ruolo": "Attaccante" }
+      ]
+    },
+    {
+      "id": 12,
+      "nome": "Milan",
+      "citta": "Milano",
+      "colori": ["#FB090B", "#000000"],
+      "logo": "img/milan.png",
+      "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Logo_of_AC_Milan.svg/180px-Logo_of_AC_Milan.svg.png",
+      "giocatori": [
+        { "nome": "Maignan", "ruolo": "Portiere" },
+        { "nome": "P. Terracciano", "ruolo": "Portiere" },
+        { "nome": "Torriani", "ruolo": "Portiere" },
+        { "nome": "Athekame", "ruolo": "Difensore" },
+        { "nome": "Bartesaghi", "ruolo": "Difensore" },
+        { "nome": "De Winter", "ruolo": "Difensore" },
+        { "nome": "Estupinan", "ruolo": "Difensore" },
+        { "nome": "Gabbia", "ruolo": "Difensore" },
+        { "nome": "Odogu", "ruolo": "Difensore" },
+        { "nome": "Pavlovic", "ruolo": "Difensore" },
+        { "nome": "F. Terracciano", "ruolo": "Difensore" },
+        { "nome": "Tomori", "ruolo": "Difensore" },
+        { "nome": "Zukic", "ruolo": "Difensore" },
+        { "nome": "Bennacer", "ruolo": "Centrocampista" },
+        { "nome": "Bondo", "ruolo": "Centrocampista" },
+        { "nome": "Eletu", "ruolo": "Centrocampista" },
+        { "nome": "Y. Fofana", "ruolo": "Centrocampista" },
+        { "nome": "Jashari", "ruolo": "Centrocampista" },
+        { "nome": "Loftus-Cheek", "ruolo": "Centrocampista" },
+        { "nome": "Musah", "ruolo": "Centrocampista" },
+        { "nome": "Rabiot", "ruolo": "Centrocampista" },
+        { "nome": "Ricci", "ruolo": "Centrocampista" },
+        { "nome": "Saelemaekers", "ruolo": "Centrocampista" },
+        { "nome": "Sardo", "ruolo": "Centrocampista" },
+        { "nome": "Zeroli", "ruolo": "Centrocampista" },
+        { "nome": "Balentien", "ruolo": "Attaccante" },
+        { "nome": "Camarda", "ruolo": "Attaccante" },
+        { "nome": "Chukwueze", "ruolo": "Attaccante" },
+        { "nome": "A. Cissé", "ruolo": "Attaccante" },
+        { "nome": "Gimenez", "ruolo": "Attaccante" },
+        { "nome": "Ibrahimovic", "ruolo": "Attaccante" },
+        { "nome": "Leao", "ruolo": "Attaccante" },
+        { "nome": "Nkunku", "ruolo": "Attaccante" },
+        { "nome": "Pulisic", "ruolo": "Attaccante" },
+        { "nome": "Ramos", "ruolo": "Attaccante" }
+      ]
+    },
+    {
+      "id": 13,
+      "nome": "Monza",
+      "citta": "",
+      "colori": [],
+      "logo": "",
+      "logo_url": "",
+      "giocatori": [
+        { "nome": "Ciardi", "ruolo": "Portiere" },
+        { "nome": "Pizzignacco", "ruolo": "Portiere" },
+        { "nome": "Strajnar", "ruolo": "Portiere" },
+        { "nome": "Thiam", "ruolo": "Portiere" },
+        { "nome": "Antov", "ruolo": "Difensore" },
+        { "nome": "Azzi", "ruolo": "Difensore" },
+        { "nome": "Bakoune", "ruolo": "Difensore" },
+        { "nome": "Birindelli", "ruolo": "Difensore" },
+        { "nome": "Brorsson", "ruolo": "Difensore" },
+        { "nome": "Capolupo", "ruolo": "Difensore" },
+        { "nome": "A. Carboni", "ruolo": "Difensore" },
+        { "nome": "Delli Carri", "ruolo": "Difensore" },
+        { "nome": "Lucchesi", "ruolo": "Difensore" },
+        { "nome": "Ravanelli", "ruolo": "Difensore" },
+        { "nome": "Berretta", "ruolo": "Centrocampista" },
+        { "nome": "Ciurria", "ruolo": "Centrocampista" },
+        { "nome": "Le. Colombo", "ruolo": "Centrocampista" },
+        { "nome": "Colpani", "ruolo": "Centrocampista" },
+        { "nome": "Galazzi", "ruolo": "Centrocampista" },
+        { "nome": "Hernani", "ruolo": "Centrocampista" },
+        { "nome": "Pessina", "ruolo": "Centrocampista" },
+        { "nome": "K. Balde", "ruolo": "Attaccante" },
+        { "nome": "Cutrone", "ruolo": "Attaccante" },
+        { "nome": "Forson", "ruolo": "Attaccante" },
+        { "nome": "Loubao", "ruolo": "Attaccante" },
+        { "nome": "Martins", "ruolo": "Attaccante" },
+        { "nome": "Mota Carvalho", "ruolo": "Attaccante" },
+        { "nome": "Ondoa", "ruolo": "Attaccante" },
+        { "nome": "Petagna", "ruolo": "Attaccante" }
+      ]
+    },
+    {
+      "id": 14,
+      "nome": "Napoli",
+      "citta": "Napoli",
+      "colori": ["#12A0C3", "#FFFFFF"],
+      "logo": "img/napoli.png",
+      "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/SSC_Napoli_2007.svg/180px-SSC_Napoli_2007.svg.png",
+      "giocatori": [
+        { "nome": "Contini", "ruolo": "Portiere" },
+        { "nome": "Ferrante", "ruolo": "Portiere" },
+        { "nome": "Meret", "ruolo": "Portiere" },
+        { "nome": "Milinkovic-Savic", "ruolo": "Portiere" },
+        { "nome": "Turi", "ruolo": "Portiere" },
+        { "nome": "Beukema", "ruolo": "Difensore" },
+        { "nome": "Buongiorno", "ruolo": "Difensore" },
+        { "nome": "D'Avino", "ruolo": "Difensore" },
+        { "nome": "Di Lorenzo", "ruolo": "Difensore" },
+        { "nome": "Gutierrez", "ruolo": "Difensore" },
+        { "nome": "Marianucci", "ruolo": "Difensore" },
+        { "nome": "Marin", "ruolo": "Difensore" },
+        { "nome": "Mazzocchi", "ruolo": "Difensore" },
+        { "nome": "Obaretin", "ruolo": "Difensore" },
+        { "nome": "Olivera", "ruolo": "Difensore" },
+        { "nome": "Rrahmani", "ruolo": "Difensore" },
+        { "nome": "Spinazzola", "ruolo": "Difensore" },
+        { "nome": "Anguissa", "ruolo": "Centrocampista" },
+        { "nome": "Cajuste", "ruolo": "Centrocampista" },
+        { "nome": "De Bruyne", "ruolo": "Centrocampista" },
+        { "nome": "Folorunsho", "ruolo": "Centrocampista" },
+        { "nome": "Gilmour", "ruolo": "Centrocampista" },
+        { "nome": "Hasa", "ruolo": "Centrocampista" },
+        { "nome": "Iaccarino", "ruolo": "Centrocampista" },
+        { "nome": "Lobotka", "ruolo": "Centrocampista" },
+        { "nome": "McTominay", "ruolo": "Centrocampista" },
+        { "nome": "Russo", "ruolo": "Centrocampista" },
+        { "nome": "Saco", "ruolo": "Centrocampista" },
+        { "nome": "Vergara", "ruolo": "Centrocampista" },
+        { "nome": "Zerbin", "ruolo": "Centrocampista" },
+        { "nome": "Alisson Santos", "ruolo": "Attaccante" },
+        { "nome": "Ambrosino", "ruolo": "Attaccante" },
+        { "nome": "Cheddira", "ruolo": "Attaccante" },
+        { "nome": "Cioffi", "ruolo": "Attaccante" },
+        { "nome": "Giovane", "ruolo": "Attaccante" },
+        { "nome": "Hojlund", "ruolo": "Attaccante" },
+        { "nome": "Lang", "ruolo": "Attaccante" },
+        { "nome": "Lindstrom", "ruolo": "Attaccante" },
+        { "nome": "Lucca", "ruolo": "Attaccante" },
+        { "nome": "Lukaku", "ruolo": "Attaccante" },
+        { "nome": "Neres", "ruolo": "Attaccante" },
+        { "nome": "Ngonge", "ruolo": "Attaccante" },
+        { "nome": "Politano", "ruolo": "Attaccante" },
+        { "nome": "Rao", "ruolo": "Attaccante" },
+        { "nome": "Sgarbi", "ruolo": "Attaccante" },
+        { "nome": "Vigliotti", "ruolo": "Attaccante" }
+      ]
+    },
+    {
+      "id": 15,
+      "nome": "Parma",
+      "citta": "Parma",
+      "colori": ["#FFD700", "#003087"],
+      "logo": "img/parma.png",
+      "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4f/Parma_Calcio_logo.svg/180px-Parma_Calcio_logo.svg.png",
+      "giocatori": [
+        { "nome": "Corvi", "ruolo": "Portiere" },
+        { "nome": "Rinaldi", "ruolo": "Portiere" },
+        { "nome": "Suzuki", "ruolo": "Portiere" },
+        { "nome": "Amoran", "ruolo": "Difensore" },
+        { "nome": "Balogh", "ruolo": "Difensore" },
+        { "nome": "Britschgi", "ruolo": "Difensore" },
+        { "nome": "Circati", "ruolo": "Difensore" },
+        { "nome": "Delprato", "ruolo": "Difensore" },
+        { "nome": "Ndiaye", "ruolo": "Difensore" },
+        { "nome": "Trabucchi", "ruolo": "Difensore" },
+        { "nome": "Troilo", "ruolo": "Difensore" },
+        { "nome": "Valenti", "ruolo": "Difensore" },
+        { "nome": "Valeri", "ruolo": "Difensore" },
+        { "nome": "Bernabe", "ruolo": "Centrocampista" },
+        { "nome": "Cremaschi", "ruolo": "Centrocampista" },
+        { "nome": "Keita", "ruolo": "Centrocampista" },
+        { "nome": "Kouda", "ruolo": "Centrocampista" },
+        { "nome": "Nicolussi Caviglia", "ruolo": "Centrocampista" },
+        { "nome": "Ordonez", "ruolo": "Centrocampista" },
+        { "nome": "Sorensen", "ruolo": "Centrocampista" },
+        { "nome": "Terrnava", "ruolo": "Centrocampista" },
+        { "nome": "Almqvist", "ruolo": "Attaccante" },
+        { "nome": "Benedyczak", "ruolo": "Attaccante" },
+        { "nome": "Elphege", "ruolo": "Attaccante" },
+        { "nome": "Frigan", "ruolo": "Attaccante" },
+        { "nome": "Joujou", "ruolo": "Attaccante" },
+        { "nome": "Kowalski", "ruolo": "Attaccante" },
+        { "nome": "Ondrejka", "ruolo": "Attaccante" },
+        { "nome": "Partipilo", "ruolo": "Attaccante" },
+        { "nome": "Pellegrino", "ruolo": "Attaccante" },
+        { "nome": "Sits", "ruolo": "Attaccante" }
+      ]
+    },
+    {
+      "id": 16,
+      "nome": "Roma",
+      "citta": "Roma",
+      "colori": ["#8B0000", "#FFD700"],
+      "logo": "img/roma.png",
+      "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f7/AS_Roma_logo_%282017%29.svg/180px-AS_Roma_logo_%282017%29.svg.png",
+      "giocatori": [
+        { "nome": "Gollini", "ruolo": "Portiere" },
+        { "nome": "Svilar", "ruolo": "Portiere" },
+        { "nome": "D. Vasquez", "ruolo": "Portiere" },
+        { "nome": "Zelezny", "ruolo": "Portiere" },
+        { "nome": "Abdulhamid", "ruolo": "Difensore" },
+        { "nome": "Angelino", "ruolo": "Difensore" },
+        { "nome": "Celik", "ruolo": "Difensore" },
+        { "nome": "Ghilardi", "ruolo": "Difensore" },
+        { "nome": "Hermoso", "ruolo": "Difensore" },
+        { "nome": "Kumbulla", "ruolo": "Difensore" },
+        { "nome": "Mancini", "ruolo": "Difensore" },
+        { "nome": "Mannini", "ruolo": "Difensore" },
+        { "nome": "Ndicka", "ruolo": "Difensore" },
+        { "nome": "Reale", "ruolo": "Difensore" },
+        { "nome": "Rensch", "ruolo": "Difensore" },
+        { "nome": "Salah-Eddine", "ruolo": "Difensore" },
+        { "nome": "Sangaré", "ruolo": "Difensore" },
+        { "nome": "Wesley", "ruolo": "Difensore" },
+        { "nome": "Ziolkowski", "ruolo": "Difensore" },
+        { "nome": "Cristante", "ruolo": "Centrocampista" },
+        { "nome": "El Aynaoui", "ruolo": "Centrocampista" },
+        { "nome": "M. Koné", "ruolo": "Centrocampista" },
+        { "nome": "Pagano", "ruolo": "Centrocampista" },
+        { "nome": "Lo. Pellegrini", "ruolo": "Centrocampista" },
+        { "nome": "Pisilli", "ruolo": "Centrocampista" },
+        { "nome": "Romano", "ruolo": "Centrocampista" },
+        { "nome": "Cherubini", "ruolo": "Attaccante" },
+        { "nome": "Dovbyk", "ruolo": "Attaccante" },
+        { "nome": "Dybala", "ruolo": "Attaccante" },
+        { "nome": "Malen", "ruolo": "Attaccante" },
+        { "nome": "Soulé", "ruolo": "Attaccante" },
+        { "nome": "R. Vaz", "ruolo": "Attaccante" }
+      ]
+    },
+    {
+      "id": 17,
+      "nome": "Sassuolo",
+      "citta": "Sassuolo",
+      "colori": ["#1B8335", "#000000"],
+      "logo": "img/sassuolo.png",
+      "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/7/72/US_Sassuolo_Calcio_logo.svg/180px-US_Sassuolo_Calcio_logo.svg.png",
+      "giocatori": [
+        { "nome": "Muric", "ruolo": "Portiere" },
+        { "nome": "A. Russo", "ruolo": "Portiere" },
+        { "nome": "Turati", "ruolo": "Portiere" },
+        { "nome": "Zacchi", "ruolo": "Portiere" },
+        { "nome": "Candé", "ruolo": "Difensore" },
+        { "nome": "Corradini", "ruolo": "Difensore" },
+        { "nome": "Di Bitonto", "ruolo": "Difensore" },
+        { "nome": "Doig", "ruolo": "Difensore" },
+        { "nome": "Idzes", "ruolo": "Difensore" },
+        { "nome": "K. Miranda", "ruolo": "Difensore" },
+        { "nome": "Missori", "ruolo": "Difensore" },
+        { "nome": "Muharemovic", "ruolo": "Difensore" },
+        { "nome": "Odenthal", "ruolo": "Difensore" },
+        { "nome": "Y. Paz", "ruolo": "Difensore" },
+        { "nome": "Pieragnolo", "ruolo": "Difensore" },
+        { "nome": "Romagna", "ruolo": "Difensore" },
+        { "nome": "Ruan", "ruolo": "Difensore" },
+        { "nome": "Walukiewicz", "ruolo": "Difensore" },
+        { "nome": "Boloca", "ruolo": "Centrocampista" },
+        { "nome": "Caligara", "ruolo": "Centrocampista" },
+        { "nome": "Cinquegrano", "ruolo": "Centrocampista" },
+        { "nome": "Ghion", "ruolo": "Centrocampista" },
+        { "nome": "Iannoni", "ruolo": "Centrocampista" },
+        { "nome": "I. Koné", "ruolo": "Centrocampista" },
+        { "nome": "Kumi", "ruolo": "Centrocampista" },
+        { "nome": "Leone", "ruolo": "Centrocampista" },
+        { "nome": "Lipani", "ruolo": "Centrocampista" },
+        { "nome": "Matic", "ruolo": "Centrocampista" },
+        { "nome": "Thorstvedt", "ruolo": "Centrocampista" },
+        { "nome": "Alvarez", "ruolo": "Attaccante" },
+        { "nome": "Antiste", "ruolo": "Attaccante" },
+        { "nome": "Bakola", "ruolo": "Attaccante" },
+        { "nome": "D. Berardi", "ruolo": "Attaccante" },
+        { "nome": "Bruno", "ruolo": "Attaccante" },
+        { "nome": "Ciervo", "ruolo": "Attaccante" },
+        { "nome": "D'Andrea", "ruolo": "Attaccante" },
+        { "nome": "Knezovic", "ruolo": "Attaccante" },
+        { "nome": "Laurienté", "ruolo": "Attaccante" },
+        { "nome": "Minta", "ruolo": "Attaccante" },
+        { "nome": "L. Moro", "ruolo": "Attaccante" },
+        { "nome": "Mulattieri", "ruolo": "Attaccante" },
+        { "nome": "Nuamah", "ruolo": "Attaccante" },
+        { "nome": "Pierini", "ruolo": "Attaccante" },
+        { "nome": "Pinamonti", "ruolo": "Attaccante" },
+        { "nome": "F. Russo", "ruolo": "Attaccante" },
+        { "nome": "Skjellerup", "ruolo": "Attaccante" },
+        { "nome": "Volpato", "ruolo": "Attaccante" }
+      ]
+    },
+    {
+      "id": 18,
+      "nome": "Torino",
+      "citta": "Torino",
+      "colori": ["#8B0000", "#FFFFFF"],
+      "logo": "img/torino.png",
+      "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Logo_Torino_FC_2016.svg/180px-Logo_Torino_FC_2016.svg.png",
+      "giocatori": [
+        { "nome": "Israel", "ruolo": "Portiere" },
+        { "nome": "Paleari", "ruolo": "Portiere" },
+        { "nome": "Siviero", "ruolo": "Portiere" },
+        { "nome": "Antolini", "ruolo": "Difensore" },
+        { "nome": "Bianay Balcot", "ruolo": "Difensore" },
+        { "nome": "Biraghi", "ruolo": "Difensore" },
+        { "nome": "Coco", "ruolo": "Difensore" },
+        { "nome": "Dembele", "ruolo": "Difensore" },
+        { "nome": "Dellavalle", "ruolo": "Difensore" },
+        { "nome": "Ismajli", "ruolo": "Difensore" },
+        { "nome": "Pedersen", "ruolo": "Difensore" },
+        { "nome": "Anjorin", "ruolo": "Centrocampista" },
+        { "nome": "Casadei", "ruolo": "Centrocampista" },
+        { "nome": "Ciammaglichella", "ruolo": "Centrocampista" },
+        { "nome": "Dalla Vecchia", "ruolo": "Centrocampista" },
+        { "nome": "Dell'Aquila", "ruolo": "Centrocampista" },
+        { "nome": "Di Marco", "ruolo": "Centrocampista" },
+        { "nome": "Gineitis", "ruolo": "Centrocampista" },
+        { "nome": "I. Ilic", "ruolo": "Centrocampista" },
+        { "nome": "Ilkhan", "ruolo": "Centrocampista" },
+        { "nome": "Perciun", "ruolo": "Centrocampista" },
+        { "nome": "Vlasic", "ruolo": "Centrocampista" },
+        { "nome": "Aboukhlal", "ruolo": "Attaccante" },
+        { "nome": "Adams", "ruolo": "Attaccante" },
+        { "nome": "Cacciamani", "ruolo": "Attaccante" },
+        { "nome": "Kulenovic", "ruolo": "Attaccante" },
+        { "nome": "Njie", "ruolo": "Attaccante" },
+        { "nome": "Padula", "ruolo": "Attaccante" },
+        { "nome": "Pellegri", "ruolo": "Attaccante" },
+        { "nome": "Silva", "ruolo": "Attaccante" },
+        { "nome": "Simeone", "ruolo": "Attaccante" },
+        { "nome": "Zapata", "ruolo": "Attaccante" }
+      ]
+    },
+    {
+      "id": 19,
+      "nome": "Udinese",
+      "citta": "Udine",
+      "colori": ["#000000", "#FFFFFF"],
+      "logo": "img/udinese.png",
+      "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Udinese_Calcio_logo.svg/180px-Udinese_Calcio_logo.svg.png",
+      "giocatori": [
+        { "nome": "Okoye", "ruolo": "Portiere" },
+        { "nome": "Padelli", "ruolo": "Portiere" },
+        { "nome": "Piana", "ruolo": "Portiere" },
+        { "nome": "Abankwah", "ruolo": "Difensore" },
+        { "nome": "Arizala", "ruolo": "Difensore" },
+        { "nome": "Bertola", "ruolo": "Difensore" },
+        { "nome": "A. Buta", "ruolo": "Difensore" },
+        { "nome": "L. Buta", "ruolo": "Difensore" },
+        { "nome": "Ebosse", "ruolo": "Difensore" },
+        { "nome": "Goglichidze", "ruolo": "Difensore" },
+        { "nome": "Kabasele", "ruolo": "Difensore" },
+        { "nome": "Kamara", "ruolo": "Difensore" },
+        { "nome": "Kristensen", "ruolo": "Difensore" },
+        { "nome": "Mlacic", "ruolo": "Difensore" },
+        { "nome": "Modesto", "ruolo": "Difensore" },
+        { "nome": "Palma", "ruolo": "Difensore" },
+        { "nome": "Solet", "ruolo": "Difensore" },
+        { "nome": "Zanoli", "ruolo": "Difensore" },
+        { "nome": "Zemura", "ruolo": "Difensore" },
+        { "nome": "Atta", "ruolo": "Centrocampista" },
+        { "nome": "A. Camara", "ruolo": "Centrocampista" },
+        { "nome": "Ekkelenkamp", "ruolo": "Centrocampista" },
+        { "nome": "Karlstrom", "ruolo": "Centrocampista" },
+        { "nome": "Lovric", "ruolo": "Centrocampista" },
+        { "nome": "Miller", "ruolo": "Centrocampista" },
+        { "nome": "Payero", "ruolo": "Centrocampista" },
+        { "nome": "Piotrowski", "ruolo": "Centrocampista" },
+        { "nome": "Zarraga", "ruolo": "Centrocampista" },
+        { "nome": "Bayo", "ruolo": "Attaccante" },
+        { "nome": "Bravo", "ruolo": "Attaccante" },
+        { "nome": "Buksa", "ruolo": "Attaccante" },
+        { "nome": "Davis", "ruolo": "Attaccante" },
+        { "nome": "Gueye", "ruolo": "Attaccante" },
+        { "nome": "Kjerrumgaard", "ruolo": "Attaccante" },
+        { "nome": "Pafundi", "ruolo": "Attaccante" },
+        { "nome": "Pejicic", "ruolo": "Attaccante" },
+        { "nome": "Zaniolo", "ruolo": "Attaccante" }
       ]
     },
     {
       "id": 20,
-      "nome": "Cremonese",
-      "citta": "Cremona",
-      "colori": ["#C8102E", "#FFD700"],
-      "logo": "img/cremonese.png",
-      "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/d/d0/U.S._Cremonese.svg/180px-U.S._Cremonese.svg.png",
+      "nome": "Venezia",
+      "citta": "Venezia",
+      "colori": ["#FF6600", "#000000"],
+      "logo": "img/venezia.png",
+      "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/5/50/Venezia_FC_logo.svg/180px-Venezia_FC_logo.svg.png",
       "giocatori": [
-        {
-          "nome": "Sarr",
-          "ruolo": "Portiere",
-          "nazionalita": "FRA",
-          "numero": 1
-        },
-        {
-          "nome": "Jungdal",
-          "ruolo": "Portiere",
-          "nazionalita": "DEN",
-          "numero": 22
-        },
-        {
-          "nome": "Antov",
-          "ruolo": "Difensore",
-          "nazionalita": "BUL",
-          "numero": 5
-        },
-        {
-          "nome": "Bianchetti",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 4
-        },
-        {
-          "nome": "Sernicola",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 16
-        },
-        {
-          "nome": "Ravanelli",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 3
-        },
-        {
-          "nome": "Quagliata",
-          "ruolo": "Difensore",
-          "nazionalita": "ITA",
-          "numero": 14
-        },
-        {
-          "nome": "Castagnetti",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ITA",
-          "numero": 8
-        },
-        {
-          "nome": "Collocolo",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ITA",
-          "numero": 10
-        },
-        {
-          "nome": "Pickel",
-          "ruolo": "Centrocampista",
-          "nazionalita": "FRA",
-          "numero": 25
-        },
-        {
-          "nome": "Vazquez",
-          "ruolo": "Centrocampista",
-          "nazionalita": "ARG",
-          "numero": 6
-        },
-        {
-          "nome": "Bonaiuto",
-          "ruolo": "Attaccante",
-          "nazionalita": "ARG",
-          "numero": 27
-        },
-        {
-          "nome": "Tsadjout",
-          "ruolo": "Attaccante",
-          "nazionalita": "CMR",
-          "numero": 99
-        },
-        {
-          "nome": "Coda",
-          "ruolo": "Attaccante",
-          "nazionalita": "ITA",
-          "numero": 9
-        },
-        {
-          "nome": "De Luca",
-          "ruolo": "Attaccante",
-          "nazionalita": "ITA",
-          "numero": 11
-        }
+        { "nome": "Grandi", "ruolo": "Portiere" },
+        { "nome": "Plizzari", "ruolo": "Portiere" },
+        { "nome": "F. Stankovic", "ruolo": "Portiere" },
+        { "nome": "Altare", "ruolo": "Difensore" },
+        { "nome": "Bella-Kotchap", "ruolo": "Difensore" },
+        { "nome": "Di Renzo", "ruolo": "Difensore" },
+        { "nome": "Franjic", "ruolo": "Difensore" },
+        { "nome": "Hainaut", "ruolo": "Difensore" },
+        { "nome": "Haps*", "ruolo": "Difensore" },
+        { "nome": "Korac", "ruolo": "Difensore" },
+        { "nome": "Ligue", "ruolo": "Difensore" },
+        { "nome": "Sagrado", "ruolo": "Difensore" },
+        { "nome": "Schingtienne", "ruolo": "Difensore" },
+        { "nome": "Sidibé", "ruolo": "Difensore" },
+        { "nome": "Sverko", "ruolo": "Difensore" },
+        { "nome": "Svoboda", "ruolo": "Difensore" },
+        { "nome": "Venturi", "ruolo": "Difensore" },
+        { "nome": "Basic", "ruolo": "Centrocampista" },
+        { "nome": "L. Berardi", "ruolo": "Centrocampista" },
+        { "nome": "Bjarkason", "ruolo": "Centrocampista" },
+        { "nome": "Bohinen", "ruolo": "Centrocampista" },
+        { "nome": "Busio", "ruolo": "Centrocampista" },
+        { "nome": "Compagnon", "ruolo": "Centrocampista" },
+        { "nome": "Condé", "ruolo": "Centrocampista" },
+        { "nome": "Dagasso", "ruolo": "Centrocampista" },
+        { "nome": "Duncan", "ruolo": "Centrocampista" },
+        { "nome": "Fanne", "ruolo": "Centrocampista" },
+        { "nome": "Lella", "ruolo": "Centrocampista" },
+        { "nome": "Mariani", "ruolo": "Centrocampista" },
+        { "nome": "Panada", "ruolo": "Centrocampista" },
+        { "nome": "K. Perez", "ruolo": "Centrocampista" },
+        { "nome": "Adorante", "ruolo": "Attaccante" },
+        { "nome": "Cannavò", "ruolo": "Attaccante" },
+        { "nome": "Casas", "ruolo": "Attaccante" },
+        { "nome": "Farji", "ruolo": "Attaccante" },
+        { "nome": "Fila", "ruolo": "Attaccante" },
+        { "nome": "El Haddad", "ruolo": "Attaccante" },
+        { "nome": "Lauberbach", "ruolo": "Attaccante" },
+        { "nome": "Lisman", "ruolo": "Attaccante" },
+        { "nome": "Okoro", "ruolo": "Attaccante" },
+        { "nome": "Oristanio", "ruolo": "Attaccante" },
+        { "nome": "Yeboah", "ruolo": "Attaccante" }
       ]
     }
   ]
