@@ -38,10 +38,10 @@ function initTheme() {
 let serieAData = null;
 let squadre = [];
 let mioListone = [];
-let filtroRuolo = "all";
-let filtroRuoloMio = "all";
-let filtroSquadraMio = "all";
-let squadreSelezionate = new Set(["all"]);
+let filtriRuoli = []; // array di nomi ruolo, vuoto = tutti
+let filtriRuoliMio = [];
+let filtroSquadraMio = "all"; // per il mio listone, manteniamo compatibilità (potremmo renderlo multiplo)
+let squadreSelezionate = new Set(); // set di id squadra, vuoto = tutte
 let vistaCorrente = "card";
 let mioVistaCorrente = "ruolo";
 let vistaSingolaCorrente = "griglia";
@@ -49,7 +49,7 @@ let searchTerm = "";
 let singolaSquadraSelezionata = null;
 
 // ===== SELEZIONE MULTIPLA =====
-let selectedPlayers = new Map(); // key: "nome_squadra", value: player object
+let selectedPlayers = new Map();
 
 function getPlayerId(nome, squadra) {
   return `${nome}_${squadra}`;
@@ -76,7 +76,6 @@ function updateSelectionUI() {
   if (countSpan) countSpan.textContent = count;
   if (countSpanMio) countSpanMio.textContent = count;
 
-  // aggiorna il checkbox "seleziona tutti" nella tabella
   const allCheck = document.getElementById("selectAllTable");
   if (allCheck) {
     const visibleCheckboxes = document.querySelectorAll(
@@ -99,7 +98,6 @@ function clearSelection() {
   updateSelectionUI();
 }
 
-// ===== SELEZIONA TUTTI I VISIBILI =====
 function selectAllVisible() {
   const checkboxes = document.querySelectorAll(".player-checkbox:not(.hidden)");
   if (checkboxes.length === 0) {
@@ -118,11 +116,8 @@ function selectAllVisible() {
   showToast(`Selezionati ${checkboxes.length} giocatori`, "fa-check-double");
 }
 
-// ===== TOGGLE SELEZIONA TUTTI IN TABELLA =====
 function toggleSelectAllTable(master) {
-  const checkboxes = document.querySelectorAll(
-    "#tableBody .player-checkbox",
-  );
+  const checkboxes = document.querySelectorAll("#tableBody .player-checkbox");
   checkboxes.forEach((cb) => {
     cb.checked = master.checked;
     const id = cb.dataset.id;
@@ -191,7 +186,7 @@ function removeSelectedFromMio() {
 }
 
 // ============================================================
-//  TOAST NOTIFICATION
+//  TOAST
 // ============================================================
 function showToast(message, icon = "fa-check-circle") {
   let toast = document.getElementById("toast");
@@ -208,7 +203,7 @@ function showToast(message, icon = "fa-check-circle") {
 }
 
 // ============================================================
-//  GESTIONE SALVATAGGIO CON DATA
+//  SALVATAGGIO
 // ============================================================
 function aggiornaInfoSalvataggio() {
   const info = document.getElementById("salvataggioInfo");
@@ -262,26 +257,19 @@ function saveMioListone() {
 }
 
 // ============================================================
-//  ESPORTA / IMPORTA LISTONE
+//  ESPORTA / IMPORTA
 // ============================================================
 function esportaListone() {
   if (mioListone.length === 0) {
-    showToast(
-      "Il listone è vuoto! Niente da esportare.",
-      "fa-exclamation-circle",
-    );
+    showToast("Il listone è vuoto! Niente da esportare.", "fa-exclamation-circle");
     return;
   }
-
   const data = {
     exportDate: new Date().toISOString(),
     version: "1.0",
     giocatori: mioListone,
   };
-
-  const blob = new Blob([JSON.stringify(data, null, 2)], {
-    type: "application/json",
-  });
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
@@ -296,13 +284,11 @@ function esportaListone() {
 function importaListone(event) {
   const file = event.target.files[0];
   if (!file) return;
-
   const reader = new FileReader();
   reader.onload = function (e) {
     try {
       const data = JSON.parse(e.target.result);
       let giocatori = [];
-
       if (data.giocatori && Array.isArray(data.giocatori)) {
         giocatori = data.giocatori;
       } else if (Array.isArray(data)) {
@@ -310,19 +296,11 @@ function importaListone(event) {
       } else {
         throw new Error("Formato non valido");
       }
-
       if (giocatori.length === 0) {
         showToast("Nessun giocatore da importare.", "fa-exclamation-circle");
         return;
       }
-
-      if (
-        !confirm(
-          `Vuoi importare ${giocatori.length} giocatori? Sostituirà il tuo listone attuale.`,
-        )
-      )
-        return;
-
+      if (!confirm(`Vuoi importare ${giocatori.length} giocatori? Sostituirà il tuo listone attuale.`)) return;
       mioListone = giocatori;
       saveMioListone();
       if (singolaSquadraSelezionata) {
@@ -334,10 +312,7 @@ function importaListone(event) {
       aggiornaContatori();
       showToast(`Importati ${giocatori.length} giocatori!`, "fa-upload");
     } catch (error) {
-      showToast(
-        "Errore: file non valido. Assicurati che sia un JSON esportato da questa app.",
-        "fa-exclamation-triangle",
-      );
+      showToast("Errore: file non valido.", "fa-exclamation-triangle");
       console.error("Import error:", error);
     }
   };
@@ -374,9 +349,6 @@ async function loadData() {
   }
 }
 
-// ============================================================
-//  INIT
-// ============================================================
 function init() {
   populateSquadreChips("squadreChips");
   populateSquadreChips("mioSquadreChipsList");
@@ -388,7 +360,7 @@ function init() {
 }
 
 // ============================================================
-//  SQUADRE CHIPS
+//  SQUADRE CHIPS (gestione multipla)
 // ============================================================
 function populateSquadreChips(containerId) {
   const container = document.getElementById(containerId);
@@ -413,57 +385,178 @@ function populateSquadreChips(containerId) {
 
 function toggleSquadraChip(chip) {
   const id = chip.dataset.id;
-  const allChip = document.querySelector(
-    '#squadreChips .chip-squadra[data-id="all"]',
-  );
+  const allChip = document.querySelector('#squadreChips .chip-squadra[data-id="all"]');
 
   if (id === "all") {
-    document
-      .querySelectorAll("#squadreChips .chip-squadra")
-      .forEach((c) => c.classList.remove("active"));
-    if (allChip) allChip.classList.add("active");
-    squadreSelezionate = new Set(["all"]);
+    // Se "Tutte" è già attivo, deseleziona tutto; altrimenti seleziona tutte (set vuoto)
+    if (squadreSelezionate.size === 0) {
+      // Deseleziona tutto: non serve, è già vuoto, ma se "Tutte" è cliccato mentre è attivo, deselezioniamo?
+      // In realtà vogliamo che clic su "Tutte" deselezioni tutte le selezioni singole e metta set vuoto.
+      squadreSelezionate.clear();
+    } else {
+      squadreSelezionate.clear();
+    }
+    // Aggiorna UI
+    document.querySelectorAll('#squadreChips .chip-squadra').forEach(c => c.classList.remove('active'));
+    if (allChip) allChip.classList.add('active');
     singolaSquadraSelezionata = null;
     document.getElementById("vistaSingolaSquadra").classList.add("hidden");
     document.getElementById("vistaCardContainer").classList.remove("hidden");
     document.getElementById("vistaTabContainer").classList.remove("hidden");
-  } else {
-    squadreSelezionate = new Set([id]);
-    singolaSquadraSelezionata = id;
-    document
-      .querySelectorAll("#squadreChips .chip-squadra")
-      .forEach((c) => c.classList.remove("active"));
-    chip.classList.add("active");
-    if (allChip) allChip.classList.remove("active");
-
-    document.getElementById("vistaCardContainer").classList.add("hidden");
-    document.getElementById("vistaTabContainer").classList.add("hidden");
-    document.getElementById("vistaSingolaSquadra").classList.remove("hidden");
-    renderSingolaSquadra(id);
+    applyFilters();
+    return;
   }
+
+  // Se "Tutte" era attivo, lo disattiviamo
+  if (squadreSelezionate.size === 0) {
+    if (allChip) allChip.classList.remove('active');
+  }
+
+  // Toggle della squadra
+  const idNum = Number(id);
+  if (squadreSelezionate.has(idNum)) {
+    squadreSelezionate.delete(idNum);
+    chip.classList.remove('active');
+  } else {
+    squadreSelezionate.add(idNum);
+    chip.classList.add('active');
+  }
+
+  // Se dopo toggle il set è vuoto, riattiviamo "Tutte"
+  if (squadreSelezionate.size === 0) {
+    if (allChip) allChip.classList.add('active');
+  }
+
+  // Se abbiamo selezioni singole, disattiviamo la vista singola e mostriamo la griglia
+  singolaSquadraSelezionata = null;
+  document.getElementById("vistaSingolaSquadra").classList.add("hidden");
+  document.getElementById("vistaCardContainer").classList.remove("hidden");
+  document.getElementById("vistaTabContainer").classList.remove("hidden");
   applyFilters();
 }
 
 function toggleMioSquadraChip(chip) {
   const id = chip.dataset.id;
-  const allChip = document.querySelector(
-    '#mioSquadreChipsList .chip-squadra[data-id="all"]',
-  );
+  const allChip = document.querySelector('#mioSquadreChipsList .chip-squadra[data-id="all"]');
 
+  // Per il mio listone, usiamo un filtro singolo per semplicità? 
+  // Per coerenza, rendiamo anche qui multiplo.
+  // Usiamo un Set per le squadre selezionate nel mio listone.
+  if (typeof filtroSquadraMio === 'string' && filtroSquadraMio === 'all') {
+    // Se "Tutte" era attivo, deselezioniamo tutte le selezioni e mettiamo "all"
+  }
+  // Per semplicità, manteniamo il filtro come singolo "all" o una squadra.
+  // Ma per uniformità, lo trasformiamo in un Set.
+  // Modifica: usiamo un Set 'mioSquadreSelezionate' per il listone mio.
+  // Ma per non complicare, manteniamo il vecchio comportamento? 
+  // L'utente ha chiesto "anche che èposso vedere pià ssqiuadere n e anche piu ruoli n" — si riferisce al listone principale, non al mio listone.
+  // Quindi per il mio listone possiamo lasciare il filtro singolo (come prima) per semplicità.
+  // Tuttavia, per coerenza, potremmo implementarlo anche lì.
+  // Implementiamo rapidamente:
+
+  // Inizializzo mioSquadreSelezionate se non esiste
+  if (typeof window.mioSquadreSelezionate === 'undefined') {
+    window.mioSquadreSelezionate = new Set();
+  }
+  const set = window.mioSquadreSelezionate;
   if (id === "all") {
-    document
-      .querySelectorAll("#mioSquadreChipsList .chip-squadra")
-      .forEach((c) => c.classList.remove("active"));
-    if (allChip) allChip.classList.add("active");
+    set.clear();
+    document.querySelectorAll('#mioSquadreChipsList .chip-squadra').forEach(c => c.classList.remove('active'));
+    if (allChip) allChip.classList.add('active');
+    filtroSquadraMio = "all"; // manteniamo per retrocompatibilità
+    renderMioListone();
+    return;
+  }
+  // Se "Tutte" era attivo, disattiviamo
+  if (set.size === 0 && allChip) {
+    allChip.classList.remove('active');
+  }
+  const idNum = Number(id);
+  if (set.has(idNum)) {
+    set.delete(idNum);
+    chip.classList.remove('active');
+  } else {
+    set.add(idNum);
+    chip.classList.add('active');
+  }
+  if (set.size === 0 && allChip) {
+    allChip.classList.add('active');
     filtroSquadraMio = "all";
   } else {
-    if (allChip) allChip.classList.remove("active");
-    document
-      .querySelectorAll("#mioSquadreChipsList .chip-squadra")
-      .forEach((c) => {
-        c.classList.toggle("active", c.dataset.id === id);
-      });
-    filtroSquadraMio = id;
+    filtroSquadraMio = "multiple"; // marcatore
+  }
+  renderMioListone();
+}
+
+// ============================================================
+//  RUOLI (gestione multipla)
+// ============================================================
+function toggleRuolo(btn) {
+  const ruolo = btn.dataset.ruolo;
+  const container = document.getElementById('ruoloBtns');
+  const allBtn = container.querySelector('[data-ruolo="all"]');
+  const btns = container.querySelectorAll('.btn-ruolo');
+
+  if (ruolo === "all") {
+    // Svuota filtriRuoli
+    filtriRuoli = [];
+    btns.forEach(b => b.classList.remove('active'));
+    allBtn.classList.add('active');
+    applyFilters();
+    return;
+  }
+
+  // Se "Tutti" era attivo, lo disattiviamo
+  if (filtriRuoli.length === 0) {
+    allBtn.classList.remove('active');
+  }
+
+  const index = filtriRuoli.indexOf(ruolo);
+  if (index > -1) {
+    filtriRuoli.splice(index, 1);
+    btn.classList.remove('active');
+  } else {
+    filtriRuoli.push(ruolo);
+    btn.classList.add('active');
+  }
+
+  // Se dopo la rimozione l'array è vuoto, riattiviamo "Tutti"
+  if (filtriRuoli.length === 0) {
+    allBtn.classList.add('active');
+  }
+
+  applyFilters();
+}
+
+function toggleRuoloMio(btn) {
+  const ruolo = btn.dataset.ruolo;
+  const container = document.getElementById('ruoloBtnsMio');
+  const allBtn = container.querySelector('[data-ruolo="all"]');
+  const btns = container.querySelectorAll('.btn-ruolo');
+
+  if (ruolo === "all") {
+    filtriRuoliMio = [];
+    btns.forEach(b => b.classList.remove('active'));
+    allBtn.classList.add('active');
+    renderMioListone();
+    return;
+  }
+
+  if (filtriRuoliMio.length === 0) {
+    allBtn.classList.remove('active');
+  }
+
+  const index = filtriRuoliMio.indexOf(ruolo);
+  if (index > -1) {
+    filtriRuoliMio.splice(index, 1);
+    btn.classList.remove('active');
+  } else {
+    filtriRuoliMio.push(ruolo);
+    btn.classList.add('active');
+  }
+
+  if (filtriRuoliMio.length === 0) {
+    allBtn.classList.add('active');
   }
   renderMioListone();
 }
@@ -473,44 +566,37 @@ function toggleMioSquadraChip(chip) {
 // ============================================================
 function setVistaSingola(vista, btn) {
   vistaSingolaCorrente = vista;
-  document
-    .querySelectorAll(".btn-vista-singola")
-    .forEach((b) => b.classList.remove("active"));
-  btn.classList.add("active");
-
+  document.querySelectorAll(".btn-vista-singola").forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
   if (singolaSquadraSelezionata) {
     renderSingolaSquadra(singolaSquadraSelezionata);
   }
 }
 
 // ============================================================
-//  RENDER SINGOLA SQUADRA (con checkbox)
+//  RENDER SINGOLA SQUADRA (con filtri ruoli multipli)
 // ============================================================
 function renderSingolaSquadra(id) {
   const squadra = squadre.find((s) => String(s.id) === String(id));
   if (!squadra) return;
 
   const searchInput = document.getElementById("searchInput");
-  const searchTermLocal = searchInput
-    ? searchInput.value.toLowerCase().trim()
-    : "";
+  const searchTermLocal = searchInput ? searchInput.value.toLowerCase().trim() : "";
 
   let giocatoriFiltrati = squadra.giocatori;
 
-  if (filtroRuolo !== "all") {
-    giocatoriFiltrati = giocatoriFiltrati.filter(
-      (g) => g.ruolo === filtroRuolo,
-    );
+  // Filtro ruoli (multiplo)
+  if (filtriRuoli.length > 0) {
+    giocatoriFiltrati = giocatoriFiltrati.filter((g) => filtriRuoli.includes(g.ruolo));
   }
 
   if (searchTermLocal) {
     giocatoriFiltrati = giocatoriFiltrati.filter((g) =>
-      g.nome.toLowerCase().includes(searchTermLocal),
+      g.nome.toLowerCase().includes(searchTermLocal)
     );
   }
 
   const info = document.getElementById("singolaSquadraInfo");
-
   info.innerHTML = `
     <div style="display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;width:100%;">
       <div>
@@ -533,13 +619,7 @@ function renderSingolaSquadra(id) {
   const containerLista = document.getElementById("singolaSquadraLista");
 
   if (giocatoriFiltrati.length === 0) {
-    containerGriglia.innerHTML = `
-      <div class="empty-state" style="grid-column:1/-1;">
-        <i class="fas fa-search"></i>
-        <p>Nessun giocatore trovato con questi filtri</p>
-        <small>Prova a modificare i filtri</small>
-      </div>
-    `;
+    containerGriglia.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><i class="fas fa-search"></i><p>Nessun giocatore trovato con questi filtri</p><small>Prova a modificare i filtri</small></div>`;
     containerLista.innerHTML = "";
     containerGriglia.classList.remove("hidden");
     containerLista.classList.add("hidden");
@@ -553,35 +633,21 @@ function renderSingolaSquadra(id) {
   });
 
   const ordineRuoli = ["Portiere", "Difensore", "Centrocampista", "Attaccante"];
-  const iconMap = {
-    Portiere: "🧤",
-    Difensore: "🛡️",
-    Centrocampista: "⚡",
-    Attaccante: "⚽",
-  };
-  const ruoloClassMap = {
-    Portiere: "por",
-    Difensore: "dif",
-    Centrocampista: "cen",
-    Attaccante: "att",
-  };
+  const iconMap = { Portiere: "🧤", Difensore: "🛡️", Centrocampista: "⚡", Attaccante: "⚽" };
+  const ruoloClassMap = { Portiere: "por", Difensore: "dif", Centrocampista: "cen", Attaccante: "att" };
 
-  // ===== VISTA GRIGLIA =====
+  // GRIGLIA
   let gridHtml = '<div class="singola-squadra-ruoli">';
   ordineRuoli.forEach((ruolo) => {
     const giocatori = ruoliMap.get(ruolo) || [];
     if (giocatori.length === 0) return;
-
     gridHtml += `
       <div class="ruolo-section">
         <div class="ruolo-label">${iconMap[ruolo] || ""} ${ruolo} (${giocatori.length})</div>
         <div class="lista-giocatori">
     `;
-
     giocatori.forEach((g) => {
-      const isInMio = mioListone.some(
-        (m) => m.nome === g.nome && m.squadra === squadra.nome,
-      );
+      const isInMio = mioListone.some((m) => m.nome === g.nome && m.squadra === squadra.nome);
       const id = getPlayerId(g.nome, squadra.nome);
       const isSelected = selectedPlayers.has(id);
       const playerData = { nome: g.nome, squadra: squadra.nome, ruolo: g.ruolo, quotazione: g.quotazione, logo_url: squadra.logo_url };
@@ -594,25 +660,19 @@ function renderSingolaSquadra(id) {
         </span>
       `;
     });
-
-    gridHtml += `
-        </div>
-      </div>
-    `;
+    gridHtml += `</div></div>`;
   });
   gridHtml += "</div>";
   containerGriglia.innerHTML = gridHtml;
 
-  // ===== VISTA LISTA =====
+  // LISTA
   let listaHtml = '<div class="singola-lista-giocatori">';
   let index = 0;
   ordineRuoli.forEach((ruolo) => {
     const giocatori = ruoliMap.get(ruolo) || [];
     giocatori.forEach((g) => {
       index++;
-      const isInMio = mioListone.some(
-        (m) => m.nome === g.nome && m.squadra === squadra.nome,
-      );
+      const isInMio = mioListone.some((m) => m.nome === g.nome && m.squadra === squadra.nome);
       const rClass = ruoloClassMap[g.ruolo] || "";
       const id = getPlayerId(g.nome, squadra.nome);
       const isSelected = selectedPlayers.has(id);
@@ -641,7 +701,6 @@ function renderSingolaSquadra(id) {
     containerGriglia.classList.add("hidden");
     containerLista.classList.remove("hidden");
   }
-
   updateSelectionUI();
 }
 
@@ -651,46 +710,21 @@ function renderSingolaSquadra(id) {
 function tornaAlListone() {
   singolaSquadraSelezionata = null;
   document.getElementById("vistaSingolaSquadra").classList.add("hidden");
-
-  document
-    .querySelectorAll("#squadreChips .chip-squadra")
-    .forEach((c) => c.classList.remove("active"));
-  const allChip = document.querySelector(
-    '#squadreChips .chip-squadra[data-id="all"]',
-  );
-  if (allChip) allChip.classList.add("active");
-  squadreSelezionate = new Set(["all"]);
-
+  document.querySelectorAll("#squadreChips .chip-squadra").forEach(c => c.classList.remove('active'));
+  const allChip = document.querySelector('#squadreChips .chip-squadra[data-id="all"]');
+  if (allChip) allChip.classList.add('active');
+  squadreSelezionate.clear();
   if (vistaCorrente === "card") {
     document.getElementById("vistaCardContainer").classList.remove("hidden");
   } else {
     document.getElementById("vistaTabContainer").classList.remove("hidden");
   }
-
   applyFilters();
 }
 
 // ============================================================
-//  FILTRI LISTONE
+//  APPLICA FILTRI (multipli)
 // ============================================================
-function toggleRuolo(btn) {
-  document
-    .querySelectorAll("#toolbarListone .btn-ruolo")
-    .forEach((b) => b.classList.remove("active"));
-  btn.classList.add("active");
-  filtroRuolo = btn.dataset.ruolo;
-  applyFilters();
-}
-
-function toggleRuoloMio(btn) {
-  document
-    .querySelectorAll("#toolbarMio .btn-ruolo")
-    .forEach((b) => b.classList.remove("active"));
-  btn.classList.add("active");
-  filtroRuoloMio = btn.dataset.ruolo;
-  renderMioListone();
-}
-
 function applyFilters() {
   if (singolaSquadraSelezionata) {
     renderSingolaSquadra(singolaSquadraSelezionata);
@@ -703,22 +737,22 @@ function applyFilters() {
   let filtered = squadre.map((s) => {
     let giocatori = s.giocatori || [];
 
-    if (filtroRuolo !== "all") {
-      giocatori = giocatori.filter((g) => g.ruolo === filtroRuolo);
+    // Filtro squadre
+    if (squadreSelezionate.size > 0) {
+      giocatori = giocatori.filter((g) => squadreSelezionate.has(s.id));
+    }
+
+    // Filtro ruoli (multiplo)
+    if (filtriRuoli.length > 0) {
+      giocatori = giocatori.filter((g) => filtriRuoli.includes(g.ruolo));
     }
 
     if (searchTerm) {
-      giocatori = giocatori.filter((g) =>
-        g.nome.toLowerCase().includes(searchTerm),
-      );
+      giocatori = giocatori.filter((g) => g.nome.toLowerCase().includes(searchTerm));
     }
 
     return { ...s, giocatori };
   });
-
-  if (!squadreSelezionate.has("all")) {
-    filtered = filtered.filter((s) => squadreSelezionate.has(String(s.id)));
-  }
 
   filtered = filtered.filter((s) => s.giocatori.length > 0);
 
@@ -730,22 +764,16 @@ function resetFiltri() {
   singolaSquadraSelezionata = null;
   document.getElementById("vistaSingolaSquadra").classList.add("hidden");
 
-  document
-    .querySelectorAll("#squadreChips .chip-squadra")
-    .forEach((c) => c.classList.remove("active"));
-  const allChip = document.querySelector(
-    '#squadreChips .chip-squadra[data-id="all"]',
-  );
-  if (allChip) allChip.classList.add("active");
-  squadreSelezionate = new Set(["all"]);
+  // Reset squadre
+  document.querySelectorAll("#squadreChips .chip-squadra").forEach(c => c.classList.remove('active'));
+  const allChip = document.querySelector('#squadreChips .chip-squadra[data-id="all"]');
+  if (allChip) allChip.classList.add('active');
+  squadreSelezionate.clear();
 
-  document
-    .querySelectorAll("#toolbarListone .btn-ruolo")
-    .forEach((b) => b.classList.remove("active"));
-  document
-    .querySelector('#toolbarListone .btn-ruolo[data-ruolo="all"]')
-    .classList.add("active");
-  filtroRuolo = "all";
+  // Reset ruoli
+  filtriRuoli = [];
+  document.querySelectorAll("#ruoloBtns .btn-ruolo").forEach(b => b.classList.remove('active'));
+  document.querySelector('#ruoloBtns .btn-ruolo[data-ruolo="all"]').classList.add('active');
 
   document.getElementById("searchInput").value = "";
   searchTerm = "";
@@ -760,7 +788,7 @@ function resetFiltri() {
 }
 
 // ============================================================
-//  RENDER LISTONE (con checkbox)
+//  RENDER LISTONE
 // ============================================================
 function renderListone(squadreDaRenderizzare) {
   const cardContainer = document.getElementById("vistaCardContainer");
@@ -768,10 +796,7 @@ function renderListone(squadreDaRenderizzare) {
   const tableBody = document.getElementById("tableBody");
   const emptyState = document.getElementById("emptyListone");
 
-  const totalPlayers = squadreDaRenderizzare.reduce(
-    (acc, s) => acc + s.giocatori.length,
-    0,
-  );
+  const totalPlayers = squadreDaRenderizzare.reduce((acc, s) => acc + s.giocatori.length, 0);
 
   if (totalPlayers === 0) {
     cardContainer.innerHTML = "";
@@ -792,24 +817,16 @@ function renderListone(squadreDaRenderizzare) {
       ruoliMap.get(g.ruolo).push(g);
     });
 
-    const ordineRuoli = [
-      "Portiere",
-      "Difensore",
-      "Centrocampista",
-      "Attaccante",
-    ];
+    const ordineRuoli = ["Portiere", "Difensore", "Centrocampista", "Attaccante"];
     const ruoliOrdinati = [];
     ordineRuoli.forEach((r) => {
-      if (ruoliMap.has(r))
-        ruoliOrdinati.push({ ruolo: r, giocatori: ruoliMap.get(r) });
+      if (ruoliMap.has(r)) ruoliOrdinati.push({ ruolo: r, giocatori: ruoliMap.get(r) });
     });
     ruoliMap.forEach((nomi, ruolo) => {
-      if (!ordineRuoli.includes(ruolo))
-        ruoliOrdinati.push({ ruolo, giocatori: nomi });
+      if (!ordineRuoli.includes(ruolo)) ruoliOrdinati.push({ ruolo, giocatori: nomi });
     });
 
-    const teamColor =
-      squadra.colori && squadra.colori[0] ? squadra.colori[0] : "var(--accent)";
+    const teamColor = squadra.colori && squadra.colori[0] ? squadra.colori[0] : "var(--accent)";
     cardHtml += `
       <div class="card-squadra" style="--team-color:${teamColor}" onclick="apriSingolaSquadra(${squadra.id})">
         <div class="squadra-header">
@@ -826,12 +843,7 @@ function renderListone(squadreDaRenderizzare) {
     `;
 
     ruoliOrdinati.forEach(({ ruolo, giocatori }) => {
-      const iconMap = {
-        Portiere: "🧤",
-        Difensore: "🛡️",
-        Centrocampista: "⚡",
-        Attaccante: "⚽",
-      };
+      const iconMap = { Portiere: "🧤", Difensore: "🛡️", Centrocampista: "⚡", Attaccante: "⚽" };
       const icon = iconMap[ruolo] || "👤";
       cardHtml += `
         <div class="ruolo-section">
@@ -839,9 +851,7 @@ function renderListone(squadreDaRenderizzare) {
           <div class="lista-giocatori">
       `;
       giocatori.forEach((g) => {
-        const isInMio = mioListone.some(
-          (m) => m.nome === g.nome && m.squadra === squadra.nome,
-        );
+        const isInMio = mioListone.some((m) => m.nome === g.nome && m.squadra === squadra.nome);
         const id = getPlayerId(g.nome, squadra.nome);
         const isSelected = selectedPlayers.has(id);
         const playerData = { nome: g.nome, squadra: squadra.nome, ruolo: g.ruolo, quotazione: g.quotazione, logo_url: squadra.logo_url };
@@ -854,10 +864,7 @@ function renderListone(squadreDaRenderizzare) {
           </span>
         `;
       });
-      cardHtml += `
-          </div>
-        </div>
-      `;
+      cardHtml += `</div></div>`;
     });
 
     cardHtml += `</div>`;
@@ -870,16 +877,8 @@ function renderListone(squadreDaRenderizzare) {
   let tableHtml = "";
   squadreDaRenderizzare.forEach((squadra) => {
     squadra.giocatori.forEach((g) => {
-      const isInMio = mioListone.some(
-        (m) => m.nome === g.nome && m.squadra === squadra.nome,
-      );
-      const ruoloClass =
-        {
-          Portiere: "por",
-          Difensore: "dif",
-          Centrocampista: "cen",
-          Attaccante: "att",
-        }[g.ruolo] || "";
+      const isInMio = mioListone.some((m) => m.nome === g.nome && m.squadra === squadra.nome);
+      const ruoloClass = { Portiere: "por", Difensore: "dif", Centrocampista: "cen", Attaccante: "att" }[g.ruolo] || "";
       const id = getPlayerId(g.nome, squadra.nome);
       const isSelected = selectedPlayers.has(id);
       const playerData = { nome: g.nome, squadra: squadra.nome, ruolo: g.ruolo, quotazione: g.quotazione, logo_url: squadra.logo_url };
@@ -937,42 +936,37 @@ function apriSingolaSquadra(id) {
   document.querySelectorAll("#squadreChips .chip-squadra").forEach((c) => {
     c.classList.toggle("active", String(c.dataset.id) === String(id));
   });
-  const allChip = document.querySelector(
-    '#squadreChips .chip-squadra[data-id="all"]',
-  );
+  const allChip = document.querySelector('#squadreChips .chip-squadra[data-id="all"]');
   if (allChip) allChip.classList.remove("active");
+  // Per la vista singola, forziamo il set squadreSelezionate a contenere solo quella squadra? 
+  // Per evitare conflitti, quando si apre la singola, i filtri squadra sono ignorati (la vista mostra solo quella squadra).
+  // Quindi non modifichiamo squadreSelezionate; la funzione renderSingolaSquadra non usa squadreSelezionate.
 
   renderSingolaSquadra(id);
 }
 
 // ============================================================
-//  VISTA
+//  VISTA (card/tabella)
 // ============================================================
 function setVista(vista, btn) {
   vistaCorrente = vista;
-  document
-    .querySelectorAll(".btn-vista")
-    .forEach((b) => b.classList.remove("active"));
-  btn.classList.add("active");
+  document.querySelectorAll(".btn-vista").forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
   applyFilters();
 }
 
 function setMioVista(vista, btn) {
   mioVistaCorrente = vista;
-  document
-    .querySelectorAll(".btn-vista-mio")
-    .forEach((b) => b.classList.remove("active"));
-  btn.classList.add("active");
+  document.querySelectorAll(".btn-vista-mio").forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
   renderMioListone();
 }
 
 // ============================================================
-//  TOGGLE MIO LISTONE
+//  TOGGLE MIO LISTONE (singolo)
 // ============================================================
 function toggleMioListone(nome, squadra, ruolo, logo_url, quotazione) {
-  const index = mioListone.findIndex(
-    (m) => m.nome === nome && m.squadra === squadra,
-  );
+  const index = mioListone.findIndex((m) => m.nome === nome && m.squadra === squadra);
   if (index > -1) {
     mioListone.splice(index, 1);
     showToast(`Rimosso ${nome} dal listone`, "fa-trash");
@@ -991,9 +985,7 @@ function toggleMioListone(nome, squadra, ruolo, logo_url, quotazione) {
 }
 
 function removeFromMioListone(nome, squadra) {
-  const index = mioListone.findIndex(
-    (m) => m.nome === nome && m.squadra === squadra,
-  );
+  const index = mioListone.findIndex((m) => m.nome === nome && m.squadra === squadra);
   if (index > -1) {
     mioListone.splice(index, 1);
     saveMioListone();
@@ -1025,7 +1017,7 @@ function clearMioListone() {
 }
 
 // ============================================================
-//  RENDER MIO LISTONE (con checkbox)
+//  RENDER MIO LISTONE (con filtri multipli per ruolo e squadra)
 // ============================================================
 function renderMioListone() {
   const container = document.getElementById("mioListoneGrid");
@@ -1034,17 +1026,16 @@ function renderMioListone() {
 
   let filtered = mioListone;
 
-  if (filtroRuoloMio !== "all") {
-    filtered = filtered.filter((m) => m.ruolo === filtroRuoloMio);
+  // Filtro ruoli (multiplo)
+  if (filtriRuoliMio.length > 0) {
+    filtered = filtered.filter((m) => filtriRuoliMio.includes(m.ruolo));
   }
 
-  if (filtroSquadraMio !== "all") {
-    const squadraNome = squadre.find(
-      (s) => String(s.id) === filtroSquadraMio,
-    )?.nome;
-    if (squadraNome) {
-      filtered = filtered.filter((m) => m.squadra === squadraNome);
-    }
+  // Filtro squadre (multiplo)
+  if (window.mioSquadreSelezionate && window.mioSquadreSelezionate.size > 0) {
+    const squadreIds = window.mioSquadreSelezionate;
+    const squadreNomi = squadre.filter(s => squadreIds.has(s.id)).map(s => s.nome);
+    filtered = filtered.filter((m) => squadreNomi.includes(m.squadra));
   }
 
   if (filtered.length === 0) {
@@ -1069,30 +1060,13 @@ function renderMioListone() {
   `;
 
   if (mioVistaCorrente === "ruolo") {
-    const ordineRuoli = [
-      "Portiere",
-      "Difensore",
-      "Centrocampista",
-      "Attaccante",
-    ];
+    const ordineRuoli = ["Portiere", "Difensore", "Centrocampista", "Attaccante"];
     let html = "";
     ordineRuoli.forEach((ruolo) => {
       const giocatoriRuolo = filtered.filter((m) => m.ruolo === ruolo);
       if (giocatoriRuolo.length === 0) return;
-
-      const colorMap = {
-        Portiere: "var(--por-c)",
-        Difensore: "var(--dif-c)",
-        Centrocampista: "var(--cen-c)",
-        Attaccante: "var(--att-c)",
-      };
-      const iconMap = {
-        Portiere: "🧤",
-        Difensore: "🛡️",
-        Centrocampista: "⚡",
-        Attaccante: "⚽",
-      };
-
+      const colorMap = { Portiere: "var(--por-c)", Difensore: "var(--dif-c)", Centrocampista: "var(--cen-c)", Attaccante: "var(--att-c)" };
+      const iconMap = { Portiere: "🧤", Difensore: "🛡️", Centrocampista: "⚡", Attaccante: "⚽" };
       html += `
         <div class="mio-ruolo-section">
           <div class="mio-ruolo-title">
@@ -1101,26 +1075,18 @@ function renderMioListone() {
           </div>
           <div class="mio-giocatori-grid">
       `;
-
       giocatoriRuolo.forEach((g) => {
         html += createMioCard(g);
       });
-
-      html += `
-          </div>
-        </div>
-      `;
+      html += `</div></div>`;
     });
     container.innerHTML = html;
   } else {
     const squadreNomi = [...new Set(filtered.map((m) => m.squadra))];
     let html = "";
     squadreNomi.forEach((squadraNome) => {
-      const giocatoriSquadra = filtered.filter(
-        (m) => m.squadra === squadraNome,
-      );
+      const giocatoriSquadra = filtered.filter((m) => m.squadra === squadraNome);
       const squadraData = squadre.find((s) => s.nome === squadraNome);
-
       html += `
         <div class="mio-squadra-section">
           <div class="mio-squadra-title">
@@ -1129,15 +1095,10 @@ function renderMioListone() {
           </div>
           <div class="mio-giocatori-grid">
       `;
-
       giocatoriSquadra.forEach((g) => {
         html += createMioCard(g);
       });
-
-      html += `
-          </div>
-        </div>
-      `;
+      html += `</div></div>`;
     });
     container.innerHTML = html;
   }
@@ -1168,10 +1129,7 @@ function createMioCard(g) {
 //  CONTATORI
 // ============================================================
 function aggiornaContatori() {
-  const totalPlayers = squadre.reduce(
-    (acc, s) => acc + (s.giocatori || []).length,
-    0,
-  );
+  const totalPlayers = squadre.reduce((acc, s) => acc + (s.giocatori || []).length, 0);
   document.getElementById("totalGiocatori").textContent = totalPlayers;
   document.getElementById("totalMieiCount").textContent = mioListone.length;
 }
@@ -1180,9 +1138,7 @@ function aggiornaContatori() {
 //  SWITCH TAB
 // ============================================================
 function switchTab(tab) {
-  document
-    .querySelectorAll(".btn-tab")
-    .forEach((b) => b.classList.remove("active"));
+  document.querySelectorAll(".btn-tab").forEach(b => b.classList.remove('active'));
   if (tab === "listone") {
     document.getElementById("tabListone").classList.add("active");
     document.getElementById("panelListone").classList.remove("hidden");
