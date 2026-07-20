@@ -1773,3 +1773,55 @@ a:focus-visible {
     align-items: flex-start;
   }
 }
+
+
+/* style.css modernizzato */
+
+/* Tokens aggiornati con più enfasi sui colori squadra e badge */
+:root {
+  /* ... già presenti ... */
+  --badge-radius: 100px;
+  --card-radius: 16px;
+}
+
+/* badge quotazione */
+.quota-badge {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.85rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--badge-radius);
+  color: var(--text-1);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.04);
+}
+
+/* card squadra con gradiente e bordo colorato */
+.card-squadra {
+  /* ... esistente ... */
+  border-left: 4px solid var(--team-color);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.card-squadra:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-2), 0 0 0 1px var(--team-color);
+}
+
+/* tag giocatore con quotazione in evidenza */
+.giocatore-tag .tag-num {
+  background: var(--surface-3);
+  border: 1px solid var(--border-strong);
+  font-weight: 700;
+  font-size: 0.7rem;
+  padding: 0.08rem 0.5rem;
+  border-radius: var(--badge-radius);
+  color: var(--gold);
+}
+
+/* pulsanti di aggiunta con feedback */
+.btn-add-table.added {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #1c1304;
+}
