@@ -84,7 +84,10 @@ function updateSelectionUI() {
     const checked = document.querySelectorAll(
       ".player-checkbox:not(.hidden):checked",
     );
-    if (visibleCheckboxes.length > 0 && checked.length === visibleCheckboxes.length) {
+    if (
+      visibleCheckboxes.length > 0 &&
+      checked.length === visibleCheckboxes.length
+    ) {
       allCheck.checked = true;
     } else {
       allCheck.checked = false;
@@ -94,7 +97,9 @@ function updateSelectionUI() {
 
 function clearSelection() {
   selectedPlayers.clear();
-  document.querySelectorAll(".player-checkbox").forEach((cb) => (cb.checked = false));
+  document
+    .querySelectorAll(".player-checkbox")
+    .forEach((cb) => (cb.checked = false));
   updateSelectionUI();
 }
 
@@ -118,15 +123,23 @@ function selectAllVisible() {
 
 // ===== SELEZIONA TUTTI I GIOCATORI DI UNA SQUADRA (dalla card) =====
 function selectAllSquadra(squadraId) {
-  const squadra = squadre.find(s => s.id === squadraId);
+  const squadra = squadre.find((s) => s.id === squadraId);
   if (!squadra) return;
   const checkboxes = document.querySelectorAll(
-    `.card-squadra[data-squadra-id="${squadraId}"] .player-checkbox, .card-squadra[data-squadra-id="${squadraId}"] .player-checkbox`
+    `.card-squadra[data-squadra-id="${squadraId}"] .player-checkbox, .card-squadra[data-squadra-id="${squadraId}"] .player-checkbox`,
   );
   // Se non ci sono checkbox nella card (vista tabella), cerchiamo nella tabella
-  let checkboxesToUse = checkboxes.length > 0 ? checkboxes : document.querySelectorAll(`#tableBody .player-checkbox[data-squadra="${squadra.nome}"]`);
+  let checkboxesToUse =
+    checkboxes.length > 0
+      ? checkboxes
+      : document.querySelectorAll(
+          `#tableBody .player-checkbox[data-squadra="${squadra.nome}"]`,
+        );
   if (checkboxesToUse.length === 0) {
-    showToast(`Nessun giocatore visibile per ${squadra.nome}`, "fa-info-circle");
+    showToast(
+      `Nessun giocatore visibile per ${squadra.nome}`,
+      "fa-info-circle",
+    );
     return;
   }
   checkboxesToUse.forEach((cb) => {
@@ -138,7 +151,10 @@ function selectAllSquadra(squadraId) {
     }
   });
   updateSelectionUI();
-  showToast(`Selezionati tutti i giocatori di ${squadra.nome}`, "fa-check-double");
+  showToast(
+    `Selezionati tutti i giocatori di ${squadra.nome}`,
+    "fa-check-double",
+  );
 }
 
 function toggleSelectAllTable(master) {
@@ -160,7 +176,11 @@ function addSelectedToMio() {
   if (selectedPlayers.size === 0) return;
   let added = 0;
   for (let [id, player] of selectedPlayers) {
-    if (!mioListone.some((m) => m.nome === player.nome && m.squadra === player.squadra)) {
+    if (
+      !mioListone.some(
+        (m) => m.nome === player.nome && m.squadra === player.squadra,
+      )
+    ) {
       mioListone.push({ ...player });
       added++;
     }
@@ -183,7 +203,8 @@ function addSelectedToMio() {
 
 function removeSelectedFromMio() {
   if (selectedPlayers.size === 0) return;
-  if (!confirm(`Rimuovere ${selectedPlayers.size} giocatori dal listone?`)) return;
+  if (!confirm(`Rimuovere ${selectedPlayers.size} giocatori dal listone?`))
+    return;
   let removed = 0;
   for (let [id, player] of selectedPlayers) {
     const index = mioListone.findIndex(
@@ -286,7 +307,10 @@ function saveMioListone() {
 // ============================================================
 function esportaListone() {
   if (mioListone.length === 0) {
-    showToast("Il listone è vuoto! Niente da esportare.", "fa-exclamation-circle");
+    showToast(
+      "Il listone è vuoto! Niente da esportare.",
+      "fa-exclamation-circle",
+    );
     return;
   }
   const data = {
@@ -294,7 +318,9 @@ function esportaListone() {
     version: "1.0",
     giocatori: mioListone,
   };
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+  const blob = new Blob([JSON.stringify(data, null, 2)], {
+    type: "application/json",
+  });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
@@ -325,7 +351,12 @@ function importaListone(event) {
         showToast("Nessun giocatore da importare.", "fa-exclamation-circle");
         return;
       }
-      if (!confirm(`Vuoi importare ${giocatori.length} giocatori? Sostituirà il tuo listone attuale.`)) return;
+      if (
+        !confirm(
+          `Vuoi importare ${giocatori.length} giocatori? Sostituirà il tuo listone attuale.`,
+        )
+      )
+        return;
       mioListone = giocatori;
       saveMioListone();
       if (singolaSquadraSelezionata) {
@@ -410,7 +441,9 @@ function populateSquadreChips(containerId) {
 
 function toggleSquadraChip(chip) {
   const id = chip.dataset.id;
-  const allChip = document.querySelector('#squadreChips .chip-squadra[data-id="all"]');
+  const allChip = document.querySelector(
+    '#squadreChips .chip-squadra[data-id="all"]',
+  );
 
   if (id === "all") {
     if (squadreSelezionate.size === 0) {
@@ -418,8 +451,10 @@ function toggleSquadraChip(chip) {
     } else {
       squadreSelezionate.clear();
     }
-    document.querySelectorAll('#squadreChips .chip-squadra').forEach(c => c.classList.remove('active'));
-    if (allChip) allChip.classList.add('active');
+    document
+      .querySelectorAll("#squadreChips .chip-squadra")
+      .forEach((c) => c.classList.remove("active"));
+    if (allChip) allChip.classList.add("active");
     singolaSquadraSelezionata = null;
     document.getElementById("vistaSingolaSquadra").classList.add("hidden");
     document.getElementById("vistaCardContainer").classList.remove("hidden");
@@ -429,20 +464,20 @@ function toggleSquadraChip(chip) {
   }
 
   if (squadreSelezionate.size === 0) {
-    if (allChip) allChip.classList.remove('active');
+    if (allChip) allChip.classList.remove("active");
   }
 
   const idNum = Number(id);
   if (squadreSelezionate.has(idNum)) {
     squadreSelezionate.delete(idNum);
-    chip.classList.remove('active');
+    chip.classList.remove("active");
   } else {
     squadreSelezionate.add(idNum);
-    chip.classList.add('active');
+    chip.classList.add("active");
   }
 
   if (squadreSelezionate.size === 0) {
-    if (allChip) allChip.classList.add('active');
+    if (allChip) allChip.classList.add("active");
   }
 
   singolaSquadraSelezionata = null;
@@ -454,33 +489,37 @@ function toggleSquadraChip(chip) {
 
 function toggleMioSquadraChip(chip) {
   const id = chip.dataset.id;
-  const allChip = document.querySelector('#mioSquadreChipsList .chip-squadra[data-id="all"]');
+  const allChip = document.querySelector(
+    '#mioSquadreChipsList .chip-squadra[data-id="all"]',
+  );
 
-  if (typeof window.mioSquadreSelezionate === 'undefined') {
+  if (typeof window.mioSquadreSelezionate === "undefined") {
     window.mioSquadreSelezionate = new Set();
   }
   const set = window.mioSquadreSelezionate;
   if (id === "all") {
     set.clear();
-    document.querySelectorAll('#mioSquadreChipsList .chip-squadra').forEach(c => c.classList.remove('active'));
-    if (allChip) allChip.classList.add('active');
+    document
+      .querySelectorAll("#mioSquadreChipsList .chip-squadra")
+      .forEach((c) => c.classList.remove("active"));
+    if (allChip) allChip.classList.add("active");
     filtroSquadraMio = "all";
     renderMioListone();
     return;
   }
   if (set.size === 0 && allChip) {
-    allChip.classList.remove('active');
+    allChip.classList.remove("active");
   }
   const idNum = Number(id);
   if (set.has(idNum)) {
     set.delete(idNum);
-    chip.classList.remove('active');
+    chip.classList.remove("active");
   } else {
     set.add(idNum);
-    chip.classList.add('active');
+    chip.classList.add("active");
   }
   if (set.size === 0 && allChip) {
-    allChip.classList.add('active');
+    allChip.classList.add("active");
     filtroSquadraMio = "all";
   } else {
     filtroSquadraMio = "multiple";
@@ -493,33 +532,33 @@ function toggleMioSquadraChip(chip) {
 // ============================================================
 function toggleRuolo(btn) {
   const ruolo = btn.dataset.ruolo;
-  const container = document.getElementById('ruoloBtns');
+  const container = document.getElementById("ruoloBtns");
   const allBtn = container.querySelector('[data-ruolo="all"]');
-  const btns = container.querySelectorAll('.btn-ruolo');
+  const btns = container.querySelectorAll(".btn-ruolo");
 
   if (ruolo === "all") {
     filtriRuoli = [];
-    btns.forEach(b => b.classList.remove('active'));
-    allBtn.classList.add('active');
+    btns.forEach((b) => b.classList.remove("active"));
+    allBtn.classList.add("active");
     applyFilters();
     return;
   }
 
   if (filtriRuoli.length === 0) {
-    allBtn.classList.remove('active');
+    allBtn.classList.remove("active");
   }
 
   const index = filtriRuoli.indexOf(ruolo);
   if (index > -1) {
     filtriRuoli.splice(index, 1);
-    btn.classList.remove('active');
+    btn.classList.remove("active");
   } else {
     filtriRuoli.push(ruolo);
-    btn.classList.add('active');
+    btn.classList.add("active");
   }
 
   if (filtriRuoli.length === 0) {
-    allBtn.classList.add('active');
+    allBtn.classList.add("active");
   }
 
   applyFilters();
@@ -527,33 +566,33 @@ function toggleRuolo(btn) {
 
 function toggleRuoloMio(btn) {
   const ruolo = btn.dataset.ruolo;
-  const container = document.getElementById('ruoloBtnsMio');
+  const container = document.getElementById("ruoloBtnsMio");
   const allBtn = container.querySelector('[data-ruolo="all"]');
-  const btns = container.querySelectorAll('.btn-ruolo');
+  const btns = container.querySelectorAll(".btn-ruolo");
 
   if (ruolo === "all") {
     filtriRuoliMio = [];
-    btns.forEach(b => b.classList.remove('active'));
-    allBtn.classList.add('active');
+    btns.forEach((b) => b.classList.remove("active"));
+    allBtn.classList.add("active");
     renderMioListone();
     return;
   }
 
   if (filtriRuoliMio.length === 0) {
-    allBtn.classList.remove('active');
+    allBtn.classList.remove("active");
   }
 
   const index = filtriRuoliMio.indexOf(ruolo);
   if (index > -1) {
     filtriRuoliMio.splice(index, 1);
-    btn.classList.remove('active');
+    btn.classList.remove("active");
   } else {
     filtriRuoliMio.push(ruolo);
-    btn.classList.add('active');
+    btn.classList.add("active");
   }
 
   if (filtriRuoliMio.length === 0) {
-    allBtn.classList.add('active');
+    allBtn.classList.add("active");
   }
   renderMioListone();
 }
@@ -563,8 +602,10 @@ function toggleRuoloMio(btn) {
 // ============================================================
 function setVistaSingola(vista, btn) {
   vistaSingolaCorrente = vista;
-  document.querySelectorAll(".btn-vista-singola").forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+  document
+    .querySelectorAll(".btn-vista-singola")
+    .forEach((b) => b.classList.remove("active"));
+  btn.classList.add("active");
   if (singolaSquadraSelezionata) {
     renderSingolaSquadra(singolaSquadraSelezionata);
   }
@@ -578,17 +619,21 @@ function renderSingolaSquadra(id) {
   if (!squadra) return;
 
   const searchInput = document.getElementById("searchInput");
-  const searchTermLocal = searchInput ? searchInput.value.toLowerCase().trim() : "";
+  const searchTermLocal = searchInput
+    ? searchInput.value.toLowerCase().trim()
+    : "";
 
   let giocatoriFiltrati = squadra.giocatori;
 
   if (filtriRuoli.length > 0) {
-    giocatoriFiltrati = giocatoriFiltrati.filter((g) => filtriRuoli.includes(g.ruolo));
+    giocatoriFiltrati = giocatoriFiltrati.filter((g) =>
+      filtriRuoli.includes(g.ruolo),
+    );
   }
 
   if (searchTermLocal) {
     giocatoriFiltrati = giocatoriFiltrati.filter((g) =>
-      g.nome.toLowerCase().includes(searchTermLocal)
+      g.nome.toLowerCase().includes(searchTermLocal),
     );
   }
 
@@ -629,8 +674,18 @@ function renderSingolaSquadra(id) {
   });
 
   const ordineRuoli = ["Portiere", "Difensore", "Centrocampista", "Attaccante"];
-  const iconMap = { Portiere: "🧤", Difensore: "🛡️", Centrocampista: "⚡", Attaccante: "⚽" };
-  const ruoloClassMap = { Portiere: "por", Difensore: "dif", Centrocampista: "cen", Attaccante: "att" };
+  const iconMap = {
+    Portiere: "🧤",
+    Difensore: "🛡️",
+    Centrocampista: "⚡",
+    Attaccante: "⚽",
+  };
+  const ruoloClassMap = {
+    Portiere: "por",
+    Difensore: "dif",
+    Centrocampista: "cen",
+    Attaccante: "att",
+  };
 
   // GRIGLIA
   let gridHtml = '<div class="singola-squadra-ruoli">';
@@ -643,10 +698,18 @@ function renderSingolaSquadra(id) {
         <div class="lista-giocatori">
     `;
     giocatori.forEach((g) => {
-      const isInMio = mioListone.some((m) => m.nome === g.nome && m.squadra === squadra.nome);
+      const isInMio = mioListone.some(
+        (m) => m.nome === g.nome && m.squadra === squadra.nome,
+      );
       const id = getPlayerId(g.nome, squadra.nome);
       const isSelected = selectedPlayers.has(id);
-      const playerData = { nome: g.nome, squadra: squadra.nome, ruolo: g.ruolo, quotazione: g.quotazione, logo_url: squadra.logo_url };
+      const playerData = {
+        nome: g.nome,
+        squadra: squadra.nome,
+        ruolo: g.ruolo,
+        quotazione: g.quotazione,
+        logo_url: squadra.logo_url,
+      };
       gridHtml += `
         <span class="giocatore-tag ${isInMio ? "nel-listone" : ""}" style="display:inline-flex;align-items:center;gap:0.3rem;">
           <input type="checkbox" class="player-checkbox" data-id="${id}" data-player='${JSON.stringify(playerData)}' ${isSelected ? "checked" : ""} onchange="togglePlayerSelection('${id}', JSON.parse(this.dataset.player), this)" />
@@ -668,11 +731,19 @@ function renderSingolaSquadra(id) {
     const giocatori = ruoliMap.get(ruolo) || [];
     giocatori.forEach((g) => {
       index++;
-      const isInMio = mioListone.some((m) => m.nome === g.nome && m.squadra === squadra.nome);
+      const isInMio = mioListone.some(
+        (m) => m.nome === g.nome && m.squadra === squadra.nome,
+      );
       const rClass = ruoloClassMap[g.ruolo] || "";
       const id = getPlayerId(g.nome, squadra.nome);
       const isSelected = selectedPlayers.has(id);
-      const playerData = { nome: g.nome, squadra: squadra.nome, ruolo: g.ruolo, quotazione: g.quotazione, logo_url: squadra.logo_url };
+      const playerData = {
+        nome: g.nome,
+        squadra: squadra.nome,
+        ruolo: g.ruolo,
+        quotazione: g.quotazione,
+        logo_url: squadra.logo_url,
+      };
       listaHtml += `
         <div class="singola-riga-giocatore">
           <input type="checkbox" class="player-checkbox" data-id="${id}" data-player='${JSON.stringify(playerData)}' ${isSelected ? "checked" : ""} onchange="togglePlayerSelection('${id}', JSON.parse(this.dataset.player), this)" />
@@ -706,9 +777,13 @@ function renderSingolaSquadra(id) {
 function tornaAlListone() {
   singolaSquadraSelezionata = null;
   document.getElementById("vistaSingolaSquadra").classList.add("hidden");
-  document.querySelectorAll("#squadreChips .chip-squadra").forEach(c => c.classList.remove('active'));
-  const allChip = document.querySelector('#squadreChips .chip-squadra[data-id="all"]');
-  if (allChip) allChip.classList.add('active');
+  document
+    .querySelectorAll("#squadreChips .chip-squadra")
+    .forEach((c) => c.classList.remove("active"));
+  const allChip = document.querySelector(
+    '#squadreChips .chip-squadra[data-id="all"]',
+  );
+  if (allChip) allChip.classList.add("active");
   squadreSelezionate.clear();
   if (vistaCorrente === "card") {
     document.getElementById("vistaCardContainer").classList.remove("hidden");
@@ -742,7 +817,9 @@ function applyFilters() {
     }
 
     if (searchTerm) {
-      giocatori = giocatori.filter((g) => g.nome.toLowerCase().includes(searchTerm));
+      giocatori = giocatori.filter((g) =>
+        g.nome.toLowerCase().includes(searchTerm),
+      );
     }
 
     return { ...s, giocatori };
@@ -758,14 +835,22 @@ function resetFiltri() {
   singolaSquadraSelezionata = null;
   document.getElementById("vistaSingolaSquadra").classList.add("hidden");
 
-  document.querySelectorAll("#squadreChips .chip-squadra").forEach(c => c.classList.remove('active'));
-  const allChip = document.querySelector('#squadreChips .chip-squadra[data-id="all"]');
-  if (allChip) allChip.classList.add('active');
+  document
+    .querySelectorAll("#squadreChips .chip-squadra")
+    .forEach((c) => c.classList.remove("active"));
+  const allChip = document.querySelector(
+    '#squadreChips .chip-squadra[data-id="all"]',
+  );
+  if (allChip) allChip.classList.add("active");
   squadreSelezionate.clear();
 
   filtriRuoli = [];
-  document.querySelectorAll("#ruoloBtns .btn-ruolo").forEach(b => b.classList.remove('active'));
-  document.querySelector('#ruoloBtns .btn-ruolo[data-ruolo="all"]').classList.add('active');
+  document
+    .querySelectorAll("#ruoloBtns .btn-ruolo")
+    .forEach((b) => b.classList.remove("active"));
+  document
+    .querySelector('#ruoloBtns .btn-ruolo[data-ruolo="all"]')
+    .classList.add("active");
 
   document.getElementById("searchInput").value = "";
   searchTerm = "";
@@ -788,7 +873,10 @@ function renderListone(squadreDaRenderizzare) {
   const tableBody = document.getElementById("tableBody");
   const emptyState = document.getElementById("emptyListone");
 
-  const totalPlayers = squadreDaRenderizzare.reduce((acc, s) => acc + s.giocatori.length, 0);
+  const totalPlayers = squadreDaRenderizzare.reduce(
+    (acc, s) => acc + s.giocatori.length,
+    0,
+  );
 
   if (totalPlayers === 0) {
     cardContainer.innerHTML = "";
@@ -809,16 +897,24 @@ function renderListone(squadreDaRenderizzare) {
       ruoliMap.get(g.ruolo).push(g);
     });
 
-    const ordineRuoli = ["Portiere", "Difensore", "Centrocampista", "Attaccante"];
+    const ordineRuoli = [
+      "Portiere",
+      "Difensore",
+      "Centrocampista",
+      "Attaccante",
+    ];
     const ruoliOrdinati = [];
     ordineRuoli.forEach((r) => {
-      if (ruoliMap.has(r)) ruoliOrdinati.push({ ruolo: r, giocatori: ruoliMap.get(r) });
+      if (ruoliMap.has(r))
+        ruoliOrdinati.push({ ruolo: r, giocatori: ruoliMap.get(r) });
     });
     ruoliMap.forEach((nomi, ruolo) => {
-      if (!ordineRuoli.includes(ruolo)) ruoliOrdinati.push({ ruolo, giocatori: nomi });
+      if (!ordineRuoli.includes(ruolo))
+        ruoliOrdinati.push({ ruolo, giocatori: nomi });
     });
 
-    const teamColor = squadra.colori && squadra.colori[0] ? squadra.colori[0] : "var(--accent)";
+    const teamColor =
+      squadra.colori && squadra.colori[0] ? squadra.colori[0] : "var(--accent)";
     cardHtml += `
       <div class="card-squadra" style="--team-color:${teamColor}" data-squadra-id="${squadra.id}" onclick="apriSingolaSquadra(${squadra.id})">
         <div class="squadra-header">
@@ -838,7 +934,12 @@ function renderListone(squadreDaRenderizzare) {
     `;
 
     ruoliOrdinati.forEach(({ ruolo, giocatori }) => {
-      const iconMap = { Portiere: "🧤", Difensore: "🛡️", Centrocampista: "⚡", Attaccante: "⚽" };
+      const iconMap = {
+        Portiere: "🧤",
+        Difensore: "🛡️",
+        Centrocampista: "⚡",
+        Attaccante: "⚽",
+      };
       const icon = iconMap[ruolo] || "👤";
       cardHtml += `
         <div class="ruolo-section">
@@ -846,10 +947,18 @@ function renderListone(squadreDaRenderizzare) {
           <div class="lista-giocatori">
       `;
       giocatori.forEach((g) => {
-        const isInMio = mioListone.some((m) => m.nome === g.nome && m.squadra === squadra.nome);
+        const isInMio = mioListone.some(
+          (m) => m.nome === g.nome && m.squadra === squadra.nome,
+        );
         const id = getPlayerId(g.nome, squadra.nome);
         const isSelected = selectedPlayers.has(id);
-        const playerData = { nome: g.nome, squadra: squadra.nome, ruolo: g.ruolo, quotazione: g.quotazione, logo_url: squadra.logo_url };
+        const playerData = {
+          nome: g.nome,
+          squadra: squadra.nome,
+          ruolo: g.ruolo,
+          quotazione: g.quotazione,
+          logo_url: squadra.logo_url,
+        };
         cardHtml += `
           <span class="giocatore-tag ${isInMio ? "nel-listone" : ""}" style="display:inline-flex;align-items:center;gap:0.3rem;" onclick="event.stopPropagation();">
             <input type="checkbox" class="player-checkbox" data-id="${id}" data-player='${JSON.stringify(playerData)}' ${isSelected ? "checked" : ""} onchange="togglePlayerSelection('${id}', JSON.parse(this.dataset.player), this)" />
@@ -872,11 +981,25 @@ function renderListone(squadreDaRenderizzare) {
   let tableHtml = "";
   squadreDaRenderizzare.forEach((squadra) => {
     squadra.giocatori.forEach((g) => {
-      const isInMio = mioListone.some((m) => m.nome === g.nome && m.squadra === squadra.nome);
-      const ruoloClass = { Portiere: "por", Difensore: "dif", Centrocampista: "cen", Attaccante: "att" }[g.ruolo] || "";
+      const isInMio = mioListone.some(
+        (m) => m.nome === g.nome && m.squadra === squadra.nome,
+      );
+      const ruoloClass =
+        {
+          Portiere: "por",
+          Difensore: "dif",
+          Centrocampista: "cen",
+          Attaccante: "att",
+        }[g.ruolo] || "";
       const id = getPlayerId(g.nome, squadra.nome);
       const isSelected = selectedPlayers.has(id);
-      const playerData = { nome: g.nome, squadra: squadra.nome, ruolo: g.ruolo, quotazione: g.quotazione, logo_url: squadra.logo_url };
+      const playerData = {
+        nome: g.nome,
+        squadra: squadra.nome,
+        ruolo: g.ruolo,
+        quotazione: g.quotazione,
+        logo_url: squadra.logo_url,
+      };
       tableHtml += `
         <tr>
           <td><input type="checkbox" class="player-checkbox" data-id="${id}" data-player='${JSON.stringify(playerData)}' ${isSelected ? "checked" : ""} onchange="togglePlayerSelection('${id}', JSON.parse(this.dataset.player), this)" /></td>
@@ -931,7 +1054,9 @@ function apriSingolaSquadra(id) {
   document.querySelectorAll("#squadreChips .chip-squadra").forEach((c) => {
     c.classList.toggle("active", String(c.dataset.id) === String(id));
   });
-  const allChip = document.querySelector('#squadreChips .chip-squadra[data-id="all"]');
+  const allChip = document.querySelector(
+    '#squadreChips .chip-squadra[data-id="all"]',
+  );
   if (allChip) allChip.classList.remove("active");
 
   renderSingolaSquadra(id);
@@ -942,15 +1067,19 @@ function apriSingolaSquadra(id) {
 // ============================================================
 function setVista(vista, btn) {
   vistaCorrente = vista;
-  document.querySelectorAll(".btn-vista").forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+  document
+    .querySelectorAll(".btn-vista")
+    .forEach((b) => b.classList.remove("active"));
+  btn.classList.add("active");
   applyFilters();
 }
 
 function setMioVista(vista, btn) {
   mioVistaCorrente = vista;
-  document.querySelectorAll(".btn-vista-mio").forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+  document
+    .querySelectorAll(".btn-vista-mio")
+    .forEach((b) => b.classList.remove("active"));
+  btn.classList.add("active");
   renderMioListone();
 }
 
@@ -958,7 +1087,9 @@ function setMioVista(vista, btn) {
 //  TOGGLE MIO LISTONE (singolo)
 // ============================================================
 function toggleMioListone(nome, squadra, ruolo, logo_url, quotazione) {
-  const index = mioListone.findIndex((m) => m.nome === nome && m.squadra === squadra);
+  const index = mioListone.findIndex(
+    (m) => m.nome === nome && m.squadra === squadra,
+  );
   if (index > -1) {
     mioListone.splice(index, 1);
     showToast(`Rimosso ${nome} dal listone`, "fa-trash");
@@ -977,7 +1108,9 @@ function toggleMioListone(nome, squadra, ruolo, logo_url, quotazione) {
 }
 
 function removeFromMioListone(nome, squadra) {
-  const index = mioListone.findIndex((m) => m.nome === nome && m.squadra === squadra);
+  const index = mioListone.findIndex(
+    (m) => m.nome === nome && m.squadra === squadra,
+  );
   if (index > -1) {
     mioListone.splice(index, 1);
     saveMioListone();
@@ -1024,7 +1157,9 @@ function renderMioListone() {
 
   if (window.mioSquadreSelezionate && window.mioSquadreSelezionate.size > 0) {
     const squadreIds = window.mioSquadreSelezionate;
-    const squadreNomi = squadre.filter(s => squadreIds.has(s.id)).map(s => s.nome);
+    const squadreNomi = squadre
+      .filter((s) => squadreIds.has(s.id))
+      .map((s) => s.nome);
     filtered = filtered.filter((m) => squadreNomi.includes(m.squadra));
   }
 
@@ -1050,13 +1185,28 @@ function renderMioListone() {
   `;
 
   if (mioVistaCorrente === "ruolo") {
-    const ordineRuoli = ["Portiere", "Difensore", "Centrocampista", "Attaccante"];
+    const ordineRuoli = [
+      "Portiere",
+      "Difensore",
+      "Centrocampista",
+      "Attaccante",
+    ];
     let html = "";
     ordineRuoli.forEach((ruolo) => {
       const giocatoriRuolo = filtered.filter((m) => m.ruolo === ruolo);
       if (giocatoriRuolo.length === 0) return;
-      const colorMap = { Portiere: "var(--por-c)", Difensore: "var(--dif-c)", Centrocampista: "var(--cen-c)", Attaccante: "var(--att-c)" };
-      const iconMap = { Portiere: "🧤", Difensore: "🛡️", Centrocampista: "⚡", Attaccante: "⚽" };
+      const colorMap = {
+        Portiere: "var(--por-c)",
+        Difensore: "var(--dif-c)",
+        Centrocampista: "var(--cen-c)",
+        Attaccante: "var(--att-c)",
+      };
+      const iconMap = {
+        Portiere: "🧤",
+        Difensore: "🛡️",
+        Centrocampista: "⚡",
+        Attaccante: "⚽",
+      };
       html += `
         <div class="mio-ruolo-section">
           <div class="mio-ruolo-title">
@@ -1075,7 +1225,9 @@ function renderMioListone() {
     const squadreNomi = [...new Set(filtered.map((m) => m.squadra))];
     let html = "";
     squadreNomi.forEach((squadraNome) => {
-      const giocatoriSquadra = filtered.filter((m) => m.squadra === squadraNome);
+      const giocatoriSquadra = filtered.filter(
+        (m) => m.squadra === squadraNome,
+      );
       const squadraData = squadre.find((s) => s.nome === squadraNome);
       html += `
         <div class="mio-squadra-section">
@@ -1119,7 +1271,10 @@ function createMioCard(g) {
 //  CONTATORI
 // ============================================================
 function aggiornaContatori() {
-  const totalPlayers = squadre.reduce((acc, s) => acc + (s.giocatori || []).length, 0);
+  const totalPlayers = squadre.reduce(
+    (acc, s) => acc + (s.giocatori || []).length,
+    0,
+  );
   document.getElementById("totalGiocatori").textContent = totalPlayers;
   document.getElementById("totalMieiCount").textContent = mioListone.length;
 }
@@ -1128,7 +1283,9 @@ function aggiornaContatori() {
 //  SWITCH TAB
 // ============================================================
 function switchTab(tab) {
-  document.querySelectorAll(".btn-tab").forEach(b => b.classList.remove('active'));
+  document
+    .querySelectorAll(".btn-tab")
+    .forEach((b) => b.classList.remove("active"));
   if (tab === "listone") {
     document.getElementById("tabListone").classList.add("active");
     document.getElementById("panelListone").classList.remove("hidden");
