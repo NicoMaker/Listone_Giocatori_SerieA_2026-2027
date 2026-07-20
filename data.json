@@ -5,10 +5,7 @@
       "id": 1,
       "nome": "Atalanta",
       "citta": "Bergamo",
-      "colori": [
-        "#004A9F",
-        "#000000"
-      ],
+      "colori": ["#004A9F", "#000000"],
       "logo_url": "https://i.pinimg.com/originals/65/e1/90/65e190658337a21ba81ee6bfe28722b6.png",
       "giocatori": [
         {
@@ -158,10 +155,7 @@
       "id": 2,
       "nome": "Bologna",
       "citta": "Bologna",
-      "colori": [
-        "#001489",
-        "#C01616"
-      ],
+      "colori": ["#001489", "#C01616"],
       "logo_url": "https://www.pennantsmuseum.com/wp-content/uploads/2022/04/bologna-1024x1024.png",
       "giocatori": [
         {
@@ -301,10 +295,7 @@
       "id": 3,
       "nome": "Cagliari",
       "citta": "Cagliari",
-      "colori": [
-        "#001F6B",
-        "#C8102E"
-      ],
+      "colori": ["#001F6B", "#C8102E"],
       "logo_url": "https://th.bing.com/th/id/OIP.orn1BJkEFVaaWCOGf_CiKgHaHa?rs=1&pid=ImgDetMain",
       "giocatori": [
         {
@@ -454,10 +445,7 @@
       "id": 4,
       "nome": "Como",
       "citta": "Como",
-      "colori": [
-        "#033A96",
-        "#FFFFFF"
-      ],
+      "colori": ["#033A96", "#FFFFFF"],
       "logo_url": "https://th.bing.com/th/id/OIP.Kn-YVDGu5C1iimFCbIYZmgHaHq?rs=1&pid=ImgDetMain",
       "giocatori": [
         {
@@ -657,10 +645,7 @@
       "id": 5,
       "nome": "Fiorentina",
       "citta": "Firenze",
-      "colori": [
-        "#4B006E",
-        "#FFFFFF"
-      ],
+      "colori": ["#4B006E", "#FFFFFF"],
       "logo_url": "https://www.tuttocampo.it/Web/Images/Teams/Original/1010111.png?v=11606382302",
       "giocatori": [
         {
@@ -840,10 +825,7 @@
       "id": 6,
       "nome": "Frosinone",
       "citta": "Frosinone",
-      "colori": [
-        "#FFD700",
-        "#0033CC"
-      ],
+      "colori": ["#FFD700", "#0033CC"],
       "logo_url": "https://upload.wikimedia.org/wikipedia/it/thumb/0/0b/Frosinone_Calcio_logo.svg/1280px-Frosinone_Calcio_logo.svg.png",
       "giocatori": [
         {
@@ -973,10 +955,7 @@
       "id": 7,
       "nome": "Genoa",
       "citta": "Genova",
-      "colori": [
-        "#8B0000",
-        "#003F8A"
-      ],
+      "colori": ["#8B0000", "#003F8A"],
       "logo_url": "https://www.tuttocampo.it/Web/Images/Teams/Original/1009562.png?v4",
       "giocatori": [
         {
@@ -1126,10 +1105,7 @@
       "id": 8,
       "nome": "Inter",
       "citta": "Milano",
-      "colori": [
-        "#010E80",
-        "#000000"
-      ],
+      "colori": ["#010E80", "#000000"],
       "logo_url": "https://1.bp.blogspot.com/-5O5g_eGrFf4/YCPz5WuqebI/AAAAAAAB9kg/Ma15EUix1agY164NEhK6j2wcIXUxx02lQCLcBGAsYHQ/w400-h371/Inter%2Bde%2BMil%25C3%25A3o%2B-%2BITA%2B-%2BNOVO%2BOFICIAL.jpg",
       "giocatori": [
         {
@@ -1289,10 +1265,7 @@
       "id": 9,
       "nome": "Juventus",
       "citta": "Torino",
-      "colori": [
-        "#000000",
-        "#FFFFFF"
-      ],
+      "colori": ["#000000", "#FFFFFF"],
       "logo_url": "https://th.bing.com/th/id/R.3c4e3112a463ae8efe8a7a0c8e40cd13?rik=Ji35bOsYUptvGg&riu=http%3a%2f%2f1000marcas.net%2fwp-content%2fuploads%2f2020%2f01%2fJuventus-logo.png&ehk=6AHrWJ53F1JKUolXY%2boYs%2fQOABq%2b2XD6U8%2fmMNXAR5c%3d&risl=&pid=ImgRaw&r=0&sres=1&sresct=1",
       "giocatori": [
         {
@@ -1457,10 +1430,7 @@
       "id": 10,
       "nome": "Lazio",
       "citta": "Roma",
-      "colori": [
-        "#87CEEB",
-        "#FFFFFF"
-      ],
+      "colori": ["#87CEEB", "#FFFFFF"],
       "logo_url": "https://i.pinimg.com/originals/0d/af/05/0daf05305998bb24576d3f918a5cb38e.png",
       "giocatori": [
         {
@@ -1625,10 +1595,7 @@
       "id": 11,
       "nome": "Lecce",
       "citta": "Lecce",
-      "colori": [
-        "#FFD700",
-        "#8B0000"
-      ],
+      "colori": ["#FFD700", "#8B0000"],
       "logo_url": "https://th.bing.com/th/id/OIP.LzvtpDdNPPiICmB5c0MmFwHaI7?rs=1&pid=ImgDetMain",
       "giocatori": [
         {
@@ -1808,10 +1775,7 @@
       "id": 12,
       "nome": "Milan",
       "citta": "Milano",
-      "colori": [
-        "#FB090B",
-        "#000000"
-      ],
+      "colori": ["#FB090B", "#000000"],
       "logo_url": "https://icon2.cleanpng.com/20180525/ruv/avqpf2sk7.webp",
       "giocatori": [
         {
@@ -1986,10 +1950,7 @@
       "id": 13,
       "nome": "Monza",
       "citta": "Monza",
-      "colori": [
-        "#DE3D3D",
-        "#FFFFFF"
-      ],
+      "colori": ["#DE3D3D", "#FFFFFF"],
       "logo_url": "https://www.acmonza.com/images/logo/logo.png",
       "giocatori": [
         {
@@ -2124,10 +2085,7 @@
       "id": 14,
       "nome": "Napoli",
       "citta": "Napoli",
-      "colori": [
-        "#12A0C3",
-        "#FFFFFF"
-      ],
+      "colori": ["#12A0C3", "#FFFFFF"],
       "logo_url": "https://ih1.redbubble.net/image.2130082874.2309/st,small,507x507-pad,600x600,f8f8f8.jpg",
       "giocatori": [
         {
@@ -2322,10 +2280,7 @@
       "id": 15,
       "nome": "Parma",
       "citta": "Parma",
-      "colori": [
-        "#FFD700",
-        "#003087"
-      ],
+      "colori": ["#FFD700", "#003087"],
       "logo_url": "https://vectorseek.com/wp-content/uploads/2023/06/Fc-Parma-Logo-Vector-730x730.jpg",
       "giocatori": [
         {
@@ -2475,10 +2430,7 @@
       "id": 16,
       "nome": "Roma",
       "citta": "Roma",
-      "colori": [
-        "#8B0000",
-        "#FFD700"
-      ],
+      "colori": ["#8B0000", "#FFD700"],
       "logo_url": "https://logodetimes.com/times/roma/logo-roma-4096.png",
       "giocatori": [
         {
@@ -2623,10 +2575,7 @@
       "id": 17,
       "nome": "Sassuolo",
       "citta": "Sassuolo",
-      "colori": [
-        "#1B8335",
-        "#000000"
-      ],
+      "colori": ["#1B8335", "#000000"],
       "logo_url": "https://toppng.com/uploads/preview/us-sassuolo-calcio-current-vector-logo-11573728920zy6jfcuddw.png",
       "giocatori": [
         {
@@ -2816,10 +2765,7 @@
       "id": 18,
       "nome": "Torino",
       "citta": "Torino",
-      "colori": [
-        "#8B0000",
-        "#FFFFFF"
-      ],
+      "colori": ["#8B0000", "#FFFFFF"],
       "logo_url": "https://www.seriebnews.com/wp-content/uploads/logo_torino.png",
       "giocatori": [
         {
@@ -2969,10 +2915,7 @@
       "id": 19,
       "nome": "Udinese",
       "citta": "Udine",
-      "colori": [
-        "#000000",
-        "#FFFFFF"
-      ],
+      "colori": ["#000000", "#FFFFFF"],
       "logo_url": "https://www.pennantsmuseum.com/wp-content/uploads/2022/04/udinese.png",
       "giocatori": [
         {
@@ -3172,10 +3115,7 @@
       "id": 20,
       "nome": "Venezia",
       "citta": "Venezia",
-      "colori": [
-        "#FF6600",
-        "#000000"
-      ],
+      "colori": ["#FF6600", "#000000"],
       "logo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtkJfFpPQK3ZVRzFYiKrczz6cVpamj_bv5XQaJ4Oz2DVzQq-VDFRGe29_R&s=10",
       "giocatori": [
         {

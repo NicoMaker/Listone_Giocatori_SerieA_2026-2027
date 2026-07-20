@@ -196,7 +196,10 @@ function selectAllMio() {
   const grid = document.getElementById("mioListoneGrid");
   const n = selectCheckboxesIn(grid);
   if (n === 0) {
-    showToast("Nessun giocatore da selezionare nel tuo listone", "fa-info-circle");
+    showToast(
+      "Nessun giocatore da selezionare nel tuo listone",
+      "fa-info-circle",
+    );
     return;
   }
   showToast(`Selezionati ${n} giocatori del tuo listone`, "fa-check-double");
@@ -211,7 +214,9 @@ function selectMioSection(btn) {
   const label = section.querySelector(".mio-section-label");
   const nome = label ? label.textContent.trim() : "";
   showToast(
-    n ? `Selezionati ${n} giocatori${nome ? " · " + nome : ""}` : "Nessun giocatore da selezionare",
+    n
+      ? `Selezionati ${n} giocatori${nome ? " · " + nome : ""}`
+      : "Nessun giocatore da selezionare",
     n ? "fa-check-double" : "fa-info-circle",
   );
 }
@@ -1565,8 +1570,8 @@ function initCardSpotlight() {
     const py = (y / rect.height) * 100;
     card.style.setProperty("--mx", `${px}%`);
     card.style.setProperty("--my", `${py}%`);
-    const tiltY = ((x / rect.width) - 0.5) * 6; // rotazione asse Y
-    const tiltX = (0.5 - (y / rect.height)) * 6; // rotazione asse X
+    const tiltY = (x / rect.width - 0.5) * 6; // rotazione asse Y
+    const tiltX = (0.5 - y / rect.height) * 6; // rotazione asse X
     card.style.setProperty("--tilt-x", `${tiltX}deg`);
     card.style.setProperty("--tilt-y", `${tiltY}deg`);
   }

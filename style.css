@@ -24,7 +24,11 @@
   --seriea-cyan: #2de2ff;
   --seriea-green: #00b74f;
   --seriea-red: #e5002b;
-  --grad-seriea: linear-gradient(115deg, var(--seriea-blue), var(--seriea-cyan));
+  --grad-seriea: linear-gradient(
+    115deg,
+    var(--seriea-blue),
+    var(--seriea-cyan)
+  );
 
   --accent: var(--seriea-blue);
   --accent-soft: rgba(3, 115, 255, 0.16);
@@ -85,7 +89,8 @@
 
   --shadow-1: 0 1px 2px rgba(26, 22, 89, 0.08);
   --shadow-2:
-    0 18px 40px -20px rgba(26, 22, 89, 0.28), 0 3px 10px -5px rgba(26, 22, 89, 0.12);
+    0 18px 40px -20px rgba(26, 22, 89, 0.28),
+    0 3px 10px -5px rgba(26, 22, 89, 0.12);
   --shadow-glow:
     0 0 0 1px rgba(3, 115, 255, 0.28), 0 10px 26px -10px rgba(3, 115, 255, 0.3);
 
@@ -1105,8 +1110,7 @@ body::before {
   background: var(--surface-2);
   border: 2px solid transparent;
   background-image:
-    linear-gradient(var(--surface-2), var(--surface-2)),
-    var(--grad-seriea);
+    linear-gradient(var(--surface-2), var(--surface-2)), var(--grad-seriea);
   background-origin: border-box;
   background-clip: padding-box, border-box;
   display: flex;
@@ -1185,12 +1189,11 @@ body::before {
 .card-squadra {
   --team-color: var(--seriea-blue);
   position: relative;
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--team-color) 9%, var(--surface)),
-      var(--surface) 44%
-    );
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--team-color) 9%, var(--surface)),
+    var(--surface) 44%
+  );
   border: 1px solid var(--border);
   border-radius: var(--r-lg);
   padding: 1.15rem 1.15rem 1.35rem;
@@ -2367,8 +2370,7 @@ body::before {
   transform: scale(0.92);
 }
 .header-inner {
-  transition:
-    padding 0.35s var(--ease);
+  transition: padding 0.35s var(--ease);
 }
 .brand-logo {
   transition: transform 0.35s var(--ease);
@@ -2509,7 +2511,8 @@ body::before {
   }
   40% {
     transform: scale(1.06);
-    box-shadow: 0 0 0 6px color-mix(in srgb, var(--seriea-cyan) 22%, transparent);
+    box-shadow: 0 0 0 6px
+      color-mix(in srgb, var(--seriea-cyan) 22%, transparent);
   }
   100% {
     transform: scale(1);
@@ -2649,7 +2652,8 @@ body::before {
     opacity: 1;
   }
   100% {
-    box-shadow: 0 0 0 22px color-mix(in srgb, var(--seriea-cyan) 0%, transparent);
+    box-shadow: 0 0 0 22px
+      color-mix(in srgb, var(--seriea-cyan) 0%, transparent);
     opacity: 0;
   }
 }
@@ -2723,10 +2727,12 @@ body::before {
 @keyframes searchGlow {
   0%,
   100% {
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--seriea-cyan) 22%, transparent);
+    box-shadow: 0 0 0 3px
+      color-mix(in srgb, var(--seriea-cyan) 22%, transparent);
   }
   50% {
-    box-shadow: 0 0 0 5px color-mix(in srgb, var(--seriea-cyan) 12%, transparent);
+    box-shadow: 0 0 0 5px
+      color-mix(in srgb, var(--seriea-cyan) 12%, transparent);
   }
 }
 
