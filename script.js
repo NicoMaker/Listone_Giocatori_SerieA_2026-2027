@@ -121,6 +121,51 @@ function selectAllVisible() {
   showToast(`Selezionati ${checkboxes.length} giocatori`, "fa-check-double");
 }
 
+// ===== SELEZIONE NEL "MIO LISTONE" =====
+// Seleziona tutte le checkbox contenute in un elemento (sezione o pannello).
+function selectCheckboxesIn(container) {
+  if (!container) return 0;
+  const checkboxes = container.querySelectorAll(".player-checkbox");
+  let n = 0;
+  checkboxes.forEach((cb) => {
+    cb.checked = true;
+    const id = cb.dataset.id;
+    const player = cb.dataset.player ? JSON.parse(cb.dataset.player) : null;
+    if (player) {
+      selectedPlayers.set(id, player);
+      n++;
+    }
+  });
+  updateSelectionUI();
+  return n;
+}
+
+// Seleziona TUTTI i giocatori presenti nel Mio Listone (solo quelli visibili
+// con i filtri correnti).
+function selectAllMio() {
+  const grid = document.getElementById("mioListoneGrid");
+  const n = selectCheckboxesIn(grid);
+  if (n === 0) {
+    showToast("Nessun giocatore da selezionare nel tuo listone", "fa-info-circle");
+    return;
+  }
+  showToast(`Selezionati ${n} giocatori del tuo listone`, "fa-check-double");
+}
+
+// Seleziona tutti i giocatori di una sezione del Mio Listone
+// (un ruolo intero in vista "Per Ruolo", una squadra intera in vista "Per Squadra").
+function selectMioSection(btn) {
+  const section = btn.closest(".mio-ruolo-section, .mio-squadra-section");
+  if (!section) return;
+  const n = selectCheckboxesIn(section);
+  const label = section.querySelector(".mio-section-label");
+  const nome = label ? label.textContent.trim() : "";
+  showToast(
+    n ? `Selezionati ${n} giocatori${nome ? " · " + nome : ""}` : "Nessun giocatore da selezionare",
+    n ? "fa-check-double" : "fa-info-circle",
+  );
+}
+
 // ===== SELEZIONA TUTTI I GIOCATORI DI UNA SQUADRA (dalla card) =====
 function selectAllSquadra(squadraId) {
   const squadra = squadre.find((s) => s.id === squadraId);
@@ -385,6 +430,41 @@ document.addEventListener("DOMContentLoaded", () => {
   loadData();
 });
 
+// ============================================================
+//  FALLBACK LOGHI SQUADRE (link principale -> Wikipedia -> iniziale)
+//  I loghi usano i link della squadra dal file dati; se un link
+//  non carica, si prova automaticamente il fallback Wikipedia e,
+//  se anche quello fallisce, la logica inline mostra l'iniziale.
+// ============================================================
+let logoFallbacks = {};
+let logoFallbackReady = false;
+
+function setupLogoFallback() {
+  logoFallbacks = {};
+  squadre.forEach((s) => {
+    if (s.logo_fallback) logoFallbacks[s.nome] = s.logo_fallback;
+  });
+  if (logoFallbackReady) return;
+  logoFallbackReady = true;
+  // Ascolto in fase di cattura: gli eventi "error" delle immagini non
+  // fanno bubbling, ma vengono comunque intercettati in cattura.
+  document.addEventListener(
+    "error",
+    function (e) {
+      const img = e.target;
+      if (!(img instanceof HTMLImageElement)) return;
+      if (img.dataset.logoRetried === "1") return; // già ritentato -> lascia il fallback inline
+      const fb = logoFallbacks[img.alt];
+      if (fb && img.getAttribute("src") !== fb) {
+        img.dataset.logoRetried = "1";
+        e.stopImmediatePropagation(); // blocca l'onerror inline in questo giro
+        img.src = fb;
+      }
+    },
+    true,
+  );
+}
+
 async function loadData() {
   const loading = document.getElementById("loading");
   try {
@@ -393,6 +473,7 @@ async function loadData() {
     const data = await response.json();
     serieAData = data;
     squadre = data.squadre;
+    setupLogoFallback();
     loading.classList.add("hidden");
     init();
   } catch (error) {
@@ -1211,7 +1292,11 @@ function renderMioListone() {
         <div class="mio-ruolo-section">
           <div class="mio-ruolo-title">
             <span class="dot" style="background:${colorMap[ruolo] || "var(--text-3)"};"></span>
-            ${iconMap[ruolo] || ""} ${ruolo} <span style="font-size:.8rem;color:var(--text-3);font-weight:400;">(${giocatoriRuolo.length})</span>
+            <span class="mio-section-label">${iconMap[ruolo] || ""} ${ruolo}</span>
+            <span class="mio-section-count">${giocatoriRuolo.length}</span>
+            <button class="mio-section-selectall" onclick="selectMioSection(this)" title="Seleziona tutti i ${ruolo}">
+              <i class="fas fa-check-double"></i> Tutti
+            </button>
           </div>
           <div class="mio-giocatori-grid">
       `;
@@ -1233,7 +1318,11 @@ function renderMioListone() {
         <div class="mio-squadra-section">
           <div class="mio-squadra-title">
             ${squadraData?.logo_url ? `<img src="${squadraData.logo_url}" alt="${squadraNome}" class="logo-mini" onerror="this.style.display='none'" />` : `<span class="logo-mini-fallback">${squadraNome.charAt(0)}</span>`}
-            ${squadraNome} <span style="font-size:.8rem;color:var(--text-3);font-weight:400;">(${giocatoriSquadra.length})</span>
+            <span class="mio-section-label">${squadraNome}</span>
+            <span class="mio-section-count">${giocatoriSquadra.length}</span>
+            <button class="mio-section-selectall" onclick="selectMioSection(this)" title="Seleziona tutta la ${squadraNome}">
+              <i class="fas fa-check-double"></i> Tutti
+            </button>
           </div>
           <div class="mio-giocatori-grid">
       `;
