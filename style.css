@@ -730,6 +730,7 @@ a:focus-visible {
 .action-buttons {
   display: flex;
   gap: 0.4rem;
+  flex-wrap: wrap;
 }
 .btn-action {
   border: 1px solid var(--border);
@@ -1211,6 +1212,7 @@ a:focus-visible {
   display: flex;
   gap: 0.4rem;
   margin-top: 0.9rem;
+  flex-wrap: wrap;
 }
 .btn-vista-singola {
   border: 1px solid var(--border);

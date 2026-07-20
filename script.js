@@ -76,7 +76,7 @@ function updateSelectionUI() {
   if (countSpan) countSpan.textContent = count;
   if (countSpanMio) countSpanMio.textContent = count;
 
-  // aggiorna anche il checkbox "seleziona tutti" nella tabella
+  // aggiorna il checkbox "seleziona tutti" nella tabella
   const allCheck = document.getElementById("selectAllTable");
   if (allCheck) {
     const visibleCheckboxes = document.querySelectorAll(
@@ -99,6 +99,26 @@ function clearSelection() {
   updateSelectionUI();
 }
 
+// ===== SELEZIONA TUTTI I VISIBILI =====
+function selectAllVisible() {
+  const checkboxes = document.querySelectorAll(".player-checkbox:not(.hidden)");
+  if (checkboxes.length === 0) {
+    showToast("Nessun giocatore visibile da selezionare", "fa-info-circle");
+    return;
+  }
+  checkboxes.forEach((cb) => {
+    cb.checked = true;
+    const id = cb.dataset.id;
+    const player = cb.dataset.player ? JSON.parse(cb.dataset.player) : null;
+    if (player) {
+      selectedPlayers.set(id, player);
+    }
+  });
+  updateSelectionUI();
+  showToast(`Selezionati ${checkboxes.length} giocatori`, "fa-check-double");
+}
+
+// ===== TOGGLE SELEZIONA TUTTI IN TABELLA =====
 function toggleSelectAllTable(master) {
   const checkboxes = document.querySelectorAll(
     "#tableBody .player-checkbox",
