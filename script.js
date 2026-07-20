@@ -976,6 +976,7 @@ function tornaAlListone() {
     document.getElementById("vistaTabContainer").classList.remove("hidden");
   }
   applyFilters();
+  scrollToMain();
 }
 
 // ============================================================
@@ -1246,6 +1247,7 @@ function apriSingolaSquadra(id) {
   if (allChip) allChip.classList.remove("active");
 
   renderSingolaSquadra(id);
+  scrollToMain();
 }
 
 // ============================================================
@@ -1497,6 +1499,7 @@ function switchTab(tab) {
     renderMioListone();
   }
   requestAnimationFrame(updateTabSlider);
+  scrollToMain();
 }
 // ============================================================
 //  MOTION PACK · header su scroll, spotlight card, reveal in
@@ -1618,6 +1621,34 @@ function initSelectAllPulse() {
     btn.classList.add("just-triggered");
     setTimeout(() => btn.classList.remove("just-triggered"), 550);
   });
+}
+
+// ----- Scorre fino all'inizio del contenuto, tenendo conto dell'altezza
+// reale di header e toolbar (che sono sticky su desktop ma non su mobile).
+// Serve per evitare che, aprendo la card di una squadra mentre si è
+// scrollati in basso nella griglia, la nuova sezione appaia "fuori
+// schermo" e sembri che la pagina non abbia reagito al click. -----
+function scrollToMain() {
+  const header = document.querySelector(".site-header");
+  const toolbar = document.querySelector(".toolbar:not(.hidden)");
+  const main = document.querySelector(".main-content");
+  if (!main) return;
+
+  let offset = header ? header.getBoundingClientRect().height : 0;
+  if (toolbar) {
+    const pos = window.getComputedStyle(toolbar).position;
+    if (pos === "sticky" || pos === "fixed") {
+      offset += toolbar.getBoundingClientRect().height;
+    }
+  }
+  offset += 12;
+
+  const rectTop = main.getBoundingClientRect().top + window.scrollY;
+  const target = Math.max(rectTop - offset, 0);
+
+  // Se siamo già vicini alla posizione giusta non serve animare lo scroll.
+  if (Math.abs(window.scrollY - target) < 4) return;
+  window.scrollTo({ top: target, behavior: "smooth" });
 }
 
 // ----- Bottone flottante "torna su" -----
