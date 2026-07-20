@@ -156,7 +156,6 @@ body {
   position: relative;
 }
 
-/* mowed-grass pitch texture, very low opacity, fixed to viewport */
 body::before {
   content: "";
   position: fixed;
@@ -205,7 +204,6 @@ img {
   color: #fff;
 }
 
-/* focus visibility */
 button:focus-visible,
 input:focus-visible,
 a:focus-visible {
@@ -214,7 +212,6 @@ a:focus-visible {
   border-radius: var(--r-sm);
 }
 
-/* scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
@@ -393,7 +390,6 @@ a:focus-visible {
   flex-wrap: wrap;
 }
 
-/* scoreboard-style counters */
 .meta-pill {
   display: flex;
   align-items: center;
@@ -727,21 +723,15 @@ a:focus-visible {
   border-color: var(--border-strong);
 }
 
-/* mio toolbar action buttons */
-.salvataggio-info {
-  font-size: 0.68rem;
-  color: var(--text-3);
+/* actions block - selezione multipla */
+.actions-block {
+  margin-left: auto;
+}
+.action-buttons {
   display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  margin-right: 0.4rem;
+  gap: 0.4rem;
 }
-.salvataggio-info i {
-  color: var(--it-verde);
-}
-.btn-export,
-.btn-import,
-.btn-danger {
+.btn-action {
   border: 1px solid var(--border);
   background: var(--surface-2);
   color: var(--text-2);
@@ -756,18 +746,76 @@ a:focus-visible {
   transition: all 0.18s var(--ease);
   white-space: nowrap;
 }
-.btn-export:hover,
-.btn-import:hover {
+.btn-action:hover:not(:disabled) {
   color: var(--text-1);
   border-color: var(--border-strong);
 }
-.btn-danger {
-  color: var(--att-c);
-  border-color: rgba(224, 82, 75, 0.3);
+.btn-action:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
-.btn-danger:hover {
+.btn-action .selected-badge {
+  background: var(--gold);
+  color: #1c1304;
+  border-radius: 100px;
+  padding: 0.08rem 0.45rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.btn-action#addSelectedBtn {
+  background: rgba(31, 145, 80, 0.12);
+  border-color: rgba(31, 145, 80, 0.35);
+  color: var(--it-verde);
+}
+.btn-action#addSelectedBtn:hover:not(:disabled) {
+  background: rgba(31, 145, 80, 0.2);
+  border-color: var(--it-verde);
+}
+
+.btn-action#removeSelectedBtn {
   background: rgba(224, 82, 75, 0.12);
+  border-color: rgba(224, 82, 75, 0.35);
+  color: var(--att-c);
+}
+.btn-action#removeSelectedBtn:hover:not(:disabled) {
+  background: rgba(224, 82, 75, 0.2);
   border-color: var(--att-c);
+}
+
+/* ============================================================
+   CHECKBOX STYLE
+   ============================================================ */
+.player-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--border-strong);
+  border-radius: 4px;
+  background: var(--surface-2);
+  cursor: pointer;
+  transition: all 0.15s var(--ease);
+  flex-shrink: 0;
+  position: relative;
+}
+.player-checkbox:checked {
+  background: var(--it-verde);
+  border-color: var(--it-verde);
+}
+.player-checkbox:checked::after {
+  content: "\f00c";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  font-size: 10px;
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.player-checkbox:hover {
+  border-color: var(--gold);
 }
 
 /* ============================================================
@@ -970,7 +1018,6 @@ a:focus-visible {
   margin: 0;
 }
 
-/* small Italian flag kicker shown above team names */
 .mini-flag-it {
   display: flex;
   width: 28px;
@@ -1053,7 +1100,7 @@ a:focus-visible {
 .giocatore-tag .tag-add::before {
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
-  content: "\f067"; /* plus */
+  content: "\f067";
   font-size: 0.6rem;
   color: var(--text-3);
 }
@@ -1066,7 +1113,7 @@ a:focus-visible {
   color: var(--gold);
 }
 .giocatore-tag.nel-listone .tag-add::before {
-  content: "\f00c"; /* check */
+  content: "\f00c";
   color: var(--gold);
 }
 
@@ -1214,9 +1261,9 @@ a:focus-visible {
 }
 .singola-riga-giocatore {
   display: grid;
-  grid-template-columns: 36px 1fr auto auto auto;
+  grid-template-columns: 30px 36px 1fr auto auto auto;
   align-items: center;
-  gap: 0.8rem;
+  gap: 0.6rem;
   padding: 0.6rem 1rem;
   border-bottom: 1px solid var(--border);
   transition: background 0.15s var(--ease);
@@ -1556,7 +1603,7 @@ a:focus-visible {
 .mio-card {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.5rem;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--r-md);
@@ -1734,6 +1781,10 @@ a:focus-visible {
   .toolbar-inner {
     gap: 1rem;
   }
+  .actions-block {
+    margin-left: 0;
+    width: 100%;
+  }
 }
 
 @media (max-width: 640px) {
@@ -1772,56 +1823,7 @@ a:focus-visible {
     flex-direction: column;
     align-items: flex-start;
   }
-}
-
-
-/* style.css modernizzato */
-
-/* Tokens aggiornati con più enfasi sui colori squadra e badge */
-:root {
-  /* ... già presenti ... */
-  --badge-radius: 100px;
-  --card-radius: 16px;
-}
-
-/* badge quotazione */
-.quota-badge {
-  font-family: var(--font-mono);
-  font-weight: 700;
-  font-size: 0.85rem;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  padding: 0.2rem 0.6rem;
-  border-radius: var(--badge-radius);
-  color: var(--text-1);
-  box-shadow: 0 0 0 1px rgba(255,255,255,0.04);
-}
-
-/* card squadra con gradiente e bordo colorato */
-.card-squadra {
-  /* ... esistente ... */
-  border-left: 4px solid var(--team-color);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-.card-squadra:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-2), 0 0 0 1px var(--team-color);
-}
-
-/* tag giocatore con quotazione in evidenza */
-.giocatore-tag .tag-num {
-  background: var(--surface-3);
-  border: 1px solid var(--border-strong);
-  font-weight: 700;
-  font-size: 0.7rem;
-  padding: 0.08rem 0.5rem;
-  border-radius: var(--badge-radius);
-  color: var(--gold);
-}
-
-/* pulsanti di aggiunta con feedback */
-.btn-add-table.added {
-  background: var(--gold);
-  border-color: var(--gold);
-  color: #1c1304;
+  .action-buttons {
+    flex-wrap: wrap;
+  }
 }

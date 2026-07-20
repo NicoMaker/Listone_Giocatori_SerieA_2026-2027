@@ -220,6 +220,27 @@
             </button>
           </div>
         </div>
+
+        <!-- AZIONI MULTIPLE LISTONE -->
+        <div class="filter-block actions-block">
+          <label class="filter-label"
+            ><i class="fas fa-object-group"></i> Selezione</label
+          >
+          <div class="action-buttons">
+            <button
+              class="btn-action"
+              id="addSelectedBtn"
+              onclick="addSelectedToMio()"
+              disabled
+            >
+              <i class="fas fa-plus-circle"></i> Aggiungi selezionati
+              <span class="selected-badge" id="selectedCount">0</span>
+            </button>
+            <button class="btn-action" onclick="clearSelection()">
+              <i class="fas fa-times"></i> Deseleziona
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -315,6 +336,16 @@
           <button class="btn-danger" onclick="clearMioListone()">
             <i class="fas fa-trash"></i> Svuota
           </button>
+          <!-- Pulsante rimuovi selezionati dal mio listone -->
+          <button
+            class="btn-action"
+            id="removeSelectedBtn"
+            onclick="removeSelectedFromMio()"
+            disabled
+          >
+            <i class="fas fa-trash"></i> Rimuovi selezionati
+            <span class="selected-badge" id="selectedCountMio">0</span>
+          </button>
         </div>
       </div>
     </div>
@@ -365,10 +396,11 @@
             <table class="table-giocatori" id="tableGiocatori">
               <thead>
                 <tr>
+                  <th style="width:30px"><input type="checkbox" id="selectAllTable" onchange="toggleSelectAllTable(this)" /></th>
                   <th>Giocatore</th>
                   <th>Squadra</th>
                   <th>Ruolo</th>
-                  <th>N°</th>
+                  <th>Quot.</th>
                   <th></th>
                 </tr>
               </thead>

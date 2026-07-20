@@ -1,5 +1,5 @@
 // ============================================================
-//  APP LOGICA · CARICAMENTO DATA.JSON + RENDER + FILTRI
+//  APP LOGICA · CARICAMENTO DATA.JSON + RENDER + FILTRI + SELEZIONE MULTIPLA
 // ============================================================
 
 // ============================================================
@@ -44,9 +44,131 @@ let filtroSquadraMio = "all";
 let squadreSelezionate = new Set(["all"]);
 let vistaCorrente = "card";
 let mioVistaCorrente = "ruolo";
-let vistaSingolaCorrente = "griglia"; // 'griglia' o 'lista'
+let vistaSingolaCorrente = "griglia";
 let searchTerm = "";
 let singolaSquadraSelezionata = null;
+
+// ===== SELEZIONE MULTIPLA =====
+let selectedPlayers = new Map(); // key: "nome_squadra", value: player object
+
+function getPlayerId(nome, squadra) {
+  return `${nome}_${squadra}`;
+}
+
+function togglePlayerSelection(id, player, checkbox) {
+  if (checkbox && !checkbox.checked) {
+    selectedPlayers.delete(id);
+  } else {
+    selectedPlayers.set(id, player);
+  }
+  updateSelectionUI();
+}
+
+function updateSelectionUI() {
+  const count = selectedPlayers.size;
+  const addBtn = document.getElementById("addSelectedBtn");
+  const removeBtn = document.getElementById("removeSelectedBtn");
+  const countSpan = document.getElementById("selectedCount");
+  const countSpanMio = document.getElementById("selectedCountMio");
+
+  if (addBtn) addBtn.disabled = count === 0;
+  if (removeBtn) removeBtn.disabled = count === 0;
+  if (countSpan) countSpan.textContent = count;
+  if (countSpanMio) countSpanMio.textContent = count;
+
+  // aggiorna anche il checkbox "seleziona tutti" nella tabella
+  const allCheck = document.getElementById("selectAllTable");
+  if (allCheck) {
+    const visibleCheckboxes = document.querySelectorAll(
+      ".player-checkbox:not(.hidden)",
+    );
+    const checked = document.querySelectorAll(
+      ".player-checkbox:not(.hidden):checked",
+    );
+    if (visibleCheckboxes.length > 0 && checked.length === visibleCheckboxes.length) {
+      allCheck.checked = true;
+    } else {
+      allCheck.checked = false;
+    }
+  }
+}
+
+function clearSelection() {
+  selectedPlayers.clear();
+  document.querySelectorAll(".player-checkbox").forEach((cb) => (cb.checked = false));
+  updateSelectionUI();
+}
+
+function toggleSelectAllTable(master) {
+  const checkboxes = document.querySelectorAll(
+    "#tableBody .player-checkbox",
+  );
+  checkboxes.forEach((cb) => {
+    cb.checked = master.checked;
+    const id = cb.dataset.id;
+    const player = cb.dataset.player ? JSON.parse(cb.dataset.player) : null;
+    if (master.checked) {
+      if (player) selectedPlayers.set(id, player);
+    } else {
+      selectedPlayers.delete(id);
+    }
+  });
+  updateSelectionUI();
+}
+
+function addSelectedToMio() {
+  if (selectedPlayers.size === 0) return;
+  let added = 0;
+  for (let [id, player] of selectedPlayers) {
+    if (!mioListone.some((m) => m.nome === player.nome && m.squadra === player.squadra)) {
+      mioListone.push({ ...player });
+      added++;
+    }
+  }
+  if (added > 0) {
+    saveMioListone();
+    if (singolaSquadraSelezionata) {
+      renderSingolaSquadra(singolaSquadraSelezionata);
+    } else {
+      applyFilters();
+    }
+    renderMioListone();
+    aggiornaContatori();
+    showToast(`Aggiunti ${added} giocatori al listone!`, "fa-plus-circle");
+    clearSelection();
+  } else {
+    showToast("I giocatori selezionati sono già nel listone", "fa-info-circle");
+  }
+}
+
+function removeSelectedFromMio() {
+  if (selectedPlayers.size === 0) return;
+  if (!confirm(`Rimuovere ${selectedPlayers.size} giocatori dal listone?`)) return;
+  let removed = 0;
+  for (let [id, player] of selectedPlayers) {
+    const index = mioListone.findIndex(
+      (m) => m.nome === player.nome && m.squadra === player.squadra,
+    );
+    if (index > -1) {
+      mioListone.splice(index, 1);
+      removed++;
+    }
+  }
+  if (removed > 0) {
+    saveMioListone();
+    if (singolaSquadraSelezionata) {
+      renderSingolaSquadra(singolaSquadraSelezionata);
+    } else {
+      applyFilters();
+    }
+    renderMioListone();
+    aggiornaContatori();
+    showToast(`Rimossi ${removed} giocatori dal listone`, "fa-trash");
+    clearSelection();
+  } else {
+    showToast("Nessuno dei selezionati era nel listone", "fa-info-circle");
+  }
+}
 
 // ============================================================
 //  TOAST NOTIFICATION
@@ -342,7 +464,7 @@ function setVistaSingola(vista, btn) {
 }
 
 // ============================================================
-//  RENDER SINGOLA SQUADRA
+//  RENDER SINGOLA SQUADRA (con checkbox)
 // ============================================================
 function renderSingolaSquadra(id) {
   const squadra = squadre.find((s) => String(s.id) === String(id));
@@ -440,10 +562,14 @@ function renderSingolaSquadra(id) {
       const isInMio = mioListone.some(
         (m) => m.nome === g.nome && m.squadra === squadra.nome,
       );
+      const id = getPlayerId(g.nome, squadra.nome);
+      const isSelected = selectedPlayers.has(id);
+      const playerData = { nome: g.nome, squadra: squadra.nome, ruolo: g.ruolo, quotazione: g.quotazione, logo_url: squadra.logo_url };
       gridHtml += `
-        <span class="giocatore-tag ${isInMio ? "nel-listone" : ""}" onclick="toggleMioListone('${g.nome.replace(/'/g, "\\'")}', '${squadra.nome.replace(/'/g, "\\'")}', '${g.ruolo}', '${squadra.logo_url || ""}', ${g.numero || 0})">
+        <span class="giocatore-tag ${isInMio ? "nel-listone" : ""}" style="display:inline-flex;align-items:center;gap:0.3rem;">
+          <input type="checkbox" class="player-checkbox" data-id="${id}" data-player='${JSON.stringify(playerData)}' ${isSelected ? "checked" : ""} onchange="togglePlayerSelection('${id}', JSON.parse(this.dataset.player), this)" />
           <i class="fas fa-user"></i> ${g.nome}
-          ${g.numero ? `<span class="tag-num">#${g.numero}</span>` : ""}
+          <span class="tag-num">${g.quotazione || "—"}</span>
           <span class="tag-add"></span>
         </span>
       `;
@@ -468,13 +594,17 @@ function renderSingolaSquadra(id) {
         (m) => m.nome === g.nome && m.squadra === squadra.nome,
       );
       const rClass = ruoloClassMap[g.ruolo] || "";
+      const id = getPlayerId(g.nome, squadra.nome);
+      const isSelected = selectedPlayers.has(id);
+      const playerData = { nome: g.nome, squadra: squadra.nome, ruolo: g.ruolo, quotazione: g.quotazione, logo_url: squadra.logo_url };
       listaHtml += `
         <div class="singola-riga-giocatore">
+          <input type="checkbox" class="player-checkbox" data-id="${id}" data-player='${JSON.stringify(playerData)}' ${isSelected ? "checked" : ""} onchange="togglePlayerSelection('${id}', JSON.parse(this.dataset.player), this)" />
           <span class="riga-posizione">${index}</span>
           <span class="riga-nome"><i class="fas fa-user" style="color:var(--text-3);font-size:0.7rem;margin-right:0.3rem;"></i> ${g.nome}</span>
           <span class="riga-ruolo ${rClass}">${g.ruolo}</span>
-          ${g.numero ? `<span class="riga-quota">#${g.numero}</span>` : ""}
-          <button class="riga-add ${isInMio ? "added" : ""}" onclick="toggleMioListone('${g.nome.replace(/'/g, "\\'")}', '${squadra.nome.replace(/'/g, "\\'")}', '${g.ruolo}', '${squadra.logo_url || ""}', ${g.numero || 0})" title="${isInMio ? "Rimuovi" : "Aggiungi"}">
+          <span class="riga-quota">${g.quotazione || "—"}</span>
+          <button class="riga-add ${isInMio ? "added" : ""}" onclick="toggleMioListone('${g.nome.replace(/'/g, "\\'")}', '${squadra.nome.replace(/'/g, "\\'")}', '${g.ruolo}', '${squadra.logo_url || ""}', ${g.quotazione || 0})" title="${isInMio ? "Rimuovi" : "Aggiungi"}">
             <i class="fas ${isInMio ? "fa-check" : "fa-plus"}"></i>
           </button>
         </div>
@@ -491,6 +621,8 @@ function renderSingolaSquadra(id) {
     containerGriglia.classList.add("hidden");
     containerLista.classList.remove("hidden");
   }
+
+  updateSelectionUI();
 }
 
 // ============================================================
@@ -608,7 +740,7 @@ function resetFiltri() {
 }
 
 // ============================================================
-//  RENDER LISTONE
+//  RENDER LISTONE (con checkbox)
 // ============================================================
 function renderListone(squadreDaRenderizzare) {
   const cardContainer = document.getElementById("vistaCardContainer");
@@ -631,6 +763,7 @@ function renderListone(squadreDaRenderizzare) {
   }
   emptyState.classList.add("hidden");
 
+  // CARD VIEW
   let cardHtml = "";
   squadreDaRenderizzare.forEach((squadra) => {
     const ruoliMap = new Map();
@@ -689,10 +822,14 @@ function renderListone(squadreDaRenderizzare) {
         const isInMio = mioListone.some(
           (m) => m.nome === g.nome && m.squadra === squadra.nome,
         );
+        const id = getPlayerId(g.nome, squadra.nome);
+        const isSelected = selectedPlayers.has(id);
+        const playerData = { nome: g.nome, squadra: squadra.nome, ruolo: g.ruolo, quotazione: g.quotazione, logo_url: squadra.logo_url };
         cardHtml += `
-          <span class="giocatore-tag ${isInMio ? "nel-listone" : ""}" onclick="event.stopPropagation(); toggleMioListone('${g.nome.replace(/'/g, "\\'")}', '${squadra.nome.replace(/'/g, "\\'")}', '${g.ruolo}', '${squadra.logo_url || ""}', ${g.numero || 0})">
+          <span class="giocatore-tag ${isInMio ? "nel-listone" : ""}" style="display:inline-flex;align-items:center;gap:0.3rem;" onclick="event.stopPropagation();">
+            <input type="checkbox" class="player-checkbox" data-id="${id}" data-player='${JSON.stringify(playerData)}' ${isSelected ? "checked" : ""} onchange="togglePlayerSelection('${id}', JSON.parse(this.dataset.player), this)" />
             <i class="fas fa-user"></i> ${g.nome}
-            ${g.numero ? `<span class="tag-num">#${g.numero}</span>` : ""}
+            <span class="tag-num">${g.quotazione || "—"}</span>
             <span class="tag-add"></span>
           </span>
         `;
@@ -709,6 +846,7 @@ function renderListone(squadreDaRenderizzare) {
   cardContainer.innerHTML = cardHtml;
   cardContainer.classList.remove("hidden");
 
+  // TABLE VIEW
   let tableHtml = "";
   squadreDaRenderizzare.forEach((squadra) => {
     squadra.giocatori.forEach((g) => {
@@ -722,8 +860,12 @@ function renderListone(squadreDaRenderizzare) {
           Centrocampista: "cen",
           Attaccante: "att",
         }[g.ruolo] || "";
+      const id = getPlayerId(g.nome, squadra.nome);
+      const isSelected = selectedPlayers.has(id);
+      const playerData = { nome: g.nome, squadra: squadra.nome, ruolo: g.ruolo, quotazione: g.quotazione, logo_url: squadra.logo_url };
       tableHtml += `
         <tr>
+          <td><input type="checkbox" class="player-checkbox" data-id="${id}" data-player='${JSON.stringify(playerData)}' ${isSelected ? "checked" : ""} onchange="togglePlayerSelection('${id}', JSON.parse(this.dataset.player), this)" /></td>
           <td>
             <div class="td-nome">
               <i class="fas fa-user" style="color:var(--text-3);font-size:.7rem;"></i>
@@ -737,9 +879,9 @@ function renderListone(squadreDaRenderizzare) {
             </div>
           </td>
           <td><span class="badge-ruolo ${ruoloClass}">${g.ruolo}</span></td>
-          <td><span class="quota-badge">${g.numero ? "#" + g.numero : "—"}</span></td>
+          <td><span class="quota-badge">${g.quotazione || "—"}</span></td>
           <td>
-            <button class="btn-add-table ${isInMio ? "added" : "add"}" onclick="toggleMioListone('${g.nome.replace(/'/g, "\\'")}', '${squadra.nome.replace(/'/g, "\\'")}', '${g.ruolo}', '${squadra.logo_url || ""}', ${g.numero || 0})">
+            <button class="btn-add-table ${isInMio ? "added" : "add"}" onclick="toggleMioListone('${g.nome.replace(/'/g, "\\'")}', '${squadra.nome.replace(/'/g, "\\'")}', '${g.ruolo}', '${squadra.logo_url || ""}', ${g.quotazione || 0})">
               <i class="fas ${isInMio ? "fa-check" : "fa-plus"}"></i>
               ${isInMio ? "Aggiunto" : "Aggiungi"}
             </button>
@@ -759,6 +901,8 @@ function renderListone(squadreDaRenderizzare) {
     cardContainer.classList.add("hidden");
     tabContainer.classList.remove("hidden");
   }
+
+  updateSelectionUI();
 }
 
 // ============================================================
@@ -805,7 +949,7 @@ function setMioVista(vista, btn) {
 // ============================================================
 //  TOGGLE MIO LISTONE
 // ============================================================
-function toggleMioListone(nome, squadra, ruolo, logo_url, numero) {
+function toggleMioListone(nome, squadra, ruolo, logo_url, quotazione) {
   const index = mioListone.findIndex(
     (m) => m.nome === nome && m.squadra === squadra,
   );
@@ -813,7 +957,7 @@ function toggleMioListone(nome, squadra, ruolo, logo_url, numero) {
     mioListone.splice(index, 1);
     showToast(`Rimosso ${nome} dal listone`, "fa-trash");
   } else {
-    mioListone.push({ nome, squadra, ruolo, logo_url, numero });
+    mioListone.push({ nome, squadra, ruolo, logo_url, quotazione });
     showToast(`Aggiunto ${nome} al listone!`, "fa-plus-circle");
   }
   saveMioListone();
@@ -861,7 +1005,7 @@ function clearMioListone() {
 }
 
 // ============================================================
-//  RENDER MIO LISTONE
+//  RENDER MIO LISTONE (con checkbox)
 // ============================================================
 function renderMioListone() {
   const container = document.getElementById("mioListoneGrid");
@@ -980,8 +1124,11 @@ function renderMioListone() {
 }
 
 function createMioCard(g) {
+  const id = getPlayerId(g.nome, g.squadra);
+  const isSelected = selectedPlayers.has(id);
   return `
     <div class="mio-card">
+      <input type="checkbox" class="player-checkbox" data-id="${id}" data-player='${JSON.stringify(g)}' ${isSelected ? "checked" : ""} onchange="togglePlayerSelection('${id}', JSON.parse(this.dataset.player), this)" />
       <div class="mio-logo">
         ${g.logo_url ? `<img src="${g.logo_url}" alt="${g.squadra}" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\\'mio-logo-fb\\'>${g.squadra.charAt(0)}</span>'" />` : `<span class="mio-logo-fb">${g.squadra.charAt(0)}</span>`}
       </div>
@@ -989,7 +1136,7 @@ function createMioCard(g) {
         <div class="mio-nome">${g.nome}</div>
         <div class="mio-squadra">${g.squadra}</div>
       </div>
-      ${g.numero ? `<span class="mio-quota">#${g.numero}</span>` : ""}
+      <span class="mio-quota">${g.quotazione || "—"}</span>
       <button class="btn-remove" onclick="removeFromMioListone('${g.nome.replace(/'/g, "\\'")}', '${g.squadra.replace(/'/g, "\\'")}')" title="Rimuovi">
         <i class="fas fa-times"></i>
       </button>
