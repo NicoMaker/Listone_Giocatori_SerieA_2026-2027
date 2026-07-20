@@ -1829,3 +1829,26 @@ a:focus-visible {
     flex-wrap: wrap;
   }
 }
+
+/* Pulsante "Seleziona tutti" nella card squadra */
+.btn-select-all-squadra {
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text-2);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.18s var(--ease);
+  font-size: 0.75rem;
+  flex-shrink: 0;
+  margin-left: 0.2rem;
+}
+.btn-select-all-squadra:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(224, 170, 62, 0.1);
+}

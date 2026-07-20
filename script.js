@@ -38,10 +38,10 @@ function initTheme() {
 let serieAData = null;
 let squadre = [];
 let mioListone = [];
-let filtriRuoli = []; // array di nomi ruolo, vuoto = tutti
+let filtriRuoli = [];
 let filtriRuoliMio = [];
-let filtroSquadraMio = "all"; // per il mio listone, manteniamo compatibilità (potremmo renderlo multiplo)
-let squadreSelezionate = new Set(); // set di id squadra, vuoto = tutte
+let filtroSquadraMio = "all";
+let squadreSelezionate = new Set();
 let vistaCorrente = "card";
 let mioVistaCorrente = "ruolo";
 let vistaSingolaCorrente = "griglia";
@@ -114,6 +114,31 @@ function selectAllVisible() {
   });
   updateSelectionUI();
   showToast(`Selezionati ${checkboxes.length} giocatori`, "fa-check-double");
+}
+
+// ===== SELEZIONA TUTTI I GIOCATORI DI UNA SQUADRA (dalla card) =====
+function selectAllSquadra(squadraId) {
+  const squadra = squadre.find(s => s.id === squadraId);
+  if (!squadra) return;
+  const checkboxes = document.querySelectorAll(
+    `.card-squadra[data-squadra-id="${squadraId}"] .player-checkbox, .card-squadra[data-squadra-id="${squadraId}"] .player-checkbox`
+  );
+  // Se non ci sono checkbox nella card (vista tabella), cerchiamo nella tabella
+  let checkboxesToUse = checkboxes.length > 0 ? checkboxes : document.querySelectorAll(`#tableBody .player-checkbox[data-squadra="${squadra.nome}"]`);
+  if (checkboxesToUse.length === 0) {
+    showToast(`Nessun giocatore visibile per ${squadra.nome}`, "fa-info-circle");
+    return;
+  }
+  checkboxesToUse.forEach((cb) => {
+    cb.checked = true;
+    const id = cb.dataset.id;
+    const player = cb.dataset.player ? JSON.parse(cb.dataset.player) : null;
+    if (player) {
+      selectedPlayers.set(id, player);
+    }
+  });
+  updateSelectionUI();
+  showToast(`Selezionati tutti i giocatori di ${squadra.nome}`, "fa-check-double");
 }
 
 function toggleSelectAllTable(master) {
@@ -388,15 +413,11 @@ function toggleSquadraChip(chip) {
   const allChip = document.querySelector('#squadreChips .chip-squadra[data-id="all"]');
 
   if (id === "all") {
-    // Se "Tutte" è già attivo, deseleziona tutto; altrimenti seleziona tutte (set vuoto)
     if (squadreSelezionate.size === 0) {
-      // Deseleziona tutto: non serve, è già vuoto, ma se "Tutte" è cliccato mentre è attivo, deselezioniamo?
-      // In realtà vogliamo che clic su "Tutte" deselezioni tutte le selezioni singole e metta set vuoto.
       squadreSelezionate.clear();
     } else {
       squadreSelezionate.clear();
     }
-    // Aggiorna UI
     document.querySelectorAll('#squadreChips .chip-squadra').forEach(c => c.classList.remove('active'));
     if (allChip) allChip.classList.add('active');
     singolaSquadraSelezionata = null;
@@ -407,12 +428,10 @@ function toggleSquadraChip(chip) {
     return;
   }
 
-  // Se "Tutte" era attivo, lo disattiviamo
   if (squadreSelezionate.size === 0) {
     if (allChip) allChip.classList.remove('active');
   }
 
-  // Toggle della squadra
   const idNum = Number(id);
   if (squadreSelezionate.has(idNum)) {
     squadreSelezionate.delete(idNum);
@@ -422,12 +441,10 @@ function toggleSquadraChip(chip) {
     chip.classList.add('active');
   }
 
-  // Se dopo toggle il set è vuoto, riattiviamo "Tutte"
   if (squadreSelezionate.size === 0) {
     if (allChip) allChip.classList.add('active');
   }
 
-  // Se abbiamo selezioni singole, disattiviamo la vista singola e mostriamo la griglia
   singolaSquadraSelezionata = null;
   document.getElementById("vistaSingolaSquadra").classList.add("hidden");
   document.getElementById("vistaCardContainer").classList.remove("hidden");
@@ -439,22 +456,6 @@ function toggleMioSquadraChip(chip) {
   const id = chip.dataset.id;
   const allChip = document.querySelector('#mioSquadreChipsList .chip-squadra[data-id="all"]');
 
-  // Per il mio listone, usiamo un filtro singolo per semplicità? 
-  // Per coerenza, rendiamo anche qui multiplo.
-  // Usiamo un Set per le squadre selezionate nel mio listone.
-  if (typeof filtroSquadraMio === 'string' && filtroSquadraMio === 'all') {
-    // Se "Tutte" era attivo, deselezioniamo tutte le selezioni e mettiamo "all"
-  }
-  // Per semplicità, manteniamo il filtro come singolo "all" o una squadra.
-  // Ma per uniformità, lo trasformiamo in un Set.
-  // Modifica: usiamo un Set 'mioSquadreSelezionate' per il listone mio.
-  // Ma per non complicare, manteniamo il vecchio comportamento? 
-  // L'utente ha chiesto "anche che èposso vedere pià ssqiuadere n e anche piu ruoli n" — si riferisce al listone principale, non al mio listone.
-  // Quindi per il mio listone possiamo lasciare il filtro singolo (come prima) per semplicità.
-  // Tuttavia, per coerenza, potremmo implementarlo anche lì.
-  // Implementiamo rapidamente:
-
-  // Inizializzo mioSquadreSelezionate se non esiste
   if (typeof window.mioSquadreSelezionate === 'undefined') {
     window.mioSquadreSelezionate = new Set();
   }
@@ -463,11 +464,10 @@ function toggleMioSquadraChip(chip) {
     set.clear();
     document.querySelectorAll('#mioSquadreChipsList .chip-squadra').forEach(c => c.classList.remove('active'));
     if (allChip) allChip.classList.add('active');
-    filtroSquadraMio = "all"; // manteniamo per retrocompatibilità
+    filtroSquadraMio = "all";
     renderMioListone();
     return;
   }
-  // Se "Tutte" era attivo, disattiviamo
   if (set.size === 0 && allChip) {
     allChip.classList.remove('active');
   }
@@ -483,7 +483,7 @@ function toggleMioSquadraChip(chip) {
     allChip.classList.add('active');
     filtroSquadraMio = "all";
   } else {
-    filtroSquadraMio = "multiple"; // marcatore
+    filtroSquadraMio = "multiple";
   }
   renderMioListone();
 }
@@ -498,7 +498,6 @@ function toggleRuolo(btn) {
   const btns = container.querySelectorAll('.btn-ruolo');
 
   if (ruolo === "all") {
-    // Svuota filtriRuoli
     filtriRuoli = [];
     btns.forEach(b => b.classList.remove('active'));
     allBtn.classList.add('active');
@@ -506,7 +505,6 @@ function toggleRuolo(btn) {
     return;
   }
 
-  // Se "Tutti" era attivo, lo disattiviamo
   if (filtriRuoli.length === 0) {
     allBtn.classList.remove('active');
   }
@@ -520,7 +518,6 @@ function toggleRuolo(btn) {
     btn.classList.add('active');
   }
 
-  // Se dopo la rimozione l'array è vuoto, riattiviamo "Tutti"
   if (filtriRuoli.length === 0) {
     allBtn.classList.add('active');
   }
@@ -585,7 +582,6 @@ function renderSingolaSquadra(id) {
 
   let giocatoriFiltrati = squadra.giocatori;
 
-  // Filtro ruoli (multiplo)
   if (filtriRuoli.length > 0) {
     giocatoriFiltrati = giocatoriFiltrati.filter((g) => filtriRuoli.includes(g.ruolo));
   }
@@ -737,12 +733,10 @@ function applyFilters() {
   let filtered = squadre.map((s) => {
     let giocatori = s.giocatori || [];
 
-    // Filtro squadre
     if (squadreSelezionate.size > 0) {
       giocatori = giocatori.filter((g) => squadreSelezionate.has(s.id));
     }
 
-    // Filtro ruoli (multiplo)
     if (filtriRuoli.length > 0) {
       giocatori = giocatori.filter((g) => filtriRuoli.includes(g.ruolo));
     }
@@ -764,13 +758,11 @@ function resetFiltri() {
   singolaSquadraSelezionata = null;
   document.getElementById("vistaSingolaSquadra").classList.add("hidden");
 
-  // Reset squadre
   document.querySelectorAll("#squadreChips .chip-squadra").forEach(c => c.classList.remove('active'));
   const allChip = document.querySelector('#squadreChips .chip-squadra[data-id="all"]');
   if (allChip) allChip.classList.add('active');
   squadreSelezionate.clear();
 
-  // Reset ruoli
   filtriRuoli = [];
   document.querySelectorAll("#ruoloBtns .btn-ruolo").forEach(b => b.classList.remove('active'));
   document.querySelector('#ruoloBtns .btn-ruolo[data-ruolo="all"]').classList.add('active');
@@ -788,7 +780,7 @@ function resetFiltri() {
 }
 
 // ============================================================
-//  RENDER LISTONE
+//  RENDER LISTONE (con pulsante "Seleziona tutti" per squadra)
 // ============================================================
 function renderListone(squadreDaRenderizzare) {
   const cardContainer = document.getElementById("vistaCardContainer");
@@ -828,7 +820,7 @@ function renderListone(squadreDaRenderizzare) {
 
     const teamColor = squadra.colori && squadra.colori[0] ? squadra.colori[0] : "var(--accent)";
     cardHtml += `
-      <div class="card-squadra" style="--team-color:${teamColor}" onclick="apriSingolaSquadra(${squadra.id})">
+      <div class="card-squadra" style="--team-color:${teamColor}" data-squadra-id="${squadra.id}" onclick="apriSingolaSquadra(${squadra.id})">
         <div class="squadra-header">
           <div class="squadra-icon">
             ${squadra.logo_url ? `<img src="${squadra.logo_url}" alt="${squadra.nome}" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\'squadra-icon-fallback\\'>${squadra.nome.charAt(0)}</span>'" />` : `<span class="squadra-icon-fallback">${squadra.nome.charAt(0)}</span>`}
@@ -838,6 +830,9 @@ function renderListone(squadreDaRenderizzare) {
             <h2>${squadra.nome}</h2>
           </div>
           <span class="giocatori-count">${squadra.giocatori.length}</span>
+          <button class="btn-select-all-squadra" onclick="event.stopPropagation(); selectAllSquadra(${squadra.id})" title="Seleziona tutti i giocatori di questa squadra">
+            <i class="fas fa-check-double"></i>
+          </button>
           <i class="fas fa-chevron-right"></i>
         </div>
     `;
@@ -873,7 +868,7 @@ function renderListone(squadreDaRenderizzare) {
   cardContainer.innerHTML = cardHtml;
   cardContainer.classList.remove("hidden");
 
-  // TABLE VIEW
+  // TABLE VIEW (con checkbox "Seleziona tutti" per riga? Non aggiungiamo per squadra, ma utente può filtrare)
   let tableHtml = "";
   squadreDaRenderizzare.forEach((squadra) => {
     squadra.giocatori.forEach((g) => {
@@ -938,9 +933,6 @@ function apriSingolaSquadra(id) {
   });
   const allChip = document.querySelector('#squadreChips .chip-squadra[data-id="all"]');
   if (allChip) allChip.classList.remove("active");
-  // Per la vista singola, forziamo il set squadreSelezionate a contenere solo quella squadra? 
-  // Per evitare conflitti, quando si apre la singola, i filtri squadra sono ignorati (la vista mostra solo quella squadra).
-  // Quindi non modifichiamo squadreSelezionate; la funzione renderSingolaSquadra non usa squadreSelezionate.
 
   renderSingolaSquadra(id);
 }
@@ -1017,7 +1009,7 @@ function clearMioListone() {
 }
 
 // ============================================================
-//  RENDER MIO LISTONE (con filtri multipli per ruolo e squadra)
+//  RENDER MIO LISTONE (con filtri multipli)
 // ============================================================
 function renderMioListone() {
   const container = document.getElementById("mioListoneGrid");
@@ -1026,12 +1018,10 @@ function renderMioListone() {
 
   let filtered = mioListone;
 
-  // Filtro ruoli (multiplo)
   if (filtriRuoliMio.length > 0) {
     filtered = filtered.filter((m) => filtriRuoliMio.includes(m.ruolo));
   }
 
-  // Filtro squadre (multiplo)
   if (window.mioSquadreSelezionate && window.mioSquadreSelezionate.size > 0) {
     const squadreIds = window.mioSquadreSelezionate;
     const squadreNomi = squadre.filter(s => squadreIds.has(s.id)).map(s => s.nome);
