@@ -597,7 +597,16 @@ function init() {
   aggiornaContatori();
   aggiornaInfoSalvataggio();
   document.getElementById("panelListone").classList.remove("hidden");
-  requestAnimationFrame(updateTabSlider);
+
+  // Riapre la sezione (Listone / Il Mio) in cui l'utente si trovava
+  // l'ultima volta. Se non c'è ancora nulla salvato (prima visita),
+  // resta ovviamente su "Listone", che è già lo stato di default.
+  const tabSalvato = getTabSalvato();
+  if (tabSalvato === "mio") {
+    switchTab("mio", { skipSave: true, skipScroll: true });
+  } else {
+    requestAnimationFrame(updateTabSlider);
+  }
 }
 
 // ============================================================
@@ -1480,7 +1489,30 @@ function aggiornaContatori() {
 // ============================================================
 //  SWITCH TAB
 // ============================================================
-function switchTab(tab) {
+const TAB_STORAGE_KEY = "listoneTabAttivo";
+
+// Legge da localStorage l'ultima sezione aperta. Se non c'è nulla
+// salvato (prima visita in assoluto) o localStorage non è
+// disponibile, non ritorna nulla e resta valido il default "listone".
+function getTabSalvato() {
+  try {
+    return localStorage.getItem(TAB_STORAGE_KEY);
+  } catch (e) {
+    return null;
+  }
+}
+
+function salvaTabAttivo(tab) {
+  try {
+    localStorage.setItem(TAB_STORAGE_KEY, tab);
+  } catch (e) {
+    // localStorage non disponibile (es. modalità privata): nessun problema,
+    // semplicemente non si ricorderà la sezione al prossimo avvio.
+  }
+}
+
+function switchTab(tab, opts = {}) {
+  const { skipSave = false, skipScroll = false } = opts;
   document
     .querySelectorAll(".btn-tab")
     .forEach((b) => b.classList.remove("active"));
@@ -1499,7 +1531,8 @@ function switchTab(tab) {
     renderMioListone();
   }
   requestAnimationFrame(updateTabSlider);
-  scrollToMain();
+  if (!skipScroll) scrollToMain();
+  if (!skipSave) salvaTabAttivo(tab);
 }
 // ============================================================
 //  MOTION PACK · header su scroll, spotlight card, reveal in
