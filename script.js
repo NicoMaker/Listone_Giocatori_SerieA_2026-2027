@@ -1620,10 +1620,30 @@ function initSelectAllPulse() {
   });
 }
 
+// ----- Bottone flottante "torna su" -----
+function initScrollTopButton() {
+  const btn = document.createElement("button");
+  btn.className = "btn-scroll-top";
+  btn.type = "button";
+  btn.title = "Torna su";
+  btn.innerHTML = '<i class="fas fa-arrow-up"></i>';
+  btn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+  document.body.appendChild(btn);
+
+  const onScroll = () => {
+    btn.classList.toggle("visible", window.scrollY > 420);
+  };
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   initHeaderScroll();
   initCardSpotlight();
   initScrollReveal();
   initSelectAllPulse();
+  initScrollTopButton();
   window.addEventListener("resize", updateTabSlider);
 });
