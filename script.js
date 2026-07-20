@@ -57,6 +57,21 @@ function getPlayerId(nome, squadra) {
   return `${nome}_${squadra}`;
 }
 
+// Rende sicura una stringa da inserire dentro un attributo HTML delimitato
+// da apici singoli (es. data-player='...'). Senza questo, nomi giocatore
+// con l'apostrofo (CALO', BERNABE', D'ANDREA, N'DRI, SOULE', CANDE',
+// LAURIENTE', SIDIBE') chiudono l'attributo in anticipo e spezzano tutto
+// l'HTML a seguire: è la causa dei checkbox "Seleziona tutti" che non
+// selezionavano davvero tutti e del pulsante "Aggiungi selezionati" che
+// sembrava non funzionare più dopo averli usati.
+function escAttr(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/'/g, "&#39;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
 function togglePlayerSelection(id, player, checkbox) {
   if (checkbox && !checkbox.checked) {
     selectedPlayers.delete(id);
@@ -582,6 +597,7 @@ function init() {
   aggiornaContatori();
   aggiornaInfoSalvataggio();
   document.getElementById("panelListone").classList.remove("hidden");
+  requestAnimationFrame(updateTabSlider);
 }
 
 // ============================================================
@@ -881,7 +897,7 @@ function renderSingolaSquadra(id) {
       };
       gridHtml += `
         <span class="giocatore-tag ${isInMio ? "nel-listone" : ""}" style="display:inline-flex;align-items:center;gap:0.3rem;">
-          <input type="checkbox" class="player-checkbox" data-id="${id}" data-player='${JSON.stringify(playerData)}' ${isSelected ? "checked" : ""} onchange="togglePlayerSelection('${id}', JSON.parse(this.dataset.player), this)" />
+          <input type="checkbox" class="player-checkbox" data-id="${id}" data-player='${escAttr(JSON.stringify(playerData))}' ${isSelected ? "checked" : ""} onchange="togglePlayerSelection('${id}', JSON.parse(this.dataset.player), this)" />
           <i class="fas fa-user"></i> ${g.nome}
           <span class="tag-num">${g.quotazione || "—"}</span>
           <span class="tag-add"></span>
@@ -915,7 +931,7 @@ function renderSingolaSquadra(id) {
       };
       listaHtml += `
         <div class="singola-riga-giocatore">
-          <input type="checkbox" class="player-checkbox" data-id="${id}" data-player='${JSON.stringify(playerData)}' ${isSelected ? "checked" : ""} onchange="togglePlayerSelection('${id}', JSON.parse(this.dataset.player), this)" />
+          <input type="checkbox" class="player-checkbox" data-id="${id}" data-player='${escAttr(JSON.stringify(playerData))}' ${isSelected ? "checked" : ""} onchange="togglePlayerSelection('${id}', JSON.parse(this.dataset.player), this)" />
           <span class="riga-posizione">${index}</span>
           <span class="riga-nome"><i class="fas fa-user" style="color:var(--text-3);font-size:0.7rem;margin-right:0.3rem;"></i> ${g.nome}</span>
           <span class="riga-ruolo ${rClass}">${g.ruolo}</span>
@@ -1130,7 +1146,7 @@ function renderListone(squadreDaRenderizzare) {
         };
         cardHtml += `
           <span class="giocatore-tag ${isInMio ? "nel-listone" : ""}" style="display:inline-flex;align-items:center;gap:0.3rem;" onclick="event.stopPropagation();">
-            <input type="checkbox" class="player-checkbox" data-id="${id}" data-player='${JSON.stringify(playerData)}' ${isSelected ? "checked" : ""} onchange="togglePlayerSelection('${id}', JSON.parse(this.dataset.player), this)" />
+            <input type="checkbox" class="player-checkbox" data-id="${id}" data-player='${escAttr(JSON.stringify(playerData))}' ${isSelected ? "checked" : ""} onchange="togglePlayerSelection('${id}', JSON.parse(this.dataset.player), this)" />
             <i class="fas fa-user"></i> ${g.nome}
             <span class="tag-num">${g.quotazione || "—"}</span>
             <span class="tag-add"></span>
@@ -1171,7 +1187,7 @@ function renderListone(squadreDaRenderizzare) {
       };
       tableHtml += `
         <tr>
-          <td><input type="checkbox" class="player-checkbox" data-id="${id}" data-player='${JSON.stringify(playerData)}' ${isSelected ? "checked" : ""} onchange="togglePlayerSelection('${id}', JSON.parse(this.dataset.player), this)" /></td>
+          <td><input type="checkbox" class="player-checkbox" data-id="${id}" data-player='${escAttr(JSON.stringify(playerData))}' ${isSelected ? "checked" : ""} onchange="togglePlayerSelection('${id}', JSON.parse(this.dataset.player), this)" /></td>
           <td>
             <div class="td-nome">
               <i class="fas fa-user" style="color:var(--text-3);font-size:.7rem;"></i>
@@ -1209,6 +1225,7 @@ function renderListone(squadreDaRenderizzare) {
   }
 
   updateSelectionUI();
+  observeReveal(".card-squadra", cardContainer);
 }
 
 // ============================================================
@@ -1421,6 +1438,8 @@ function renderMioListone() {
     });
     container.innerHTML = html;
   }
+
+  observeReveal(".mio-ruolo-section, .mio-squadra-section", container);
 }
 
 function createMioCard(g) {
@@ -1428,7 +1447,7 @@ function createMioCard(g) {
   const isSelected = selectedPlayers.has(id);
   return `
     <div class="mio-card">
-      <input type="checkbox" class="player-checkbox" data-id="${id}" data-player='${JSON.stringify(g)}' ${isSelected ? "checked" : ""} onchange="togglePlayerSelection('${id}', JSON.parse(this.dataset.player), this)" />
+      <input type="checkbox" class="player-checkbox" data-id="${id}" data-player='${escAttr(JSON.stringify(g))}' ${isSelected ? "checked" : ""} onchange="togglePlayerSelection('${id}', JSON.parse(this.dataset.player), this)" />
       <div class="mio-logo">
         ${g.logo_url ? `<img src="${g.logo_url}" alt="${g.squadra}" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\\'mio-logo-fb\\'>${g.squadra.charAt(0)}</span>'" />` : `<span class="mio-logo-fb">${g.squadra.charAt(0)}</span>`}
       </div>
@@ -1477,4 +1496,134 @@ function switchTab(tab) {
     document.getElementById("toolbarMio").classList.remove("hidden");
     renderMioListone();
   }
+  requestAnimationFrame(updateTabSlider);
 }
+// ============================================================
+//  MOTION PACK · header su scroll, spotlight card, reveal in
+//  scroll, slider dei tab, micro-feedback sui bottoni "seleziona"
+// ============================================================
+
+// ----- Header che si comprime/scurisce quando si scorre -----
+function initHeaderScroll() {
+  const header = document.querySelector(".site-header");
+  if (!header) return;
+  const onScroll = () => {
+    header.classList.toggle("is-scrolled", window.scrollY > 12);
+  };
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+}
+
+// ----- Spotlight + leggero tilt 3D che segue il cursore sulle card -----
+function initCardSpotlight() {
+  let ticking = false;
+  let lastEvent = null;
+
+  function updateCard(e) {
+    const card = e.target.closest(".card-squadra");
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const px = (x / rect.width) * 100;
+    const py = (y / rect.height) * 100;
+    card.style.setProperty("--mx", `${px}%`);
+    card.style.setProperty("--my", `${py}%`);
+    const tiltY = ((x / rect.width) - 0.5) * 6; // rotazione asse Y
+    const tiltX = (0.5 - (y / rect.height)) * 6; // rotazione asse X
+    card.style.setProperty("--tilt-x", `${tiltX}deg`);
+    card.style.setProperty("--tilt-y", `${tiltY}deg`);
+  }
+
+  document.addEventListener(
+    "pointermove",
+    (e) => {
+      lastEvent = e;
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        if (lastEvent) updateCard(lastEvent);
+        ticking = false;
+      });
+    },
+    { passive: true },
+  );
+}
+
+// ----- Reveal a comparsa quando gli elementi entrano nel viewport -----
+let revealObserver = null;
+function initScrollReveal() {
+  if (!("IntersectionObserver" in window)) return;
+  revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.08, rootMargin: "0px 0px -40px 0px" },
+  );
+}
+
+// Da richiamare dopo ogni render che genera nuove card/sezioni:
+// marca i nodi come "da rivelare" e li affida all'observer.
+function observeReveal(selector, root) {
+  if (!revealObserver) return;
+  const scope = root || document;
+  const nodes = scope.querySelectorAll(selector);
+  nodes.forEach((el, i) => {
+    if (el.classList.contains("in-view") || el.dataset.revealBound === "1")
+      return;
+    el.dataset.revealBound = "1";
+    el.classList.add("reveal-on-scroll");
+    el.style.transitionDelay = `${Math.min(i, 10) * 35}ms`;
+    revealObserver.observe(el);
+  });
+}
+
+// ----- Indicatore a slitta dietro il tab attivo (Listone / Il Mio) -----
+function ensureTabSlider() {
+  const group = document.querySelector(".tab-group");
+  if (!group) return null;
+  let slider = group.querySelector(".tab-slider");
+  if (!slider) {
+    slider = document.createElement("span");
+    slider.className = "tab-slider";
+    group.prepend(slider);
+  }
+  return slider;
+}
+
+function updateTabSlider() {
+  const group = document.querySelector(".tab-group");
+  const active = group && group.querySelector(".btn-tab.active");
+  const slider = ensureTabSlider();
+  if (!group || !active || !slider) return;
+  const groupRect = group.getBoundingClientRect();
+  const activeRect = active.getBoundingClientRect();
+  slider.style.width = `${activeRect.width}px`;
+  slider.style.transform = `translateX(${activeRect.left - groupRect.left}px)`;
+}
+
+// ----- Piccolo impulso visivo sui pulsanti "seleziona tutti" al click -----
+function initSelectAllPulse() {
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest(".btn-select-all, .btn-select-all-squadra");
+    if (!btn) return;
+    btn.classList.remove("just-triggered");
+    // forza il reflow così l'animazione riparte anche su click ravvicinati
+    void btn.offsetWidth;
+    btn.classList.add("just-triggered");
+    setTimeout(() => btn.classList.remove("just-triggered"), 550);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  initHeaderScroll();
+  initCardSpotlight();
+  initScrollReveal();
+  initSelectAllPulse();
+  window.addEventListener("resize", updateTabSlider);
+});
