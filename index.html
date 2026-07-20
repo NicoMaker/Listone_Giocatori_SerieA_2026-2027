@@ -236,10 +236,10 @@
               <i class="fas fa-plus-circle"></i> Aggiungi selezionati
               <span class="selected-badge" id="selectedCount">0</span>
             </button>
-            <button class="btn-action" onclick="selectAllVisible()">
+            <button class="btn-action btn-select-all" onclick="selectAllVisible()">
               <i class="fas fa-check-double"></i> Seleziona tutti
             </button>
-            <button class="btn-action" onclick="clearSelection()">
+            <button class="btn-action btn-deselect" onclick="clearSelection()">
               <i class="fas fa-times"></i> Deseleziona
             </button>
           </div>
@@ -312,9 +312,12 @@
 
         <div class="toolbar-mio-actions">
           <span id="salvataggioInfo" class="salvataggio-info">
-            <i class="fas fa-cloud-arrow-up"></i>
+            <i class="fas fa-circle"></i>
             <span id="ultimoSalvataggio">Salvato</span>
           </span>
+
+          <span class="toolbar-divider" aria-hidden="true"></span>
+
           <button
             class="btn-export"
             onclick="esportaListone()"
@@ -336,13 +339,13 @@
             style="display: none"
             onchange="importaListone(event)"
           />
-          <button class="btn-danger" onclick="clearMioListone()">
-            <i class="fas fa-trash"></i> Svuota
-          </button>
-          <button class="btn-action" onclick="selectAllMio()">
+
+          <span class="toolbar-divider" aria-hidden="true"></span>
+
+          <button class="btn-action btn-select-all" onclick="selectAllMio()">
             <i class="fas fa-check-double"></i> Seleziona tutti
           </button>
-          <button class="btn-action" onclick="clearSelection()">
+          <button class="btn-action btn-deselect" onclick="clearSelection()">
             <i class="fas fa-times"></i> Deseleziona
           </button>
           <button
@@ -353,6 +356,12 @@
           >
             <i class="fas fa-trash"></i> Rimuovi selezionati
             <span class="selected-badge" id="selectedCountMio">0</span>
+          </button>
+
+          <span class="toolbar-divider" aria-hidden="true"></span>
+
+          <button class="btn-danger" onclick="clearMioListone()">
+            <i class="fas fa-trash-can"></i> Svuota
           </button>
         </div>
       </div>
@@ -394,13 +403,13 @@
                 <i class="fas fa-list"></i> Lista
               </button>
               <button
-                class="btn-action"
+                class="btn-action btn-select-all"
                 onclick="selectAllVisible()"
                 style="margin-left: 0.5rem"
               >
                 <i class="fas fa-check-double"></i> Seleziona tutti
               </button>
-              <button class="btn-action" onclick="clearSelection()">
+              <button class="btn-action btn-deselect" onclick="clearSelection()">
                 <i class="fas fa-times"></i> Deseleziona
               </button>
             </div>
