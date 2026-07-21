@@ -1885,11 +1885,11 @@ function quickAcquista(nome, squadra, ruolo, logo_url, quotazione) {
 // ============================================================
 //  MODALE "IMPOSTA PREZZO" · scelta del prezzo prima dell'acquisto
 // ============================================================
-function openPrezzoModal(giocatore, onConfirm) {
-  // rimuove un'eventuale modale già aperta
-  closePrezzoModal();
+function openPrezzoModal(giocatore, onConfirm, onCancel) {
+  // rimuove un'eventuale modale già aperta (senza innescare onCancel)
+  dismissPrezzoModal();
 
-  const { nome, squadra, ruolo, logo_url, quotazione } = giocatore;
+  const { nome, squadra, ruolo, logo_url, quotazione, step } = giocatore;
   const base = clampPrezzo(quotazione || 1) || 1;
   const ruoloAbbr =
     { Portiere: "P", Difensore: "D", Centrocampista: "C", Attaccante: "A" }[
@@ -1914,6 +1914,12 @@ function openPrezzoModal(giocatore, onConfirm) {
         </button>
       </div>
 
+      ${
+        step && step.total > 1
+          ? `<div class="pm-step-badge"><i class="fas fa-layer-group"></i> Giocatore ${step.current} di ${step.total}</div>`
+          : ""
+      }
+
       <div class="pm-label">A quanto lo prendi?</div>
       <div class="pm-price-row">
         <button type="button" class="pm-step" id="pmMinus" aria-label="Diminuisci">−</button>
@@ -1932,9 +1938,9 @@ function openPrezzoModal(giocatore, onConfirm) {
       </div>
 
       <div class="pm-actions">
-        <button type="button" class="pm-btn pm-btn-cancel" id="pmCancelBtn">Annulla</button>
+        <button type="button" class="pm-btn pm-btn-cancel" id="pmCancelBtn">${step && step.total > 1 ? "Interrompi" : "Annulla"}</button>
         <button type="button" class="pm-btn pm-btn-confirm" id="pmConfirmBtn">
-          <i class="fas fa-sack-dollar"></i> Acquista
+          <i class="fas fa-sack-dollar"></i> ${step && step.total > 1 && step.current < step.total ? "Conferma e vai al prossimo" : "Acquista"}
         </button>
       </div>
     </div>
@@ -2005,24 +2011,29 @@ function openPrezzoModal(giocatore, onConfirm) {
   input.onkeydown = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      confirm();
+      doConfirm();
     } else if (e.key === "Escape") {
-      closePrezzoModal();
+      doCancel();
     }
   };
 
-  function confirm() {
+  function doConfirm() {
     const prezzo = clampPrezzo(input.value) || 0;
-    closePrezzoModal();
+    dismissPrezzoModal();
     onConfirm(prezzo);
   }
+  function doCancel() {
+    dismissPrezzoModal();
+    if (onCancel) onCancel();
+  }
 
-  overlay.querySelector("#pmConfirmBtn").onclick = confirm;
-  overlay.querySelector("#pmCancelBtn").onclick = () => closePrezzoModal();
-  overlay.querySelector("#pmCloseBtn").onclick = () => closePrezzoModal();
+  overlay.querySelector("#pmConfirmBtn").onclick = doConfirm;
+  overlay.querySelector("#pmCancelBtn").onclick = doCancel;
+  overlay.querySelector("#pmCloseBtn").onclick = doCancel;
   overlay.addEventListener("mousedown", (e) => {
-    if (e.target === overlay) closePrezzoModal();
+    if (e.target === overlay) doCancel();
   });
+  overlay._pmCancel = doCancel;
   document.addEventListener("keydown", pmEscListener);
 
   requestAnimationFrame(() => {
@@ -2033,15 +2044,29 @@ function openPrezzoModal(giocatore, onConfirm) {
 }
 
 function pmEscListener(e) {
-  if (e.key === "Escape") closePrezzoModal();
+  if (e.key !== "Escape") return;
+  const overlay = document.getElementById("prezzoModalOverlay");
+  if (overlay && overlay._pmCancel) overlay._pmCancel();
 }
 
-function closePrezzoModal() {
+// chiude la modale senza avvisare il chiamante (usato internamente prima
+// di aprirne un'altra, o dopo conferma/annullamento già gestiti)
+function dismissPrezzoModal() {
   const overlay = document.getElementById("prezzoModalOverlay");
   if (!overlay) return;
   document.removeEventListener("keydown", pmEscListener);
   overlay.classList.remove("pm-show");
   setTimeout(() => overlay.remove(), 180);
+}
+
+// chiude la modale annullando l'acquisto in corso (uso esterno)
+function closePrezzoModal() {
+  const overlay = document.getElementById("prezzoModalOverlay");
+  if (overlay && overlay._pmCancel) {
+    overlay._pmCancel();
+  } else {
+    dismissPrezzoModal();
+  }
 }
 
 // ---------- ACQUISTA I SELEZIONATI (dal Listone) ----------
@@ -2058,11 +2083,46 @@ function acquistaSelezionatiDaMio() {
 
 function _acquistaSelezione({ vaiAgliAcquisti }) {
   if (selectedPlayers.size === 0) return;
-  let added = 0;
-  let ultimoId = null;
-  for (let [id, player] of selectedPlayers) {
-    if (!isAcquistato(player.nome, player.squadra)) {
-      const prezzo = clampPrezzo(player.quotazione || 1) || 1;
+  const daAcquistare = [...selectedPlayers.values()].filter(
+    (p) => !isAcquistato(p.nome, p.squadra),
+  );
+  if (daAcquistare.length === 0) {
+    showToast(
+      "I giocatori selezionati sono già negli acquisti",
+      "fa-info-circle",
+    );
+    return;
+  }
+  clearSelection();
+  acquistaInSequenza(daAcquistare, 0, vaiAgliAcquisti);
+}
+
+// Apre la modale prezzo per un giocatore alla volta, in sequenza, finché
+// non sono stati impostati tutti i prezzi dei giocatori selezionati.
+function acquistaInSequenza(lista, index, vaiAgliAcquisti) {
+  if (index >= lista.length) {
+    if (index > 0) {
+      saveAcquisti();
+      if (vaiAgliAcquisti) {
+        switchTab("acquisti", { skipScroll: true });
+      }
+      refreshAfterAcquistiChange();
+      showToast(`Acquistati ${index} giocatori!`, "fa-sack-dollar");
+    }
+    return;
+  }
+
+  const player = lista[index];
+  openPrezzoModal(
+    {
+      nome: player.nome,
+      squadra: player.squadra,
+      ruolo: player.ruolo,
+      logo_url: player.logo_url,
+      quotazione: player.quotazione,
+      step: { current: index + 1, total: lista.length },
+    },
+    (prezzo) => {
       acquisti.push({
         nome: player.nome,
         squadra: player.squadra,
@@ -2071,31 +2131,22 @@ function _acquistaSelezione({ vaiAgliAcquisti }) {
         quotazione: player.quotazione,
         prezzo,
       });
-      ultimoId = getPlayerId(player.nome, player.squadra);
-      added++;
-    }
-  }
-  if (added > 0) {
-    saveAcquisti();
-    focusPrezzoId = ultimoId;
-    clearSelection();
-    if (vaiAgliAcquisti) {
-      aggiornaContatori();
-      switchTab("acquisti", { skipScroll: true });
-      showToast(
-        `Acquistati ${added} giocatori! Imposta i prezzi 👇`,
-        "fa-sack-dollar",
-      );
-    } else {
-      refreshAfterAcquistiChange();
-      showToast(`Acquistati ${added} giocatori!`, "fa-sack-dollar");
-    }
-  } else {
-    showToast(
-      "I giocatori selezionati sono già negli acquisti",
-      "fa-info-circle",
-    );
-  }
+      acquistaInSequenza(lista, index + 1, vaiAgliAcquisti);
+    },
+    () => {
+      // annullato: mi fermo qui, tengo quelli già confermati
+      if (index > 0) {
+        saveAcquisti();
+        refreshAfterAcquistiChange();
+        showToast(
+          `Acquisto interrotto: ${index} giocatori aggiunti`,
+          "fa-info-circle",
+        );
+      } else {
+        showToast("Acquisto annullato", "fa-info-circle");
+      }
+    },
+  );
 }
 
 function removeFromAcquisti(nome, squadra) {
