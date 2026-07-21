@@ -1119,13 +1119,48 @@ body::before {
   padding: 1.8rem 1.5rem 4rem;
 }
 .loading-state {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  padding: 5rem 0 6rem;
+  width: min(440px, 92%);
+  margin: 3.5rem auto;
+  padding: 3rem 1.5rem 2.6rem;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background:
+    radial-gradient(
+      120% 90% at 50% -10%,
+      color-mix(in srgb, var(--seriea-blue) 26%, transparent),
+      transparent 60%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--seriea-blue) 12%, var(--surface)),
+      var(--surface-2)
+    );
+  border: 1px solid color-mix(in srgb, var(--seriea-blue) 30%, var(--border));
+  box-shadow:
+    var(--shadow-2),
+    inset 0 1px 0 color-mix(in srgb, var(--seriea-cyan) 18%, transparent);
   transition: opacity 0.45s var(--ease), transform 0.45s var(--ease);
+}
+/* barra tricolore in alto, come nell'header Serie A */
+.loading-state::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    var(--seriea-green) 0 33.3%,
+    var(--it-bianco) 33.3% 66.6%,
+    var(--seriea-red) 66.6% 100%
+  );
 }
 .loading-state.is-leaving {
   opacity: 0;
@@ -1279,25 +1314,54 @@ body::before {
 .loading-seriea {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.6rem;
+  margin-top: 0.2rem;
   animation: fadeIn 0.6s var(--ease) 0.25s both;
 }
 .loading-seriea .ls-dot {
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: var(--grad-seriea);
-  box-shadow: 0 0 10px color-mix(in srgb, var(--seriea-cyan) 55%, transparent);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--seriea-cyan) 65%, transparent);
 }
 .loading-seriea .ls-text {
   font-family: var(--font-mono);
   font-weight: 800;
-  letter-spacing: 0.18em;
-  font-size: 0.9rem;
+  letter-spacing: 0.26em;
+  font-size: 1.35rem;
   background: var(--grad-seriea);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+/* --- Stagione 2026/2027 in stile Serie A --- */
+.loading-season {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  animation: fadeIn 0.6s var(--ease) 0.35s both;
+}
+.loading-season .ls-season-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.4em;
+  text-indent: 0.4em;
+  color: var(--text-3);
+}
+.loading-season .ls-season-num {
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--text-1);
+  padding: 0.1rem 0.7rem;
+  border-radius: var(--r-pill);
+  border: 1px solid color-mix(in srgb, var(--seriea-cyan) 35%, var(--border));
+  background: color-mix(in srgb, var(--seriea-blue) 12%, var(--surface));
 }
 
 /* --- Barra di avanzamento --- */
