@@ -1,0 +1,245 @@
+/* ============================================================
+   CARD SQUADRE
+   ============================================================ */
+
+/* ============================================================
+   CARD SQUADRE
+   ============================================================ */
+.squadre-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.15rem;
+}
+.card-squadra {
+  --team-color: var(--seriea-blue);
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--team-color) 9%, var(--surface)),
+    var(--surface) 44%
+  );
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 1.15rem 1.15rem 1.35rem;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: var(--shadow-1);
+  transition:
+    transform 0.24s var(--ease-spring),
+    border-color 0.22s var(--ease),
+    box-shadow 0.24s var(--ease);
+}
+.card-squadra::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    var(--team-color),
+    color-mix(in srgb, var(--team-color) 15%, transparent) 92%
+  );
+}
+.card-squadra:hover {
+  transform: translateY(-5px);
+  border-color: var(--border-strong);
+  box-shadow:
+    var(--shadow-2),
+    0 0 0 1px color-mix(in srgb, var(--team-color) 50%, transparent);
+}
+.squadra-header {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 0.9rem;
+}
+.squadra-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-1);
+}
+.squadra-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 5px;
+}
+.squadra-icon-fallback {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--team-color, var(--seriea-blue));
+}
+.squadra-header h2 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin: 0;
+  flex: 1;
+  letter-spacing: -0.01em;
+  color: var(--text-1);
+  text-transform: uppercase;
+}
+.squadra-titleblock {
+  flex: 1;
+  min-width: 0;
+}
+.squadra-titleblock h2 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -0.01em;
+  color: var(--text-1);
+  text-transform: uppercase;
+}
+.giocatori-count {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-2);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  padding: 0.15rem 0.55rem;
+}
+.squadra-header > i.fa-chevron-right {
+  color: var(--text-3);
+  font-size: 0.75rem;
+  transition: transform 0.2s var(--ease);
+}
+.card-squadra:hover .fa-chevron-right {
+  transform: translateX(3px);
+  color: var(--seriea-cyan);
+}
+
+.mini-flag-it {
+  display: inline-flex;
+  width: 18px;
+  height: 12px;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px var(--border);
+  margin-bottom: 3px;
+}
+.mini-flag-it span {
+  flex: 1;
+}
+.mini-flag-it span:nth-child(1) {
+  background: var(--seriea-green);
+}
+.mini-flag-it span:nth-child(2) {
+  background: #fff;
+}
+.mini-flag-it span:nth-child(3) {
+  background: var(--seriea-red);
+}
+
+.ruolo-section + .ruolo-section {
+  margin-top: 0.75rem;
+}
+.ruolo-label {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 0.4rem;
+}
+.lista-giocatori {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.giocatore-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.28rem 0.55rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  font-size: 0.78rem;
+  color: var(--text-1);
+  cursor: default;
+  transition:
+    transform 0.14s var(--ease-spring),
+    border-color 0.16s var(--ease),
+    background-color 0.16s var(--ease);
+}
+.giocatore-tag i.fa-user {
+  color: var(--text-3);
+  font-size: 0.62rem;
+}
+.tag-num {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-2);
+  background: var(--bg);
+  border-radius: var(--r-pill);
+  padding: 0.02rem 0.35rem;
+}
+.giocatore-tag:hover {
+  transform: translateY(-1px);
+  border-color: var(--border-strong);
+}
+.giocatore-tag .tag-add::before {
+  content: "\f067";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  font-size: 0.6rem;
+  color: var(--text-3);
+  transition: color 0.16s var(--ease);
+}
+.giocatore-tag:hover .tag-add::before {
+  color: var(--seriea-cyan);
+}
+.giocatore-tag.nel-listone {
+  border-color: color-mix(in srgb, var(--seriea-green) 55%, transparent);
+  background: color-mix(in srgb, var(--seriea-green) 14%, var(--surface-2));
+}
+.giocatore-tag.nel-listone .tag-num {
+  color: var(--seriea-green);
+}
+.giocatore-tag.nel-listone .tag-add::before {
+  content: "\f00c";
+  color: var(--seriea-green);
+}
+.btn-select-all-squadra {
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text-2);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    transform 0.14s var(--ease-spring),
+    border-color 0.18s var(--ease),
+    color 0.18s var(--ease),
+    background-color 0.18s var(--ease);
+  font-size: 0.72rem;
+  flex-shrink: 0;
+  margin-left: 0.2rem;
+}
+.btn-select-all-squadra:hover {
+  transform: translateY(-1px);
+  border-color: transparent;
+  color: #fff;
+  background: var(--grad-seriea);
+}
+

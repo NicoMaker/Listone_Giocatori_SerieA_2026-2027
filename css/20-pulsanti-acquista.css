@@ -1,0 +1,118 @@
+/* ============================================================
+   PULSANTI 'ACQUISTA' sui singoli giocatori
+   ============================================================ */
+
+/* ============================================================
+   PULSANTI "ACQUISTA" sui singoli giocatori
+   ============================================================ */
+/* nella tabella */
+.td-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.btn-buy-table {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--buy) 35%, var(--border));
+  background: var(--buy-soft);
+  color: var(--buy);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  transition:
+    transform 0.14s var(--ease-spring),
+    background-color 0.18s var(--ease),
+    color 0.18s var(--ease),
+    border-color 0.18s var(--ease);
+}
+.btn-buy-table:hover {
+  transform: translateY(-1px);
+  background: var(--grad-buy);
+  color: #241500;
+  border-color: transparent;
+}
+.btn-buy-table.bought {
+  background: var(--grad-buy);
+  color: #241500;
+  border-color: transparent;
+}
+
+/* nella lista singola squadra */
+.riga-buy {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--buy) 35%, var(--border));
+  background: var(--buy-soft);
+  color: var(--buy);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  transition:
+    transform 0.14s var(--ease-spring),
+    background-color 0.18s var(--ease),
+    color 0.18s var(--ease),
+    border-color 0.18s var(--ease);
+}
+.riga-buy:hover {
+  transform: translateY(-1px);
+  background: var(--grad-buy);
+  color: #241500;
+  border-color: transparent;
+}
+.riga-buy.bought {
+  background: var(--grad-buy);
+  color: #241500;
+  border-color: transparent;
+}
+
+/* nella card del Mio Listone */
+.btn-buy-mini {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--buy) 35%, var(--border));
+  background: var(--buy-soft);
+  color: var(--buy);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  transition:
+    transform 0.14s var(--ease-spring),
+    background-color 0.18s var(--ease),
+    color 0.18s var(--ease),
+    border-color 0.18s var(--ease);
+}
+.btn-buy-mini:hover {
+  transform: translateY(-1px);
+  background: var(--grad-buy);
+  color: #241500;
+  border-color: transparent;
+}
+.btn-buy-mini.bought {
+  background: var(--grad-buy);
+  color: #241500;
+  border-color: transparent;
+}
+
+/* Su schermi stretti, la card acquisto va a capo in modo pulito */
+@media (max-width: 480px) {
+  .prezzo-input {
+    width: 40px;
+  }
+  .budget-input-wrap input {
+    width: 72px;
+  }
+}
+

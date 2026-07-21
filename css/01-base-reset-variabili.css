@@ -1,0 +1,219 @@
+/* ============================================================
+   BASE — reset, variabili CSS (colori/tema), tipografia globale
+   ============================================================ */
+
+/* ============================================================
+   LISTONE FANTACALCIO · SERIE A 2026/27
+   Identità visiva ispirata al brand ufficiale Serie A (rebrand 2021):
+   navy profondo #1A1659, firma gradiente blu→ciano #0373FF→#2DE2FF,
+   verde #00B74F e rosso #E5002B (tricolore). Cornice "Serie A" blu,
+   colori dei club dentro le card, numeri da tabellone in monospace.
+   ============================================================ */
+
+/* ---------- TOKEN (DARK) ---------- */
+:root {
+  --bg: #0b0824;
+  --navy: #1a1659;
+  --surface: #17133a;
+  --surface-2: #211c4d;
+  --surface-3: #2c2661;
+  --border: rgba(150, 160, 255, 0.13);
+  --border-strong: rgba(150, 160, 255, 0.26);
+
+  --text-1: #f5f5ff;
+  --text-2: #bcbdea;
+  --text-3: #8386bd;
+
+  --seriea-blue: #0373ff;
+  --seriea-cyan: #2de2ff;
+  --seriea-green: #00b74f;
+  --seriea-red: #e5002b;
+  --grad-seriea: linear-gradient(
+    115deg,
+    var(--seriea-blue),
+    var(--seriea-cyan)
+  );
+
+  --accent: var(--seriea-blue);
+  --accent-soft: rgba(3, 115, 255, 0.16);
+
+  --it-verde: var(--seriea-green);
+  --it-bianco: #ece8f6;
+  --it-rosso: var(--seriea-red);
+
+  --por-c: #ffb020;
+  --dif-c: #2de2ff;
+  --cen-c: #00b74f;
+  --att-c: #ff5a6e;
+
+  --buy: #ffb020;
+  --buy-2: #ff8a3d;
+  --buy-soft: rgba(255, 176, 32, 0.16);
+  --buy-strong: rgba(255, 176, 32, 0.45);
+  --grad-buy: linear-gradient(115deg, var(--buy), var(--buy-2));
+  --danger-c: #ff5a6e;
+
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-pill: 999px;
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-2:
+    0 18px 44px -18px rgba(3, 8, 40, 0.85), 0 4px 12px -6px rgba(0, 0, 0, 0.5);
+  --shadow-glow:
+    0 0 0 1px rgba(45, 226, 255, 0.35), 0 10px 30px -8px rgba(3, 115, 255, 0.45);
+
+  --font-display: "Archivo", "Inter", sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.5, 1);
+
+  --chrome-bg: rgba(11, 8, 36, 0.78);
+  --chrome-bg-soft: rgba(23, 19, 58, 0.82);
+}
+
+/* ---------- TOKEN (LIGHT) ---------- */
+[data-theme="light"] {
+  --bg: #eef0fb;
+  --navy: #1a1659;
+  --surface: #ffffff;
+  --surface-2: #eef0fb;
+  --surface-3: #e2e5f6;
+  --border: rgba(26, 22, 89, 0.11);
+  --border-strong: rgba(26, 22, 89, 0.22);
+
+  --text-1: #16123f;
+  --text-2: #4a4c7d;
+  --text-3: #7d80ab;
+
+  --accent: #0362e0;
+  --accent-soft: rgba(3, 98, 224, 0.1);
+
+  --it-bianco: #ffffff;
+
+  --por-c: #c07f00;
+  --dif-c: #0a8fb5;
+  --cen-c: #0a9a48;
+  --att-c: #e5324a;
+
+  --buy: #c07f00;
+  --buy-2: #e0761a;
+  --buy-soft: rgba(192, 127, 0, 0.12);
+  --buy-strong: rgba(192, 127, 0, 0.4);
+  --grad-buy: linear-gradient(115deg, var(--buy), var(--buy-2));
+  --danger-c: #e5324a;
+
+  --shadow-1: 0 1px 2px rgba(26, 22, 89, 0.08);
+  --shadow-2:
+    0 18px 40px -20px rgba(26, 22, 89, 0.28),
+    0 3px 10px -5px rgba(26, 22, 89, 0.12);
+  --shadow-glow:
+    0 0 0 1px rgba(3, 115, 255, 0.28), 0 10px 26px -10px rgba(3, 115, 255, 0.3);
+
+  --chrome-bg: rgba(255, 255, 255, 0.82);
+  --chrome-bg-soft: rgba(238, 240, 251, 0.88);
+}
+
+/* ---------- RESET / BASE ---------- */
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text-1);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  position: relative;
+  letter-spacing: -0.006em;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 1200px 620px at 50% -12%,
+      rgba(3, 115, 255, 0.22),
+      transparent 62%
+    ),
+    radial-gradient(
+      ellipse 900px 520px at 100% 0%,
+      rgba(45, 226, 255, 0.12),
+      transparent 58%
+    ),
+    radial-gradient(
+      ellipse 800px 500px at 0% 12%,
+      rgba(229, 0, 43, 0.07),
+      transparent 55%
+    );
+  background-size: 140% 140%;
+  animation: shimmerBg 26s ease-in-out infinite;
+}
+[data-theme="light"] body::before {
+  background:
+    radial-gradient(
+      ellipse 1200px 620px at 50% -14%,
+      rgba(3, 115, 255, 0.12),
+      transparent 62%
+    ),
+    radial-gradient(
+      ellipse 900px 520px at 100% 0%,
+      rgba(45, 226, 255, 0.1),
+      transparent 58%
+    );
+}
+
+::selection {
+  background: color-mix(in srgb, var(--seriea-cyan) 45%, transparent);
+  color: var(--text-1);
+}
+:focus-visible {
+  outline: 2px solid var(--seriea-cyan);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+*::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--surface-3);
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  border-radius: 100px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--seriea-blue) 55%, var(--surface-3));
+  background-clip: padding-box;
+}
+
+.hidden {
+  display: none !important;
+}
+

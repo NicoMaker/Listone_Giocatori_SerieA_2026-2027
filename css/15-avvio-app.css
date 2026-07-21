@@ -1,0 +1,287 @@
+/* ============================================================
+   AVVIO APP — animazioni di ingresso per header, barra, ecc.
+   ============================================================ */
+
+/* ============================================================
+   AVVIO APP · animazioni di ingresso per header, barra
+   tricolore, toolbar, loading screen + micro-feedback globali
+   ============================================================ */
+
+/* ---------- BARRA TRICOLORE: si "apre" da centro al caricamento ---------- */
+.tricolore-top-bar {
+  animation: tricoloreOpen 0.7s var(--ease) both;
+  transform-origin: center;
+}
+@keyframes tricoloreOpen {
+  from {
+    transform: scaleX(0);
+    opacity: 0.4;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+/* ---------- HEADER: ingresso a cascata dei blocchi ---------- */
+.header-brand,
+.header-center,
+.header-meta {
+  animation: dropIn 0.6s var(--ease) both;
+}
+.header-brand {
+  animation-delay: 0.08s;
+}
+.header-center {
+  animation-delay: 0.16s;
+}
+.header-meta {
+  animation-delay: 0.22s;
+}
+@keyframes dropIn {
+  from {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.brand-logo {
+  animation: logoPop 0.7s var(--ease-spring) 0.15s both;
+}
+@keyframes logoPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.4) rotate(-12deg);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.08) rotate(3deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* ---------- TOOLBAR: sale dolcemente dopo l'header ---------- */
+.toolbar {
+  animation: riseIn 0.55s var(--ease) 0.28s both;
+}
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- LOADING SCREEN: pallone che rotola, rimbalza e cresce ---------- */
+@keyframes ballRollIn {
+  0% {
+    transform: translateX(-160px);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes ballSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes ballBounce {
+  0%,
+  100% {
+    transform: translateY(0) scaleX(1.06) scaleY(0.9);
+  }
+  12% {
+    transform: translateY(-6px) scaleX(1) scaleY(1);
+  }
+  50% {
+    transform: translateY(-34px) scaleX(0.97) scaleY(1.05);
+  }
+  88% {
+    transform: translateY(-6px) scaleX(1) scaleY(1);
+  }
+}
+@keyframes ballShadow {
+  0%,
+  100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 0.42;
+  }
+  50% {
+    transform: translateX(-50%) scale(0.5);
+    opacity: 0.14;
+  }
+}
+@keyframes loadingBarFill {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+.loading-txt {
+  animation: fadeIn 0.5s var(--ease) 0.15s both;
+}
+
+/* ---------- FEEDBACK TATTILE GLOBALE (pressione bottoni/chip) ---------- */
+.btn-action:active,
+.btn-ruolo:active,
+.btn-vista:active,
+.btn-tab:active,
+.btn-export:active,
+.btn-import:active,
+.btn-danger:active,
+.btn-reset:active,
+.btn-back:active,
+.btn-theme:active,
+.chip-squadra:active,
+.btn-select-all-squadra:active,
+.btn-vista-singola:active,
+.btn-vista-mio:active,
+.btn-add-table:active,
+.riga-add:active,
+.mio-section-selectall:active {
+  transform: scale(0.94);
+}
+.btn-ruolo,
+.btn-vista,
+.btn-tab,
+.chip-squadra,
+.btn-select-all-squadra,
+.btn-vista-singola,
+.btn-vista-mio,
+.btn-add-table,
+.riga-add,
+.mio-section-selectall {
+  transition:
+    transform 0.15s var(--ease-spring),
+    background 0.2s var(--ease),
+    color 0.2s var(--ease),
+    border-color 0.2s var(--ease),
+    box-shadow 0.2s var(--ease);
+}
+
+/* ---------- POP quando una chip/ruolo diventa attiva ---------- */
+.btn-ruolo.active,
+.chip-squadra.active {
+  animation: activePop 0.35s var(--ease-spring);
+}
+@keyframes activePop {
+  0% {
+    transform: scale(0.88);
+  }
+  55% {
+    transform: scale(1.06);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ---------- INPUT RICERCA: alone animato al focus ---------- */
+.search-wrap {
+  transition: box-shadow 0.3s var(--ease);
+}
+.search-wrap:focus-within {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--seriea-cyan) 28%, transparent);
+  animation: searchGlow 1.6s ease-in-out infinite;
+}
+@keyframes searchGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 3px
+      color-mix(in srgb, var(--seriea-cyan) 22%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 5px
+      color-mix(in srgb, var(--seriea-cyan) 12%, transparent);
+  }
+}
+
+/* ---------- CROSSFADE TRA I TAB (Listone / Il Mio) ---------- */
+.panel {
+  animation: panelEnter 0.4s var(--ease) both;
+}
+@keyframes panelEnter {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.995);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ---------- BOTTONE "TORNA SU" flottante ---------- */
+.btn-scroll-top {
+  position: fixed;
+  right: 1.4rem;
+  bottom: 1.4rem;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  background: var(--grad-seriea);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-2);
+  z-index: 60;
+  opacity: 0;
+  transform: translateY(16px) scale(0.85);
+  pointer-events: none;
+  transition:
+    opacity 0.3s var(--ease-spring),
+    transform 0.3s var(--ease-spring),
+    box-shadow 0.2s var(--ease);
+}
+.btn-scroll-top.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+.btn-scroll-top:hover {
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-3px) scale(1.05);
+}
+.btn-scroll-top:active {
+  transform: scale(0.92);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tricolore-top-bar,
+  .header-brand,
+  .header-center,
+  .header-meta,
+  .brand-logo,
+  .toolbar,
+  .loading-ball,
+  .loading-ball-wrap,
+  .loading-ball-spin,
+  .loading-shadow,
+  .loading-bar-fill,
+  .loading-txt,
+  .panel,
+  .btn-scroll-top {
+    animation: none !important;
+  }
+}
+

@@ -1,0 +1,158 @@
+/* ============================================================
+   BUDGET BAR
+   ============================================================ */
+
+/* ============================================================
+   BUDGET BAR
+   ============================================================ */
+.budget-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.7rem;
+  margin-bottom: 0.9rem;
+}
+.budget-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  padding: 0.9rem 0.7rem;
+  background: linear-gradient(180deg, var(--surface), var(--surface-2));
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-1);
+  text-align: center;
+  transition:
+    transform 0.16s var(--ease-spring),
+    border-color 0.18s var(--ease);
+}
+.budget-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-strong);
+}
+.budget-num {
+  font-family: var(--font-mono);
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-1);
+  line-height: 1;
+}
+.budget-label {
+  font-size: 0.72rem;
+  color: var(--text-3);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.budget-label i {
+  color: var(--buy);
+}
+
+/* card con l'input del budget */
+.budget-input-card {
+  gap: 0.4rem;
+  border-color: color-mix(in srgb, var(--buy) 30%, var(--border));
+  background: linear-gradient(180deg, var(--buy-soft), var(--surface));
+}
+.budget-input-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.budget-input-wrap input {
+  width: 84px;
+  height: 38px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-1);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-sm);
+  -moz-appearance: textfield;
+}
+.budget-input-wrap input::-webkit-outer-spin-button,
+.budget-input-wrap input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.budget-input-wrap input:focus {
+  outline: none;
+  border-color: var(--buy);
+  box-shadow: 0 0 0 3px var(--buy-soft);
+}
+.budget-step {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  background: var(--surface-2);
+  color: var(--buy);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  transition:
+    transform 0.14s var(--ease-spring),
+    background-color 0.18s var(--ease),
+    color 0.18s var(--ease);
+}
+.budget-step:hover {
+  transform: translateY(-1px);
+  background: var(--grad-buy);
+  color: #241500;
+  border-color: transparent;
+}
+.budget-hint {
+  font-size: 0.66rem;
+  color: var(--text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* card "quanto manca" */
+.budget-remaining .budget-num {
+  color: var(--seriea-green);
+}
+.budget-remaining.over {
+  border-color: color-mix(in srgb, var(--danger-c) 50%, transparent);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--danger-c) 12%, var(--surface)),
+    var(--surface)
+  );
+}
+.budget-remaining.over .budget-num {
+  color: var(--danger-c);
+}
+
+/* barra di avanzamento spesa/budget */
+.budget-progress-wrap {
+  margin: 0 0 1.4rem;
+}
+.budget-progress-track {
+  height: 8px;
+  width: 100%;
+  border-radius: var(--r-pill);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.budget-progress-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: var(--r-pill);
+  background: var(--grad-buy);
+  transition:
+    width 0.4s var(--ease),
+    background-color 0.3s var(--ease);
+}
+.budget-progress-fill.over {
+  background: linear-gradient(115deg, var(--danger-c), #ff8a3d);
+}
+

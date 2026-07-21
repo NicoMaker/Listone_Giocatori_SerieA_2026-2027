@@ -1,0 +1,249 @@
+/* ============================================================
+   ANIMAZIONI GLOBALI / MICROINTERAZIONI
+   ============================================================ */
+
+/* ============================================================
+   ANIMAZIONI GLOBALI / MICROINTERAZIONI
+   ============================================================ */
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes tagIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes rowIn {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes floatY {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+@keyframes badgePop {
+  0% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.35);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes shimmerBg {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes rippleEffect {
+  from {
+    transform: scale(0);
+    opacity: 0.45;
+  }
+  to {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+@keyframes checkPop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.35);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes iconWiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-14deg);
+  }
+  75% {
+    transform: rotate(14deg);
+  }
+}
+
+/* elementi che entrano a cascata: le card squadra, i tag giocatore e le
+   righe della tabella animano il proprio ingresso ogni volta che vengono
+   ri-renderizzati (cambio filtro, ricerca, cambio vista) */
+.card-squadra {
+  animation: popIn 0.5s var(--ease) backwards;
+}
+.squadre-grid .card-squadra:nth-child(1) {
+  animation-delay: 0.02s;
+}
+.squadre-grid .card-squadra:nth-child(2) {
+  animation-delay: 0.06s;
+}
+.squadre-grid .card-squadra:nth-child(3) {
+  animation-delay: 0.1s;
+}
+.squadre-grid .card-squadra:nth-child(4) {
+  animation-delay: 0.14s;
+}
+.squadre-grid .card-squadra:nth-child(5) {
+  animation-delay: 0.18s;
+}
+.squadre-grid .card-squadra:nth-child(6) {
+  animation-delay: 0.22s;
+}
+.squadre-grid .card-squadra:nth-child(n + 7) {
+  animation-delay: 0.26s;
+}
+
+.giocatore-tag {
+  animation: tagIn 0.32s var(--ease) backwards;
+}
+.lista-giocatori .giocatore-tag:nth-child(1) {
+  animation-delay: 0.02s;
+}
+.lista-giocatori .giocatore-tag:nth-child(2) {
+  animation-delay: 0.05s;
+}
+.lista-giocatori .giocatore-tag:nth-child(3) {
+  animation-delay: 0.08s;
+}
+.lista-giocatori .giocatore-tag:nth-child(4) {
+  animation-delay: 0.11s;
+}
+.lista-giocatori .giocatore-tag:nth-child(5) {
+  animation-delay: 0.14s;
+}
+.lista-giocatori .giocatore-tag:nth-child(n + 6) {
+  animation-delay: 0.17s;
+}
+
+#tableBody tr {
+  animation: rowIn 0.3s var(--ease) backwards;
+}
+#tableBody tr:nth-child(1) {
+  animation-delay: 0.01s;
+}
+#tableBody tr:nth-child(2) {
+  animation-delay: 0.03s;
+}
+#tableBody tr:nth-child(3) {
+  animation-delay: 0.05s;
+}
+#tableBody tr:nth-child(4) {
+  animation-delay: 0.07s;
+}
+#tableBody tr:nth-child(5) {
+  animation-delay: 0.09s;
+}
+#tableBody tr:nth-child(n + 6) {
+  animation-delay: 0.11s;
+}
+
+.mio-giocatori-grid > *,
+.mio-ruolo-section,
+.mio-squadra-section {
+  animation: popIn 0.4s var(--ease) backwards;
+}
+
+.empty-icon {
+  animation: floatY 3.2s ease-in-out infinite;
+}
+
+/* badge dei conteggi: "pop" ogni volta che il valore cambia
+   (la classe .bump viene aggiunta/rimossa via JS) */
+.meta-num.bump,
+.selected-badge.bump {
+  animation: badgePop 0.4s var(--ease-spring);
+}
+
+/* checkbox: piccolo "pop" quando selezionata */
+.player-checkbox:checked {
+  animation: checkPop 0.25s var(--ease-spring);
+}
+
+/* ripple sui pulsanti principali */
+.btn-action,
+.btn-ruolo,
+.btn-vista,
+.btn-tab,
+.btn-export,
+.btn-import,
+.btn-danger,
+.btn-reset,
+.btn-back,
+.btn-theme,
+.chip-squadra,
+.btn-select-all-squadra,
+.btn-vista-singola,
+.btn-vista-mio,
+.btn-add-table,
+.riga-add {
+  position: relative;
+  overflow: hidden;
+}
+.ripple-span {
+  position: absolute;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.35;
+  pointer-events: none;
+  transform: scale(0);
+  animation: rippleEffect 0.6s var(--ease) forwards;
+}
+
+/* ---------- TRICOLORE / FIRMA BAR ---------- */
+.tricolore-top-bar {
+  position: relative;
+  z-index: 50;
+  display: flex;
+  height: 5px;
+  box-shadow: 0 1px 12px -2px rgba(0, 0, 0, 0.35);
+}
+.tricolore-top-bar span,
+.tricolore-strip span {
+  flex: 1;
+  position: relative;
+}
+.tc-verde {
+  background: linear-gradient(180deg, #00d65e, var(--seriea-green));
+}
+.tc-bianco {
+  background: linear-gradient(180deg, #ffffff, var(--it-bianco));
+}
+.tc-rosso {
+  background: linear-gradient(180deg, #ff1f42, var(--seriea-red));
+}
+

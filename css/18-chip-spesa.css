@@ -1,0 +1,24 @@
+/* ============================================================
+   CHIP SPESA nelle intestazioni di sezione
+   ============================================================ */
+
+/* ============================================================
+   CHIP SPESA nelle intestazioni di sezione
+   ============================================================ */
+.mio-spesa-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--buy);
+  background: var(--buy-soft);
+  border: 1px solid color-mix(in srgb, var(--buy) 30%, transparent);
+  border-radius: var(--r-pill);
+  padding: 0.05rem 0.55rem;
+}
+.mio-spesa-chip i {
+  font-size: 0.62rem;
+}
+

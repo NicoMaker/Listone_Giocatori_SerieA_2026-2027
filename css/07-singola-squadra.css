@@ -1,0 +1,238 @@
+/* ============================================================
+   SINGOLA SQUADRA
+   ============================================================ */
+
+/* ============================================================
+   SINGOLA SQUADRA
+   ============================================================ */
+.singola-squadra-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.4rem;
+}
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text-2);
+  border-radius: var(--r-pill);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    transform 0.16s var(--ease-spring),
+    color 0.18s var(--ease),
+    border-color 0.18s var(--ease);
+}
+.btn-back:hover {
+  transform: translateX(-2px);
+  color: var(--seriea-cyan);
+  border-color: var(--border-strong);
+}
+.squadra-logo-grande {
+  width: 68px;
+  height: 68px;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 16px;
+  padding: 8px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-1);
+}
+.squadra-logo-grande-fallback {
+  width: 68px;
+  height: 68px;
+  border-radius: 16px;
+  background: var(--grad-seriea);
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.squadra-dettaglio {
+  display: flex;
+  flex-direction: column;
+}
+.squadra-dettaglio .mini-flag-it {
+  margin-bottom: 5px;
+}
+.squadra-dettaglio h2 {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  font-weight: 900;
+  margin: 0;
+  letter-spacing: -0.02em;
+  color: var(--text-1);
+  text-transform: uppercase;
+}
+.squadra-citta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.82rem;
+  color: var(--text-3);
+  margin-top: 0.15rem;
+}
+.squadra-count {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: var(--r-pill);
+  background: var(--accent-soft);
+  border: 1px solid color-mix(in srgb, var(--seriea-cyan) 35%, transparent);
+  color: var(--seriea-cyan);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.82rem;
+}
+.singola-vista-btns {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.btn-vista-singola {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.85rem;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text-2);
+  border-radius: var(--r-pill);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    transform 0.16s var(--ease-spring),
+    color 0.18s var(--ease),
+    background-color 0.18s var(--ease);
+}
+.btn-vista-singola:hover {
+  transform: translateY(-1px);
+  color: var(--text-1);
+}
+.btn-vista-singola.active {
+  background: var(--grad-seriea);
+  border-color: transparent;
+  color: #fff;
+}
+.singola-squadra-ruoli {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.1rem;
+}
+.singola-squadra-ruoli .ruolo-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 1rem;
+}
+.singola-squadra-ruoli .ruolo-label {
+  margin-bottom: 0.6rem;
+  font-size: 0.8rem;
+  color: var(--text-2);
+}
+.singola-lista-giocatori {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+.singola-riga-giocatore {
+  display: grid;
+  grid-template-columns: 22px 30px 1fr auto auto 34px;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.6rem 0.9rem;
+  border-bottom: 1px solid var(--border);
+}
+.singola-riga-giocatore:last-child {
+  border-bottom: none;
+}
+.singola-riga-giocatore:hover {
+  background: color-mix(in srgb, var(--seriea-blue) 6%, transparent);
+}
+.riga-posizione {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-3);
+  text-align: center;
+}
+.riga-nome {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-1);
+}
+.riga-ruolo {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.14rem 0.5rem;
+  border-radius: var(--r-pill);
+}
+.riga-ruolo.por {
+  color: var(--por-c);
+  background: color-mix(in srgb, var(--por-c) 16%, transparent);
+}
+.riga-ruolo.dif {
+  color: var(--dif-c);
+  background: color-mix(in srgb, var(--dif-c) 16%, transparent);
+}
+.riga-ruolo.cen {
+  color: var(--cen-c);
+  background: color-mix(in srgb, var(--cen-c) 16%, transparent);
+}
+.riga-ruolo.att {
+  color: var(--att-c);
+  background: color-mix(in srgb, var(--att-c) 16%, transparent);
+}
+.riga-quota {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-2);
+}
+.riga-add {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text-2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  transition:
+    transform 0.14s var(--ease-spring),
+    background-color 0.18s var(--ease),
+    color 0.18s var(--ease),
+    border-color 0.18s var(--ease);
+}
+.riga-add:hover {
+  transform: translateY(-1px);
+  border-color: transparent;
+  color: #fff;
+  background: var(--grad-seriea);
+}
+.riga-add.added {
+  background: var(--seriea-green);
+  border-color: transparent;
+  color: #fff;
+}
+

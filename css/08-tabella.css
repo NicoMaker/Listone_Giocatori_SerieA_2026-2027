@@ -1,0 +1,140 @@
+/* ============================================================
+   TABELLA GIOCATORI
+   ============================================================ */
+
+/* ============================================================
+   TABELLA
+   ============================================================ */
+.table-wrap {
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-1);
+  background: var(--surface);
+}
+.table-giocatori {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+.table-giocatori thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--surface-2);
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  padding: 0.7rem 0.9rem;
+  border-bottom: 1px solid var(--border);
+}
+.table-giocatori tbody tr {
+  transition: background-color 0.14s var(--ease);
+}
+.table-giocatori tbody tr:hover {
+  background: color-mix(in srgb, var(--seriea-blue) 7%, transparent);
+}
+.table-giocatori tbody tr:last-child td {
+  border-bottom: none;
+}
+.table-giocatori td {
+  padding: 0.6rem 0.9rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+.td-nome {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-weight: 500;
+  color: var(--text-1);
+}
+.td-squadra-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  color: var(--text-2);
+  transition: color 0.16s var(--ease);
+}
+.td-squadra-cell:hover {
+  color: var(--seriea-cyan);
+}
+.td-logo {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 5px;
+  padding: 2px;
+}
+.badge-ruolo {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.14rem 0.5rem;
+  border-radius: var(--r-pill);
+}
+.badge-ruolo.por {
+  color: var(--por-c);
+  background: color-mix(in srgb, var(--por-c) 16%, transparent);
+}
+.badge-ruolo.dif {
+  color: var(--dif-c);
+  background: color-mix(in srgb, var(--dif-c) 16%, transparent);
+}
+.badge-ruolo.cen {
+  color: var(--cen-c);
+  background: color-mix(in srgb, var(--cen-c) 16%, transparent);
+}
+.badge-ruolo.att {
+  color: var(--att-c);
+  background: color-mix(in srgb, var(--att-c) 16%, transparent);
+}
+.quota-badge {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-1);
+}
+.btn-add-table {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  font-size: 0.74rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    transform 0.14s var(--ease-spring),
+    background-color 0.18s var(--ease),
+    color 0.18s var(--ease),
+    border-color 0.18s var(--ease);
+}
+.btn-add-table.add {
+  background: var(--surface-2);
+  color: var(--text-2);
+}
+.btn-add-table:hover {
+  transform: translateY(-1px);
+  border-color: transparent;
+  color: #fff;
+  background: var(--grad-seriea);
+}
+.btn-add-table.added {
+  background: color-mix(in srgb, var(--seriea-green) 18%, transparent);
+  border-color: color-mix(in srgb, var(--seriea-green) 50%, transparent);
+  color: var(--seriea-green);
+}
+.btn-add-table.added:hover {
+  background: var(--seriea-green);
+  color: #fff;
+}
+

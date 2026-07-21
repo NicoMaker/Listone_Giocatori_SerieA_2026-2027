@@ -1,0 +1,189 @@
+/* ============================================================
+   MODERN MOTION PACK — spotlight card, header su scroll
+   ============================================================ */
+
+/* ============================================================
+   MODERN MOTION PACK · spotlight card, header su scroll,
+   reveal a comparsa, tab a slitta, sheen sui bottoni
+   ============================================================ */
+
+/* ---------- HEADER "GLASS" CHE SI COMPRIME ALLO SCROLL ---------- */
+.site-header {
+  transition:
+    padding 0.35s var(--ease),
+    box-shadow 0.35s var(--ease),
+    background-color 0.35s var(--ease);
+}
+.site-header.is-scrolled {
+  box-shadow: var(--shadow-2);
+}
+.site-header.is-scrolled .header-inner {
+  padding-top: 0.55rem;
+  padding-bottom: 0.55rem;
+}
+.site-header.is-scrolled .brand-logo {
+  transform: scale(0.92);
+}
+.header-inner {
+  transition: padding 0.35s var(--ease);
+}
+.brand-logo {
+  transition: transform 0.35s var(--ease);
+}
+
+/* ---------- CARD SQUADRA: SPOTLIGHT CHE SEGUE IL CURSORE + TILT ---------- */
+.card-squadra {
+  --mx: 50%;
+  --my: 0%;
+  transform: perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0);
+  transition:
+    transform 0.35s var(--ease-spring),
+    border-color 0.22s var(--ease),
+    box-shadow 0.3s var(--ease);
+  will-change: transform;
+}
+.card-squadra::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    380px circle at var(--mx) var(--my),
+    color-mix(in srgb, var(--team-color) 16%, transparent),
+    transparent 68%
+  );
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+  pointer-events: none;
+}
+.card-squadra:hover::after {
+  opacity: 1;
+}
+.card-squadra:hover {
+  transform: perspective(900px) rotateX(var(--tilt-x, 0deg))
+    rotateY(var(--tilt-y, 0deg)) translateY(-6px);
+  border-color: var(--border-strong);
+  box-shadow:
+    var(--shadow-2),
+    0 0 0 1px color-mix(in srgb, var(--team-color) 50%, transparent);
+}
+
+/* ---------- REVEAL IN SCROLL (card, sezioni Il Mio) ---------- */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(22px) scale(0.98);
+  transition:
+    opacity 0.55s var(--ease),
+    transform 0.55s var(--ease);
+}
+.reveal-on-scroll.in-view {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- INDICATORE A SLITTA SUI TAB (Listone / Il Mio) ---------- */
+.tab-group {
+  position: relative;
+  isolation: isolate;
+}
+.tab-slider {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 0;
+  width: 0;
+  border-radius: var(--r-pill);
+  background: var(--grad-seriea);
+  box-shadow: var(--shadow-glow);
+  z-index: -1;
+  transition:
+    transform 0.38s var(--ease-spring),
+    width 0.38s var(--ease-spring);
+}
+
+/* ---------- SHEEN / BAGLIORE SUI PULSANTI PRIMARI AL PASSAGGIO ---------- */
+.btn-action,
+.btn-export,
+.btn-import,
+.btn-theme,
+.btn-tab {
+  position: relative;
+  overflow: hidden;
+}
+.btn-action::before,
+.btn-export::before,
+.btn-import::before,
+.btn-theme::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(
+    115deg,
+    transparent,
+    rgba(255, 255, 255, 0.28),
+    transparent
+  );
+  transform: skewX(-18deg);
+  transition: left 0.55s var(--ease);
+  pointer-events: none;
+}
+.btn-action:hover::before,
+.btn-export:hover::before,
+.btn-import:hover::before,
+.btn-theme:hover::before {
+  left: 130%;
+}
+
+/* ---------- SPOTLIGHT CHE SEGUE IL CURSORE SULL'INTERA GRIGLIA ---------- */
+.squadre-grid {
+  position: relative;
+}
+
+/* ---------- CHECKBOX SELEZIONE: pop più deciso ---------- */
+.player-checkbox {
+  transition: transform 0.18s var(--ease-spring);
+}
+.player-checkbox:checked {
+  animation: checkPop 0.3s var(--ease-spring);
+}
+
+/* ---------- BOTTONE "SELEZIONA TUTTI" ATTIVATO: piccolo impulso ---------- */
+.btn-select-all.just-triggered {
+  animation: selectPulse 0.5s var(--ease-spring);
+}
+@keyframes selectPulse {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.06);
+    box-shadow: 0 0 0 6px
+      color-mix(in srgb, var(--seriea-cyan) 22%, transparent);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-squadra,
+  .card-squadra::after,
+  .btn-action::before,
+  .btn-export::before,
+  .btn-import::before,
+  .btn-theme::before,
+  .tab-slider {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+

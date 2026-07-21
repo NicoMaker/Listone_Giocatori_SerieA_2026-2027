@@ -1,0 +1,43 @@
+/* ============================================================
+   EMPTY STATE
+   ============================================================ */
+
+/* ============================================================
+   EMPTY STATE
+   ============================================================ */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 4rem 1rem;
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--r-lg);
+  background: color-mix(in srgb, var(--surface) 55%, transparent);
+  text-align: center;
+}
+.empty-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  color: var(--seriea-cyan);
+  margin-bottom: 0.4rem;
+}
+.empty-state p {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-1);
+  margin: 0;
+}
+.empty-state small {
+  color: var(--text-3);
+  font-size: 0.82rem;
+}
+

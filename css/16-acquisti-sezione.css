@@ -1,0 +1,48 @@
+/* ============================================================
+   ACQUISTI — sezione 'compra i giocatori' (accento oro/crediti)
+   ============================================================ */
+
+/* ============================================================
+   ACQUISTI · sezione "compra i giocatori" (accento oro/crediti)
+   ============================================================ */
+
+/* ---- pill contatore nell'header ---- */
+.meta-pill.buy {
+  border-color: color-mix(in srgb, var(--buy) 40%, transparent);
+  background: var(--buy-soft);
+}
+.meta-pill.buy i,
+.meta-pill.buy .meta-num {
+  color: var(--buy);
+}
+
+/* ---- pulsante "Acquista selezionati" nel Listone ---- */
+.btn-action.btn-buy {
+  border-color: transparent;
+  background: var(--grad-buy);
+  color: #241500;
+}
+.btn-action.btn-buy:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px -8px var(--buy-strong);
+  color: #241500;
+}
+.btn-action.btn-buy .selected-badge {
+  background: rgba(0, 0, 0, 0.22);
+  color: #241500;
+}
+
+/* ---- pulsanti Esporta/Importa "tutto" ---- */
+.btn-export.btn-all,
+.btn-import.btn-all {
+  border-color: color-mix(in srgb, var(--buy) 45%, transparent);
+  color: var(--buy);
+  background: var(--buy-soft);
+}
+.btn-export.btn-all:hover,
+.btn-import.btn-all:hover {
+  background: var(--grad-buy);
+  color: #241500;
+  border-color: transparent;
+}
+

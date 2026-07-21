@@ -1,0 +1,362 @@
+/* ============================================================
+   IL MIO LISTONE
+   ============================================================ */
+
+/* ============================================================
+   IL MIO LISTONE
+   ============================================================ */
+.riepilogo-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.7rem;
+  margin-bottom: 1.4rem;
+}
+.riepilogo-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.9rem 0.6rem;
+  background: linear-gradient(180deg, var(--surface), var(--surface-2));
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-1);
+  transition:
+    transform 0.16s var(--ease-spring),
+    border-color 0.18s var(--ease);
+}
+.riepilogo-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-strong);
+}
+.riepilogo-num {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-1);
+}
+.riepilogo-label {
+  font-size: 0.72rem;
+  color: var(--text-3);
+  text-align: center;
+}
+.mio-vista-btns {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 1.2rem;
+}
+.btn-vista-mio {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text-2);
+  border-radius: var(--r-pill);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    transform 0.16s var(--ease-spring),
+    color 0.18s var(--ease),
+    background-color 0.18s var(--ease);
+}
+.btn-vista-mio:hover {
+  transform: translateY(-1px);
+  color: var(--text-1);
+}
+.btn-vista-mio.active {
+  background: var(--grad-seriea);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 6px 14px -6px rgba(3, 115, 255, 0.6);
+}
+.mio-ruolo-section,
+.mio-squadra-section {
+  margin-bottom: 1.6rem;
+}
+.mio-ruolo-title,
+.mio-squadra-title {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-1);
+}
+.mio-ruolo-title .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.mio-section-label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+.mio-section-count {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-3);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  padding: 0.05rem 0.5rem;
+}
+.mio-section-selectall {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text-2);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  padding: 0.3rem 0.72rem;
+  cursor: pointer;
+  transition:
+    transform 0.14s var(--ease-spring),
+    color 0.18s var(--ease),
+    border-color 0.18s var(--ease),
+    background-color 0.18s var(--ease);
+}
+.mio-section-selectall:hover {
+  transform: translateY(-1px);
+  color: #fff;
+  background: var(--grad-seriea);
+  border-color: transparent;
+}
+.mio-section-selectall i {
+  font-size: 0.68rem;
+}
+.logo-mini {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 6px;
+  padding: 2px;
+}
+.logo-mini-fallback {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text-3);
+}
+.mio-giocatori-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0.6rem;
+}
+.mio-card {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: linear-gradient(
+    180deg,
+    var(--surface),
+    color-mix(in srgb, var(--surface-2) 55%, var(--surface))
+  );
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 0.6rem 0.7rem;
+  transition:
+    border-color 0.18s var(--ease),
+    transform 0.18s var(--ease-spring),
+    box-shadow 0.18s var(--ease);
+}
+.mio-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-2);
+}
+.mio-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  background: #fff;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.mio-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 4px;
+}
+.mio-logo-fb {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--seriea-blue);
+  font-size: 0.9rem;
+}
+.mio-info {
+  flex: 1;
+  min-width: 0;
+}
+.mio-nome {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mio-squadra {
+  font-size: 0.72rem;
+  color: var(--text-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mio-quota {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--text-2);
+  background: var(--surface-2);
+  border-radius: var(--r-pill);
+  padding: 0.15rem 0.45rem;
+  flex-shrink: 0;
+}
+.btn-remove {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-3);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.72rem;
+  transition:
+    background-color 0.18s var(--ease),
+    border-color 0.18s var(--ease),
+    color 0.18s var(--ease);
+}
+.btn-remove:hover {
+  background: color-mix(in srgb, var(--seriea-red) 16%, transparent);
+  border-color: var(--seriea-red);
+  color: var(--seriea-red);
+}
+
+.salvataggio-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  height: 34px;
+  padding: 0 0.75rem 0 0.6rem;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--text-2);
+}
+.salvataggio-info i {
+  color: var(--seriea-green);
+  font-size: 0.62rem;
+  filter: drop-shadow(0 0 5px rgba(0, 183, 79, 0.65));
+  animation: pulse-save 2.4s ease-in-out infinite;
+}
+@keyframes pulse-save {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+/* Separatore visivo tra i gruppi di azioni della toolbar */
+.toolbar-divider {
+  width: 1px;
+  height: 22px;
+  background: var(--border-strong);
+  flex-shrink: 0;
+  margin: 0 0.1rem;
+}
+
+.btn-export,
+.btn-import {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  height: 36px;
+  padding: 0 0.85rem;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text-2);
+  border-radius: var(--r-pill);
+  font-family: var(--font-body);
+  font-size: 0.76rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    transform 0.16s var(--ease-spring),
+    color 0.18s var(--ease),
+    border-color 0.18s var(--ease),
+    background-color 0.18s var(--ease);
+}
+.btn-export:hover,
+.btn-import:hover {
+  transform: translateY(-1px);
+  color: var(--seriea-cyan);
+  border-color: color-mix(in srgb, var(--seriea-cyan) 45%, var(--border));
+  background: color-mix(in srgb, var(--seriea-cyan) 9%, var(--surface-2));
+  box-shadow: 0 6px 16px -8px rgba(45, 226, 255, 0.5);
+}
+.btn-danger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  height: 36px;
+  padding: 0 0.85rem;
+  border: 1px solid color-mix(in srgb, var(--seriea-red) 40%, transparent);
+  background: color-mix(in srgb, var(--seriea-red) 9%, transparent);
+  color: var(--seriea-red);
+  border-radius: var(--r-pill);
+  font-family: var(--font-body);
+  font-size: 0.76rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    transform 0.16s var(--ease-spring),
+    background-color 0.18s var(--ease),
+    color 0.18s var(--ease),
+    box-shadow 0.18s var(--ease);
+}
+.btn-danger:hover {
+  transform: translateY(-1px);
+  background: var(--seriea-red);
+  color: #fff;
+  box-shadow: 0 6px 16px -6px rgba(229, 0, 43, 0.55);
+}
+
