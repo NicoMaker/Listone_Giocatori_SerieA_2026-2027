@@ -1793,14 +1793,14 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ============================================================
-//  ACQUISTI · comprare giocatori con prezzo + budget (max 1000)
+//  ACQUISTI · comprare giocatori con prezzo + budget (max 750)
 // ============================================================
 let acquisti = [];
 let filtriRuoliAcquisti = [];
 let acquistiVistaCorrente = "ruolo";
-let acquistiBudget = 1000;
-const BUDGET_MAX = 1000;
-const PREZZO_MAX = 1000;
+let acquistiBudget = 750;
+const BUDGET_MAX = 750;
+const PREZZO_MAX = 750;
 // id del giocatore appena comprato: al primo render degli acquisti il suo
 // campo prezzo viene messo a fuoco e selezionato, così imposti subito
 // a quanto l'hai preso.
@@ -1920,7 +1920,7 @@ function openPrezzoModal(giocatore, onConfirm, onCancel) {
       <div class="pm-price-row">
         <button type="button" class="pm-step" id="pmMinus" aria-label="Diminuisci">−</button>
         <div class="pm-price-field">
-          <input type="number" id="pmPrezzoInput" min="0" max="1000" step="1" value="${base}" inputmode="numeric" aria-label="Prezzo di acquisto" />
+          <input type="number" id="pmPrezzoInput" min="0" max="750" step="1" value="${base}" inputmode="numeric" aria-label="Prezzo di acquisto" />
           <span class="pm-unit">cr</span>
         </div>
         <button type="button" class="pm-step" id="pmPlus" aria-label="Aumenta">+</button>
@@ -2536,7 +2536,7 @@ function createAcquistoCard(g) {
         <div class="mio-squadra">${g.squadra} · <span class="mio-quota-inline">Quot. ${g.quotazione || "—"}</span></div>
       </div>
       <div class="prezzo-field" onclick="event.stopPropagation();">
-        <input type="number" class="prezzo-input" data-id="${id}" min="0" max="1000" step="1" value="${prezzo}" oninput="onPrezzoChange('${id}', this.value, this)" onfocus="this.select()" aria-label="Prezzo di ${escAttr(g.nome)}" />
+        <input type="number" class="prezzo-input" data-id="${id}" min="0" max="750" step="1" value="${prezzo}" oninput="onPrezzoChange('${id}', this.value, this)" onfocus="this.select()" aria-label="Prezzo di ${escAttr(g.nome)}" />
         <span class="prezzo-unit">cr</span>
       </div>
       <button class="btn-remove" onclick="removeFromAcquisti('${g.nome.replace(/'/g, "\\'")}', '${g.squadra.replace(/'/g, "\\'")}')" title="Rimuovi dagli acquisti">
