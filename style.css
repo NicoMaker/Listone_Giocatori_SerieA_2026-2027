@@ -3825,28 +3825,20 @@ body::before {
 
 .loading-tricolore span:nth-child(1) {
   background: var(--seriea-green);
+  border: 2px solid var(--seriea-blue); /* <- ora 2px blu pieno */
 }
 .loading-tricolore span:nth-child(2) {
   background: var(--seriea-blue);
   animation-delay: 0.18s;
+  border: 2px solid var(--seriea-blue); /* <- ora 2px blu pieno */
 }
 .loading-tricolore span:nth-child(3) {
   background: var(--seriea-red);
+  border: 2px solid var(--seriea-blue); /* <- ora 2px blu pieno */
 }
 
 .loading-tricolore span:nth-child(2) {
   background: var(--it-bianco); /* prima era var(--seriea-blue) */
   animation-delay: 0.18s;
-}
-
-.loading-season .ls-season-num {
-  font-family: var(--font-mono);
-  font-size: 1.05rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  color: var(--text-1);
-  padding: 0.1rem 0.7rem;
-  border-radius: var(--r-pill);
   border: 2px solid var(--seriea-blue); /* <- ora 2px blu pieno */
-  background: color-mix(in srgb, var(--seriea-blue) 12%, var(--surface));
 }
