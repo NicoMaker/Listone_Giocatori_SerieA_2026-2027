@@ -598,7 +598,8 @@ function setupLogoFallback() {
 
 async function loadData() {
   const loading = document.getElementById("loading");
-  const startedAt = (performance && performance.now) ? performance.now() : Date.now();
+  const startedAt =
+    performance && performance.now ? performance.now() : Date.now();
   // Tempo minimo in cui mostrare l'intro, così l'animazione del pallone
   // si vede tutta anche quando i dati si caricano in un lampo.
   const MIN_INTRO_MS = 2600;
@@ -610,7 +611,7 @@ async function loadData() {
     squadre = data.squadre;
     setupLogoFallback();
 
-    const now = (performance && performance.now) ? performance.now() : Date.now();
+    const now = performance && performance.now ? performance.now() : Date.now();
     const elapsed = now - startedAt;
     const wait = Math.max(0, MIN_INTRO_MS - elapsed);
 
@@ -1592,9 +1593,7 @@ function switchTab(tab, opts = {}) {
   [panelListone, panelMio, panelAcquisti].forEach(
     (p) => p && p.classList.add("hidden"),
   );
-  [tbListone, tbMio, tbAcquisti].forEach(
-    (t) => t && t.classList.add("hidden"),
-  );
+  [tbListone, tbMio, tbAcquisti].forEach((t) => t && t.classList.add("hidden"));
 
   if (tab === "acquisti") {
     document.getElementById("tabAcquisti").classList.add("active");
@@ -1871,15 +1870,12 @@ function quickAcquista(nome, squadra, ruolo, logo_url, quotazione) {
   }
   // Prima di aggiungerlo agli acquisti, chiedo subito il prezzo pagato
   // con una modale: niente più valore "di partenza" da correggere dopo.
-  openPrezzoModal(
-    { nome, squadra, ruolo, logo_url, quotazione },
-    (prezzo) => {
-      acquisti.push({ nome, squadra, ruolo, logo_url, quotazione, prezzo });
-      saveAcquisti();
-      refreshAfterAcquistiChange();
-      showToast(`${nome} acquistato per ${prezzo} cr`, "fa-sack-dollar");
-    },
-  );
+  openPrezzoModal({ nome, squadra, ruolo, logo_url, quotazione }, (prezzo) => {
+    acquisti.push({ nome, squadra, ruolo, logo_url, quotazione, prezzo });
+    saveAcquisti();
+    refreshAfterAcquistiChange();
+    showToast(`${nome} acquistato per ${prezzo} cr`, "fa-sack-dollar");
+  });
 }
 
 // ============================================================
@@ -1955,9 +1951,7 @@ function openPrezzoModal(giocatore, onConfirm, onCancel) {
   // chip rapide: base quotazione + qualche scatto comune
   const chipValues = [
     ...new Set(
-      [base, base + 5, base + 10, 1].filter(
-        (v) => v >= 0 && v <= PREZZO_MAX,
-      ),
+      [base, base + 5, base + 10, 1].filter((v) => v >= 0 && v <= PREZZO_MAX),
     ),
   ].slice(0, 4);
   chipsWrap.innerHTML = chipValues
@@ -1970,10 +1964,7 @@ function openPrezzoModal(giocatore, onConfirm, onCancel) {
   function syncChipsActive() {
     const cur = clampPrezzo(input.value);
     chipsWrap.querySelectorAll(".pm-chip").forEach((c) => {
-      c.classList.toggle(
-        "pm-chip-active",
-        Number(c.dataset.val) === cur,
-      );
+      c.classList.toggle("pm-chip-active", Number(c.dataset.val) === cur);
     });
   }
 
@@ -2201,7 +2192,11 @@ function onPrezzoChange(id, value, inputEl) {
   if (!rec) return;
   const prezzo = clampPrezzo(value);
   rec.prezzo = prezzo;
-  if (inputEl && String(prezzo) !== String(value) && document.activeElement !== inputEl) {
+  if (
+    inputEl &&
+    String(prezzo) !== String(value) &&
+    document.activeElement !== inputEl
+  ) {
     inputEl.value = prezzo;
   }
   saveAcquisti();
@@ -2324,7 +2319,10 @@ function selectAllAcquisti() {
   const grid = document.getElementById("acquistiGrid");
   const n = selectCheckboxesIn(grid);
   if (n === 0) {
-    showToast("Nessun giocatore da selezionare negli acquisti", "fa-info-circle");
+    showToast(
+      "Nessun giocatore da selezionare negli acquisti",
+      "fa-info-circle",
+    );
     return;
   }
   showToast(`Selezionati ${n} acquisti`, "fa-check-double");
@@ -2368,7 +2366,8 @@ function renderAcquisti() {
   }
   const searchEl = document.getElementById("searchInputAcquisti");
   const term = searchEl ? searchEl.value.toLowerCase().trim() : "";
-  if (term) filtered = filtered.filter((m) => m.nome.toLowerCase().includes(term));
+  if (term)
+    filtered = filtered.filter((m) => m.nome.toLowerCase().includes(term));
 
   if (acquisti.length === 0) {
     container.innerHTML = "";
@@ -2485,8 +2484,7 @@ function renderAcquisti() {
   // Se ho appena comprato un giocatore, porto il cursore sul suo prezzo
   // e lo seleziono: basta digitare per impostare quanto l'hai pagato.
   if (focusPrezzoId) {
-    const panelVisibile =
-      panel && !panel.classList.contains("hidden");
+    const panelVisibile = panel && !panel.classList.contains("hidden");
     const input = container.querySelector(
       `.acquisto-card .prezzo-input[data-id="${cssEscape(focusPrezzoId)}"]`,
     );
@@ -2516,8 +2514,17 @@ function createAcquistoCard(g) {
   const id = getPlayerId(g.nome, g.squadra);
   const isSelected = selectedPlayers.has(id);
   const prezzo = Number(g.prezzo) || 0;
-  const ruoloAbbr = { Portiere: "P", Difensore: "D", Centrocampista: "C", Attaccante: "A" }[g.ruolo] || "";
-  const ruoloCls = { Portiere: "por", Difensore: "dif", Centrocampista: "cen", Attaccante: "att" }[g.ruolo] || "";
+  const ruoloAbbr =
+    { Portiere: "P", Difensore: "D", Centrocampista: "C", Attaccante: "A" }[
+      g.ruolo
+    ] || "";
+  const ruoloCls =
+    {
+      Portiere: "por",
+      Difensore: "dif",
+      Centrocampista: "cen",
+      Attaccante: "att",
+    }[g.ruolo] || "";
   return `
     <div class="mio-card acquisto-card">
       <input type="checkbox" class="player-checkbox" data-id="${id}" data-player='${escAttr(JSON.stringify(g))}' ${isSelected ? "checked" : ""} onchange="togglePlayerSelection('${id}', JSON.parse(this.dataset.player), this)" />
@@ -2634,7 +2641,8 @@ function importaAcquisti(event) {
     )
       return;
     acquisti = giocatori.map(normalizeAcquisto);
-    if (typeof data.budget === "number") acquistiBudget = clampBudget(data.budget);
+    if (typeof data.budget === "number")
+      acquistiBudget = clampBudget(data.budget);
     saveAcquisti();
     syncBudgetInput();
     refreshAfterAcquistiChange();

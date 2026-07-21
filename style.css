@@ -1145,7 +1145,9 @@ body::before {
   box-shadow:
     var(--shadow-2),
     inset 0 1px 0 color-mix(in srgb, var(--seriea-cyan) 18%, transparent);
-  transition: opacity 0.45s var(--ease), transform 0.45s var(--ease);
+  transition:
+    opacity 0.45s var(--ease),
+    transform 0.45s var(--ease);
 }
 /* barra tricolore in alto, come nell'header Serie A */
 .loading-state::before {
