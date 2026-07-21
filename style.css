@@ -42,6 +42,13 @@
   --cen-c: #00b74f;
   --att-c: #ff5a6e;
 
+  --buy: #ffb020;
+  --buy-2: #ff8a3d;
+  --buy-soft: rgba(255, 176, 32, 0.16);
+  --buy-strong: rgba(255, 176, 32, 0.45);
+  --grad-buy: linear-gradient(115deg, var(--buy), var(--buy-2));
+  --danger-c: #ff5a6e;
+
   --r-sm: 10px;
   --r-md: 14px;
   --r-lg: 20px;
@@ -86,6 +93,13 @@
   --dif-c: #0a8fb5;
   --cen-c: #0a9a48;
   --att-c: #e5324a;
+
+  --buy: #c07f00;
+  --buy-2: #e0761a;
+  --buy-soft: rgba(192, 127, 0, 0.12);
+  --buy-strong: rgba(192, 127, 0, 0.4);
+  --grad-buy: linear-gradient(115deg, var(--buy), var(--buy-2));
+  --danger-c: #e5324a;
 
   --shadow-1: 0 1px 2px rgba(26, 22, 89, 0.08);
   --shadow-2:
@@ -2805,5 +2819,391 @@ body::before {
   .panel,
   .btn-scroll-top {
     animation: none !important;
+  }
+}
+
+/* ============================================================
+   ACQUISTI · sezione "compra i giocatori" (accento oro/crediti)
+   ============================================================ */
+
+/* ---- pill contatore nell'header ---- */
+.meta-pill.buy {
+  border-color: color-mix(in srgb, var(--buy) 40%, transparent);
+  background: var(--buy-soft);
+}
+.meta-pill.buy i,
+.meta-pill.buy .meta-num {
+  color: var(--buy);
+}
+
+/* ---- pulsante "Acquista selezionati" nel Listone ---- */
+.btn-action.btn-buy {
+  border-color: transparent;
+  background: var(--grad-buy);
+  color: #241500;
+}
+.btn-action.btn-buy:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px -8px var(--buy-strong);
+  color: #241500;
+}
+.btn-action.btn-buy .selected-badge {
+  background: rgba(0, 0, 0, 0.22);
+  color: #241500;
+}
+
+/* ---- pulsanti Esporta/Importa "tutto" ---- */
+.btn-export.btn-all,
+.btn-import.btn-all {
+  border-color: color-mix(in srgb, var(--buy) 45%, transparent);
+  color: var(--buy);
+  background: var(--buy-soft);
+}
+.btn-export.btn-all:hover,
+.btn-import.btn-all:hover {
+  background: var(--grad-buy);
+  color: #241500;
+  border-color: transparent;
+}
+
+/* ============================================================
+   BUDGET BAR
+   ============================================================ */
+.budget-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.7rem;
+  margin-bottom: 0.9rem;
+}
+.budget-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  padding: 0.9rem 0.7rem;
+  background: linear-gradient(180deg, var(--surface), var(--surface-2));
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-1);
+  text-align: center;
+  transition:
+    transform 0.16s var(--ease-spring),
+    border-color 0.18s var(--ease);
+}
+.budget-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-strong);
+}
+.budget-num {
+  font-family: var(--font-mono);
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-1);
+  line-height: 1;
+}
+.budget-label {
+  font-size: 0.72rem;
+  color: var(--text-3);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.budget-label i {
+  color: var(--buy);
+}
+
+/* card con l'input del budget */
+.budget-input-card {
+  gap: 0.4rem;
+  border-color: color-mix(in srgb, var(--buy) 30%, var(--border));
+  background: linear-gradient(180deg, var(--buy-soft), var(--surface));
+}
+.budget-input-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.budget-input-wrap input {
+  width: 84px;
+  height: 38px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-1);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-sm);
+  -moz-appearance: textfield;
+}
+.budget-input-wrap input::-webkit-outer-spin-button,
+.budget-input-wrap input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.budget-input-wrap input:focus {
+  outline: none;
+  border-color: var(--buy);
+  box-shadow: 0 0 0 3px var(--buy-soft);
+}
+.budget-step {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  background: var(--surface-2);
+  color: var(--buy);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  transition:
+    transform 0.14s var(--ease-spring),
+    background-color 0.18s var(--ease),
+    color 0.18s var(--ease);
+}
+.budget-step:hover {
+  transform: translateY(-1px);
+  background: var(--grad-buy);
+  color: #241500;
+  border-color: transparent;
+}
+.budget-hint {
+  font-size: 0.66rem;
+  color: var(--text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* card "quanto manca" */
+.budget-remaining .budget-num {
+  color: var(--seriea-green);
+}
+.budget-remaining.over {
+  border-color: color-mix(in srgb, var(--danger-c) 50%, transparent);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--danger-c) 12%, var(--surface)),
+    var(--surface)
+  );
+}
+.budget-remaining.over .budget-num {
+  color: var(--danger-c);
+}
+
+/* barra di avanzamento spesa/budget */
+.budget-progress-wrap {
+  margin: 0 0 1.4rem;
+}
+.budget-progress-track {
+  height: 8px;
+  width: 100%;
+  border-radius: var(--r-pill);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.budget-progress-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: var(--r-pill);
+  background: var(--grad-buy);
+  transition:
+    width 0.4s var(--ease),
+    background-color 0.3s var(--ease);
+}
+.budget-progress-fill.over {
+  background: linear-gradient(115deg, var(--danger-c), #ff8a3d);
+}
+
+/* ============================================================
+   CHIP SPESA nelle intestazioni di sezione
+   ============================================================ */
+.mio-spesa-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--buy);
+  background: var(--buy-soft);
+  border: 1px solid color-mix(in srgb, var(--buy) 30%, transparent);
+  border-radius: var(--r-pill);
+  padding: 0.05rem 0.55rem;
+}
+.mio-spesa-chip i {
+  font-size: 0.62rem;
+}
+
+/* ============================================================
+   ACQUISTO CARD (mio-card + campo prezzo)
+   ============================================================ */
+.acquisto-card {
+  position: relative;
+}
+.mio-quota-inline {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--text-2);
+}
+.prezzo-field {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
+  background: var(--surface);
+  border: 1px solid color-mix(in srgb, var(--buy) 32%, var(--border));
+  border-radius: var(--r-pill);
+  padding: 0.15rem 0.5rem 0.15rem 0.55rem;
+  transition:
+    border-color 0.18s var(--ease),
+    box-shadow 0.18s var(--ease);
+}
+.prezzo-field:focus-within {
+  border-color: var(--buy);
+  box-shadow: 0 0 0 3px var(--buy-soft);
+}
+.prezzo-input {
+  width: 46px;
+  border: none;
+  background: transparent;
+  text-align: right;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--buy);
+  -moz-appearance: textfield;
+}
+.prezzo-input::-webkit-outer-spin-button,
+.prezzo-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.prezzo-input:focus {
+  outline: none;
+}
+.prezzo-unit {
+  font-size: 0.66rem;
+  font-weight: 700;
+  color: var(--text-3);
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   PULSANTI "ACQUISTA" sui singoli giocatori
+   ============================================================ */
+/* nella tabella */
+.td-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.btn-buy-table {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--buy) 35%, var(--border));
+  background: var(--buy-soft);
+  color: var(--buy);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  transition:
+    transform 0.14s var(--ease-spring),
+    background-color 0.18s var(--ease),
+    color 0.18s var(--ease),
+    border-color 0.18s var(--ease);
+}
+.btn-buy-table:hover {
+  transform: translateY(-1px);
+  background: var(--grad-buy);
+  color: #241500;
+  border-color: transparent;
+}
+.btn-buy-table.bought {
+  background: var(--grad-buy);
+  color: #241500;
+  border-color: transparent;
+}
+
+/* nella lista singola squadra */
+.riga-buy {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--buy) 35%, var(--border));
+  background: var(--buy-soft);
+  color: var(--buy);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  transition:
+    transform 0.14s var(--ease-spring),
+    background-color 0.18s var(--ease),
+    color 0.18s var(--ease),
+    border-color 0.18s var(--ease);
+}
+.riga-buy:hover {
+  transform: translateY(-1px);
+  background: var(--grad-buy);
+  color: #241500;
+  border-color: transparent;
+}
+.riga-buy.bought {
+  background: var(--grad-buy);
+  color: #241500;
+  border-color: transparent;
+}
+
+/* nella card del Mio Listone */
+.btn-buy-mini {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--buy) 35%, var(--border));
+  background: var(--buy-soft);
+  color: var(--buy);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  transition:
+    transform 0.14s var(--ease-spring),
+    background-color 0.18s var(--ease),
+    color 0.18s var(--ease),
+    border-color 0.18s var(--ease);
+}
+.btn-buy-mini:hover {
+  transform: translateY(-1px);
+  background: var(--grad-buy);
+  color: #241500;
+  border-color: transparent;
+}
+.btn-buy-mini.bought {
+  background: var(--grad-buy);
+  color: #241500;
+  border-color: transparent;
+}
+
+/* Su schermi stretti, la card acquisto va a capo in modo pulito */
+@media (max-width: 480px) {
+  .prezzo-input {
+    width: 40px;
+  }
+  .budget-input-wrap input {
+    width: 72px;
   }
 }

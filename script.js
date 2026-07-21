@@ -85,11 +85,25 @@ function updateSelectionUI() {
   const count = selectedPlayers.size;
   const addBtn = document.getElementById("addSelectedBtn");
   const removeBtn = document.getElementById("removeSelectedBtn");
+  const buyBtn = document.getElementById("buySelectedBtn");
+  const removeAcqBtn = document.getElementById("removeSelectedAcquistiBtn");
   const countSpan = document.getElementById("selectedCount");
   const countSpanMio = document.getElementById("selectedCountMio");
+  const countSpanBuy = document.getElementById("selectedCountBuy");
+  const countSpanAcq = document.getElementById("selectedCountAcquisti");
 
   if (addBtn) addBtn.disabled = count === 0;
   if (removeBtn) removeBtn.disabled = count === 0;
+  if (buyBtn) buyBtn.disabled = count === 0;
+  if (removeAcqBtn) removeAcqBtn.disabled = count === 0;
+
+  [countSpanBuy, countSpanAcq].forEach((el) => {
+    if (el && el.textContent !== String(count)) {
+      el.textContent = count;
+      el.classList.add("bump");
+      setTimeout(() => el.classList.remove("bump"), 400);
+    }
+  });
   if (countSpan && countSpan.textContent !== String(count)) {
     countSpan.textContent = count;
     countSpan.classList.add("bump");
@@ -138,6 +152,10 @@ function getCheckboxContainerAttivo() {
     return vistaCorrente === "card"
       ? document.getElementById("vistaCardContainer")
       : document.getElementById("vistaTabContainer");
+  }
+  const panelAcquisti = document.getElementById("panelAcquisti");
+  if (panelAcquisti && !panelAcquisti.classList.contains("hidden")) {
+    return document.getElementById("acquistiGrid");
   }
   return document.getElementById("mioListoneGrid");
 }
@@ -482,6 +500,7 @@ function importaListone(event) {
 document.addEventListener("DOMContentLoaded", () => {
   initTheme();
   loadMioListone();
+  loadAcquisti();
   loadData();
   initRippleEffect();
 });
@@ -493,7 +512,8 @@ function initRippleEffect() {
   const rippleSelector =
     ".btn-action, .btn-ruolo, .btn-vista, .btn-tab, .btn-export, .btn-import, " +
     ".btn-danger, .btn-reset, .btn-back, .btn-theme, .chip-squadra, " +
-    ".btn-select-all-squadra, .btn-vista-singola, .btn-vista-mio, .btn-add-table, .riga-add";
+    ".btn-select-all-squadra, .btn-vista-singola, .btn-vista-mio, .btn-add-table, .riga-add, " +
+    ".btn-buy, .btn-buy-table, .riga-buy, .btn-buy-mini, .budget-step";
 
   document.addEventListener("click", (e) => {
     const btn = e.target.closest(rippleSelector);
@@ -597,8 +617,11 @@ async function loadData() {
 function init() {
   populateSquadreChips("squadreChips");
   populateSquadreChips("mioSquadreChipsList");
+  populateSquadreChips("acquistiSquadreChipsList");
   applyFilters();
   renderMioListone();
+  syncBudgetInput();
+  renderAcquisti();
   aggiornaContatori();
   aggiornaInfoSalvataggio();
   document.getElementById("panelListone").classList.remove("hidden");
@@ -607,8 +630,8 @@ function init() {
   // l'ultima volta. Se non c'è ancora nulla salvato (prima visita),
   // resta ovviamente su "Listone", che è già lo stato di default.
   const tabSalvato = getTabSalvato();
-  if (tabSalvato === "mio") {
-    switchTab("mio", { skipSave: true, skipScroll: true });
+  if (tabSalvato === "mio" || tabSalvato === "acquisti") {
+    switchTab(tabSalvato, { skipSave: true, skipScroll: true });
   } else {
     requestAnimationFrame(updateTabSlider);
   }
@@ -631,6 +654,8 @@ function populateSquadreChips(containerId) {
     `;
     if (containerId === "squadreChips") {
       chip.onclick = () => toggleSquadraChip(chip);
+    } else if (containerId === "acquistiSquadreChipsList") {
+      chip.onclick = () => toggleAcquistiSquadraChip(chip);
     } else {
       chip.onclick = () => toggleMioSquadraChip(chip);
     }
@@ -950,8 +975,11 @@ function renderSingolaSquadra(id) {
           <span class="riga-nome"><i class="fas fa-user" style="color:var(--text-3);font-size:0.7rem;margin-right:0.3rem;"></i> ${g.nome}</span>
           <span class="riga-ruolo ${rClass}">${g.ruolo}</span>
           <span class="riga-quota">${g.quotazione || "—"}</span>
-          <button class="riga-add ${isInMio ? "added" : ""}" onclick="toggleMioListone('${g.nome.replace(/'/g, "\\'")}', '${squadra.nome.replace(/'/g, "\\'")}', '${g.ruolo}', '${squadra.logo_url || ""}', ${g.quotazione || 0})" title="${isInMio ? "Rimuovi" : "Aggiungi"}">
+          <button class="riga-add ${isInMio ? "added" : ""}" onclick="toggleMioListone('${g.nome.replace(/'/g, "\\'")}', '${squadra.nome.replace(/'/g, "\\'")}', '${g.ruolo}', '${squadra.logo_url || ""}', ${g.quotazione || 0})" title="${isInMio ? "Rimuovi dal mio listone" : "Aggiungi al mio listone"}">
             <i class="fas ${isInMio ? "fa-check" : "fa-plus"}"></i>
+          </button>
+          <button class="riga-buy ${isAcquistato(g.nome, squadra.nome) ? "bought" : ""}" onclick="quickAcquista('${g.nome.replace(/'/g, "\\'")}', '${squadra.nome.replace(/'/g, "\\'")}', '${g.ruolo}', '${squadra.logo_url || ""}', ${g.quotazione || 0})" title="${isAcquistato(g.nome, squadra.nome) ? "Rimuovi dagli acquisti" : "Acquista"}">
+            <i class="fas ${isAcquistato(g.nome, squadra.nome) ? "fa-circle-check" : "fa-sack-dollar"}"></i>
           </button>
         </div>
       `;
@@ -1218,10 +1246,15 @@ function renderListone(squadreDaRenderizzare) {
           <td><span class="badge-ruolo ${ruoloClass}">${g.ruolo}</span></td>
           <td><span class="quota-badge">${g.quotazione || "—"}</span></td>
           <td>
-            <button class="btn-add-table ${isInMio ? "added" : "add"}" onclick="toggleMioListone('${g.nome.replace(/'/g, "\\'")}', '${squadra.nome.replace(/'/g, "\\'")}', '${g.ruolo}', '${squadra.logo_url || ""}', ${g.quotazione || 0})">
-              <i class="fas ${isInMio ? "fa-check" : "fa-plus"}"></i>
-              ${isInMio ? "Aggiunto" : "Aggiungi"}
-            </button>
+            <div class="td-actions">
+              <button class="btn-add-table ${isInMio ? "added" : "add"}" onclick="toggleMioListone('${g.nome.replace(/'/g, "\\'")}', '${squadra.nome.replace(/'/g, "\\'")}', '${g.ruolo}', '${squadra.logo_url || ""}', ${g.quotazione || 0})">
+                <i class="fas ${isInMio ? "fa-check" : "fa-plus"}"></i>
+                ${isInMio ? "Aggiunto" : "Aggiungi"}
+              </button>
+              <button class="btn-buy-table ${isAcquistato(g.nome, squadra.nome) ? "bought" : ""}" onclick="quickAcquista('${g.nome.replace(/'/g, "\\'")}', '${squadra.nome.replace(/'/g, "\\'")}', '${g.ruolo}', '${squadra.logo_url || ""}', ${g.quotazione || 0})" title="${isAcquistato(g.nome, squadra.nome) ? "Rimuovi dagli acquisti" : "Acquista"}">
+                <i class="fas ${isAcquistato(g.nome, squadra.nome) ? "fa-circle-check" : "fa-sack-dollar"}"></i>
+              </button>
+            </div>
           </td>
         </tr>
       `;
@@ -1278,7 +1311,8 @@ function setVista(vista, btn) {
 
 function setMioVista(vista, btn) {
   mioVistaCorrente = vista;
-  document
+  const panel = document.getElementById("panelMio");
+  (panel || document)
     .querySelectorAll(".btn-vista-mio")
     .forEach((b) => b.classList.remove("active"));
   btn.classList.add("active");
@@ -1472,7 +1506,10 @@ function createMioCard(g) {
         <div class="mio-squadra">${g.squadra}</div>
       </div>
       <span class="mio-quota">${g.quotazione || "—"}</span>
-      <button class="btn-remove" onclick="removeFromMioListone('${g.nome.replace(/'/g, "\\'")}', '${g.squadra.replace(/'/g, "\\'")}')" title="Rimuovi">
+      <button class="btn-buy-mini ${isAcquistato(g.nome, g.squadra) ? "bought" : ""}" onclick="quickAcquista('${g.nome.replace(/'/g, "\\'")}', '${g.squadra.replace(/'/g, "\\'")}', '${g.ruolo}', '${(g.logo_url || "").replace(/'/g, "\\'")}', ${g.quotazione || 0})" title="${isAcquistato(g.nome, g.squadra) ? "Rimuovi dagli acquisti" : "Acquista"}">
+        <i class="fas ${isAcquistato(g.nome, g.squadra) ? "fa-circle-check" : "fa-sack-dollar"}"></i>
+      </button>
+      <button class="btn-remove" onclick="removeFromMioListone('${g.nome.replace(/'/g, "\\'")}', '${g.squadra.replace(/'/g, "\\'")}')" title="Rimuovi dal mio listone">
         <i class="fas fa-times"></i>
       </button>
     </div>
@@ -1489,6 +1526,10 @@ function aggiornaContatori() {
   );
   animaContatore(document.getElementById("totalGiocatori"), totalPlayers);
   animaContatore(document.getElementById("totalMieiCount"), mioListone.length);
+  animaContatore(
+    document.getElementById("totalAcquistiCount"),
+    typeof acquisti !== "undefined" ? acquisti.length : 0,
+  );
 }
 
 // ============================================================
@@ -1521,19 +1562,35 @@ function switchTab(tab, opts = {}) {
   document
     .querySelectorAll(".btn-tab")
     .forEach((b) => b.classList.remove("active"));
-  if (tab === "listone") {
-    document.getElementById("tabListone").classList.add("active");
-    document.getElementById("panelListone").classList.remove("hidden");
-    document.getElementById("panelMio").classList.add("hidden");
-    document.getElementById("toolbarListone").classList.remove("hidden");
-    document.getElementById("toolbarMio").classList.add("hidden");
-  } else {
+
+  const panelListone = document.getElementById("panelListone");
+  const panelMio = document.getElementById("panelMio");
+  const panelAcquisti = document.getElementById("panelAcquisti");
+  const tbListone = document.getElementById("toolbarListone");
+  const tbMio = document.getElementById("toolbarMio");
+  const tbAcquisti = document.getElementById("toolbarAcquisti");
+
+  [panelListone, panelMio, panelAcquisti].forEach(
+    (p) => p && p.classList.add("hidden"),
+  );
+  [tbListone, tbMio, tbAcquisti].forEach(
+    (t) => t && t.classList.add("hidden"),
+  );
+
+  if (tab === "acquisti") {
+    document.getElementById("tabAcquisti").classList.add("active");
+    panelAcquisti.classList.remove("hidden");
+    if (tbAcquisti) tbAcquisti.classList.remove("hidden");
+    renderAcquisti();
+  } else if (tab === "mio") {
     document.getElementById("tabMio").classList.add("active");
-    document.getElementById("panelListone").classList.add("hidden");
-    document.getElementById("panelMio").classList.remove("hidden");
-    document.getElementById("toolbarListone").classList.add("hidden");
-    document.getElementById("toolbarMio").classList.remove("hidden");
+    panelMio.classList.remove("hidden");
+    if (tbMio) tbMio.classList.remove("hidden");
     renderMioListone();
+  } else {
+    document.getElementById("tabListone").classList.add("active");
+    panelListone.classList.remove("hidden");
+    if (tbListone) tbListone.classList.remove("hidden");
   }
   requestAnimationFrame(updateTabSlider);
   if (!skipScroll) scrollToMain();
@@ -1716,3 +1773,650 @@ document.addEventListener("DOMContentLoaded", () => {
   initScrollTopButton();
   window.addEventListener("resize", updateTabSlider);
 });
+
+// ============================================================
+//  ACQUISTI · comprare giocatori con prezzo + budget (max 1000)
+// ============================================================
+let acquisti = [];
+let filtriRuoliAcquisti = [];
+let acquistiVistaCorrente = "ruolo";
+let acquistiBudget = 1000;
+const BUDGET_MAX = 1000;
+const PREZZO_MAX = 1000;
+
+// ---------- LOCALSTORAGE ----------
+function loadAcquisti() {
+  try {
+    const saved = localStorage.getItem("acquistiListone");
+    if (saved) acquisti = JSON.parse(saved) || [];
+  } catch (e) {
+    acquisti = [];
+  }
+  try {
+    const b = localStorage.getItem("acquistiBudget");
+    if (b !== null) acquistiBudget = clampBudget(parseFloat(b));
+  } catch (e) {}
+}
+
+function saveAcquisti() {
+  localStorage.setItem("acquistiListone", JSON.stringify(acquisti));
+  localStorage.setItem("acquistiBudget", String(acquistiBudget));
+  aggiornaContatori();
+}
+
+// ---------- LIMITI ----------
+function clampBudget(v) {
+  v = parseFloat(v);
+  if (!isFinite(v) || v < 0) return 0;
+  return Math.min(BUDGET_MAX, Math.round(v));
+}
+function clampPrezzo(v) {
+  v = parseFloat(v);
+  if (!isFinite(v) || v < 0) return 0;
+  return Math.min(PREZZO_MAX, Math.round(v));
+}
+function totaleSpeso() {
+  return acquisti.reduce((acc, a) => acc + (Number(a.prezzo) || 0), 0);
+}
+function isAcquistato(nome, squadra) {
+  return acquisti.some((a) => a.nome === nome && a.squadra === squadra);
+}
+
+// ---------- AGGIORNA VISTE DOPO UNA MODIFICA ----------
+function refreshAfterAcquistiChange() {
+  if (singolaSquadraSelezionata) {
+    renderSingolaSquadra(singolaSquadraSelezionata);
+  } else {
+    applyFilters();
+  }
+  renderMioListone();
+  renderAcquisti();
+  aggiornaContatori();
+}
+
+// ---------- AGGIUNGI / RIMUOVI SINGOLO ----------
+function quickAcquista(nome, squadra, ruolo, logo_url, quotazione) {
+  const idx = acquisti.findIndex(
+    (a) => a.nome === nome && a.squadra === squadra,
+  );
+  if (idx > -1) {
+    acquisti.splice(idx, 1);
+    saveAcquisti();
+    refreshAfterAcquistiChange();
+    showToast(`Rimosso ${nome} dagli acquisti`, "fa-trash");
+    return;
+  }
+  const prezzo = clampPrezzo(quotazione || 1) || 1;
+  acquisti.push({ nome, squadra, ruolo, logo_url, quotazione, prezzo });
+  saveAcquisti();
+  refreshAfterAcquistiChange();
+  showToast(`${nome} acquistato per ${prezzo} cr`, "fa-sack-dollar");
+}
+
+// ---------- ACQUISTA I SELEZIONATI (dal Listone) ----------
+function acquistaSelezionati() {
+  if (selectedPlayers.size === 0) return;
+  let added = 0;
+  for (let [id, player] of selectedPlayers) {
+    if (!isAcquistato(player.nome, player.squadra)) {
+      const prezzo = clampPrezzo(player.quotazione || 1) || 1;
+      acquisti.push({
+        nome: player.nome,
+        squadra: player.squadra,
+        ruolo: player.ruolo,
+        logo_url: player.logo_url,
+        quotazione: player.quotazione,
+        prezzo,
+      });
+      added++;
+    }
+  }
+  if (added > 0) {
+    saveAcquisti();
+    refreshAfterAcquistiChange();
+    showToast(`Acquistati ${added} giocatori!`, "fa-sack-dollar");
+    clearSelection();
+  } else {
+    showToast(
+      "I giocatori selezionati sono già negli acquisti",
+      "fa-info-circle",
+    );
+  }
+}
+
+function removeFromAcquisti(nome, squadra) {
+  const idx = acquisti.findIndex(
+    (a) => a.nome === nome && a.squadra === squadra,
+  );
+  if (idx > -1) {
+    acquisti.splice(idx, 1);
+    saveAcquisti();
+    refreshAfterAcquistiChange();
+    showToast(`Rimosso ${nome} dagli acquisti`, "fa-trash");
+  }
+}
+
+function removeSelectedFromAcquisti() {
+  if (selectedPlayers.size === 0) return;
+  if (!confirm(`Rimuovere ${selectedPlayers.size} giocatori dagli acquisti?`))
+    return;
+  let removed = 0;
+  for (let [id, player] of selectedPlayers) {
+    const idx = acquisti.findIndex(
+      (a) => a.nome === player.nome && a.squadra === player.squadra,
+    );
+    if (idx > -1) {
+      acquisti.splice(idx, 1);
+      removed++;
+    }
+  }
+  if (removed > 0) {
+    saveAcquisti();
+    refreshAfterAcquistiChange();
+    showToast(`Rimossi ${removed} giocatori dagli acquisti`, "fa-trash");
+    clearSelection();
+  } else {
+    showToast("Nessuno dei selezionati era negli acquisti", "fa-info-circle");
+  }
+}
+
+function clearAcquisti() {
+  if (acquisti.length === 0) return;
+  if (confirm("Sei sicuro di voler svuotare gli acquisti?")) {
+    acquisti = [];
+    saveAcquisti();
+    refreshAfterAcquistiChange();
+    showToast("Acquisti svuotati!", "fa-trash");
+  }
+}
+
+// ---------- PREZZO PER GIOCATORE ----------
+function onPrezzoChange(id, value, inputEl) {
+  const rec = acquisti.find((a) => getPlayerId(a.nome, a.squadra) === id);
+  if (!rec) return;
+  const prezzo = clampPrezzo(value);
+  rec.prezzo = prezzo;
+  if (inputEl && String(prezzo) !== String(value) && document.activeElement !== inputEl) {
+    inputEl.value = prezzo;
+  }
+  saveAcquisti();
+  updateBudgetUI();
+}
+
+// ---------- BUDGET ----------
+function onBudgetChange(value) {
+  acquistiBudget = clampBudget(value);
+  localStorage.setItem("acquistiBudget", String(acquistiBudget));
+  updateBudgetUI();
+}
+function stepBudget(delta) {
+  acquistiBudget = clampBudget(acquistiBudget + delta);
+  syncBudgetInput();
+  localStorage.setItem("acquistiBudget", String(acquistiBudget));
+  updateBudgetUI();
+}
+function syncBudgetInput() {
+  const input = document.getElementById("budgetInput");
+  if (input && document.activeElement !== input) input.value = acquistiBudget;
+}
+
+function updateBudgetUI() {
+  const speso = totaleSpeso();
+  const rimanente = acquistiBudget - speso;
+  const spesoEl = document.getElementById("budgetSpeso");
+  const rimEl = document.getElementById("budgetRimanente");
+  const nEl = document.getElementById("budgetGiocatori");
+  const card = document.getElementById("budgetRemainingCard");
+  const fill = document.getElementById("budgetProgressFill");
+  if (spesoEl) spesoEl.textContent = speso;
+  if (rimEl) rimEl.textContent = rimanente;
+  if (nEl) nEl.textContent = acquisti.length;
+  if (card) card.classList.toggle("over", rimanente < 0);
+  if (fill) {
+    const pct =
+      acquistiBudget > 0
+        ? Math.min(100, (speso / acquistiBudget) * 100)
+        : speso > 0
+          ? 100
+          : 0;
+    fill.style.width = pct + "%";
+    fill.classList.toggle("over", speso > acquistiBudget);
+  }
+}
+
+// ---------- FILTRI ACQUISTI ----------
+function toggleRuoloAcquisti(btn) {
+  const ruolo = btn.dataset.ruolo;
+  const container = document.getElementById("ruoloBtnsAcquisti");
+  const allBtn = container.querySelector('[data-ruolo="all"]');
+  const btns = container.querySelectorAll(".btn-ruolo");
+
+  if (ruolo === "all") {
+    filtriRuoliAcquisti = [];
+    btns.forEach((b) => b.classList.remove("active"));
+    allBtn.classList.add("active");
+    renderAcquisti();
+    return;
+  }
+  if (filtriRuoliAcquisti.length === 0) allBtn.classList.remove("active");
+  const i = filtriRuoliAcquisti.indexOf(ruolo);
+  if (i > -1) {
+    filtriRuoliAcquisti.splice(i, 1);
+    btn.classList.remove("active");
+  } else {
+    filtriRuoliAcquisti.push(ruolo);
+    btn.classList.add("active");
+  }
+  if (filtriRuoliAcquisti.length === 0) allBtn.classList.add("active");
+  renderAcquisti();
+}
+
+function toggleAcquistiSquadraChip(chip) {
+  const id = chip.dataset.id;
+  const allChip = document.querySelector(
+    '#acquistiSquadreChips .chip-squadra[data-id="all"]',
+  );
+  if (typeof window.acquistiSquadreSelezionate === "undefined") {
+    window.acquistiSquadreSelezionate = new Set();
+  }
+  const set = window.acquistiSquadreSelezionate;
+
+  if (id === "all") {
+    set.clear();
+    document
+      .querySelectorAll("#acquistiSquadreChipsList .chip-squadra")
+      .forEach((c) => c.classList.remove("active"));
+    if (allChip) allChip.classList.add("active");
+    renderAcquisti();
+    return;
+  }
+  if (set.size === 0 && allChip) allChip.classList.remove("active");
+  const idNum = Number(id);
+  if (set.has(idNum)) {
+    set.delete(idNum);
+    chip.classList.remove("active");
+  } else {
+    set.add(idNum);
+    chip.classList.add("active");
+  }
+  if (set.size === 0 && allChip) allChip.classList.add("active");
+  renderAcquisti();
+}
+
+// ---------- VISTA ACQUISTI (per ruolo / per squadra) ----------
+function setAcquistiVista(vista, btn) {
+  acquistiVistaCorrente = vista;
+  const panel = document.getElementById("panelAcquisti");
+  (panel || document)
+    .querySelectorAll(".btn-vista-mio")
+    .forEach((b) => b.classList.remove("active"));
+  btn.classList.add("active");
+  renderAcquisti();
+}
+
+// ---------- SELEZIONA TUTTI GLI ACQUISTI ----------
+function selectAllAcquisti() {
+  const grid = document.getElementById("acquistiGrid");
+  const n = selectCheckboxesIn(grid);
+  if (n === 0) {
+    showToast("Nessun giocatore da selezionare negli acquisti", "fa-info-circle");
+    return;
+  }
+  showToast(`Selezionati ${n} acquisti`, "fa-check-double");
+}
+
+// ---------- RENDER ACQUISTI ----------
+function renderAcquisti() {
+  const container = document.getElementById("acquistiGrid");
+  const empty = document.getElementById("emptyAcquisti");
+  const riepilogo = document.getElementById("riepilogoAcquistiBar");
+  if (!container) return;
+
+  updateBudgetUI();
+  syncBudgetInput();
+
+  // ripristina lo stato attivo dei bottoni vista (potrebbe essere stato
+  // toccato dalla vista del Mio Listone, che condivide la stessa classe)
+  const panel = document.getElementById("panelAcquisti");
+  if (panel) {
+    panel.querySelectorAll(".btn-vista-mio").forEach((b, i) => {
+      const isRuolo = i === 0;
+      b.classList.toggle(
+        "active",
+        (isRuolo && acquistiVistaCorrente === "ruolo") ||
+          (!isRuolo && acquistiVistaCorrente === "squadra"),
+      );
+    });
+  }
+
+  let filtered = acquisti;
+  if (filtriRuoliAcquisti.length > 0) {
+    filtered = filtered.filter((m) => filtriRuoliAcquisti.includes(m.ruolo));
+  }
+  if (
+    window.acquistiSquadreSelezionate &&
+    window.acquistiSquadreSelezionate.size > 0
+  ) {
+    const ids = window.acquistiSquadreSelezionate;
+    const nomi = squadre.filter((s) => ids.has(s.id)).map((s) => s.nome);
+    filtered = filtered.filter((m) => nomi.includes(m.squadra));
+  }
+  const searchEl = document.getElementById("searchInputAcquisti");
+  const term = searchEl ? searchEl.value.toLowerCase().trim() : "";
+  if (term) filtered = filtered.filter((m) => m.nome.toLowerCase().includes(term));
+
+  if (acquisti.length === 0) {
+    container.innerHTML = "";
+    empty.classList.remove("hidden");
+    riepilogo.innerHTML = "";
+    return;
+  }
+  empty.classList.add("hidden");
+
+  // riepilogo per ruolo (conteggio + spesa)
+  const ruoliCount = {};
+  const ruoliSpesa = {};
+  acquisti.forEach((m) => {
+    ruoliCount[m.ruolo] = (ruoliCount[m.ruolo] || 0) + 1;
+    ruoliSpesa[m.ruolo] = (ruoliSpesa[m.ruolo] || 0) + (Number(m.prezzo) || 0);
+  });
+  const total = acquisti.length;
+  riepilogo.innerHTML = `
+    <div class="riepilogo-card"><span class="riepilogo-num">${total}</span><span class="riepilogo-label">Totale</span></div>
+    <div class="riepilogo-card"><span class="riepilogo-num" style="color:var(--por-c);">${ruoliCount.Portiere || 0}</span><span class="riepilogo-label">🧤 Portieri</span></div>
+    <div class="riepilogo-card"><span class="riepilogo-num" style="color:var(--dif-c);">${ruoliCount.Difensore || 0}</span><span class="riepilogo-label">🛡️ Difensori</span></div>
+    <div class="riepilogo-card"><span class="riepilogo-num" style="color:var(--cen-c);">${ruoliCount.Centrocampista || 0}</span><span class="riepilogo-label">⚡ Centrocampisti</span></div>
+    <div class="riepilogo-card"><span class="riepilogo-num" style="color:var(--att-c);">${ruoliCount.Attaccante || 0}</span><span class="riepilogo-label">⚽ Attaccanti</span></div>
+  `;
+
+  if (filtered.length === 0) {
+    container.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><div class="empty-icon"><i class="fas fa-filter"></i></div><p>Nessun acquisto con questi filtri</p><small>Prova a modificare ruolo, squadra o ricerca</small></div>`;
+    return;
+  }
+
+  const iconMap = {
+    Portiere: "🧤",
+    Difensore: "🛡️",
+    Centrocampista: "⚡",
+    Attaccante: "⚽",
+  };
+  const colorMap = {
+    Portiere: "var(--por-c)",
+    Difensore: "var(--dif-c)",
+    Centrocampista: "var(--cen-c)",
+    Attaccante: "var(--att-c)",
+  };
+
+  if (acquistiVistaCorrente === "ruolo") {
+    const ordineRuoli = [
+      "Portiere",
+      "Difensore",
+      "Centrocampista",
+      "Attaccante",
+    ];
+    let html = "";
+    ordineRuoli.forEach((ruolo) => {
+      const giocatoriRuolo = filtered.filter((m) => m.ruolo === ruolo);
+      if (giocatoriRuolo.length === 0) return;
+      const spesa = giocatoriRuolo.reduce(
+        (acc, g) => acc + (Number(g.prezzo) || 0),
+        0,
+      );
+      html += `
+        <div class="mio-ruolo-section">
+          <div class="mio-ruolo-title">
+            <span class="dot" style="background:${colorMap[ruolo] || "var(--text-3)"};"></span>
+            <span class="mio-section-label">${iconMap[ruolo] || ""} ${ruolo}</span>
+            <span class="mio-section-count">${giocatoriRuolo.length}</span>
+            <span class="mio-spesa-chip"><i class="fas fa-coins"></i> ${spesa} cr</span>
+            <button class="mio-section-selectall" onclick="selectMioSection(this)" title="Seleziona tutti i ${ruolo}">
+              <i class="fas fa-check-double"></i> Tutti
+            </button>
+          </div>
+          <div class="mio-giocatori-grid">
+      `;
+      giocatoriRuolo.forEach((g) => {
+        html += createAcquistoCard(g);
+      });
+      html += `</div></div>`;
+    });
+    container.innerHTML = html;
+  } else {
+    const squadreNomi = [...new Set(filtered.map((m) => m.squadra))];
+    let html = "";
+    squadreNomi.forEach((squadraNome) => {
+      const giocatoriSquadra = filtered.filter(
+        (m) => m.squadra === squadraNome,
+      );
+      const squadraData = squadre.find((s) => s.nome === squadraNome);
+      const spesa = giocatoriSquadra.reduce(
+        (acc, g) => acc + (Number(g.prezzo) || 0),
+        0,
+      );
+      html += `
+        <div class="mio-squadra-section">
+          <div class="mio-squadra-title">
+            ${squadraData?.logo_url ? `<img src="${squadraData.logo_url}" alt="${squadraNome}" class="logo-mini" onerror="this.style.display='none'" />` : `<span class="logo-mini-fallback">${squadraNome.charAt(0)}</span>`}
+            <span class="mio-section-label">${squadraNome}</span>
+            <span class="mio-section-count">${giocatoriSquadra.length}</span>
+            <span class="mio-spesa-chip"><i class="fas fa-coins"></i> ${spesa} cr</span>
+            <button class="mio-section-selectall" onclick="selectMioSection(this)" title="Seleziona tutta la ${squadraNome}">
+              <i class="fas fa-check-double"></i> Tutti
+            </button>
+          </div>
+          <div class="mio-giocatori-grid">
+      `;
+      giocatoriSquadra.forEach((g) => {
+        html += createAcquistoCard(g);
+      });
+      html += `</div></div>`;
+    });
+    container.innerHTML = html;
+  }
+
+  observeReveal(".mio-ruolo-section, .mio-squadra-section", container);
+  updateSelectionUI();
+}
+
+function createAcquistoCard(g) {
+  const id = getPlayerId(g.nome, g.squadra);
+  const isSelected = selectedPlayers.has(id);
+  const prezzo = Number(g.prezzo) || 0;
+  return `
+    <div class="mio-card acquisto-card">
+      <input type="checkbox" class="player-checkbox" data-id="${id}" data-player='${escAttr(JSON.stringify(g))}' ${isSelected ? "checked" : ""} onchange="togglePlayerSelection('${id}', JSON.parse(this.dataset.player), this)" />
+      <div class="mio-logo">
+        ${g.logo_url ? `<img src="${g.logo_url}" alt="${g.squadra}" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\\'mio-logo-fb\\'>${g.squadra.charAt(0)}</span>'" />` : `<span class="mio-logo-fb">${g.squadra.charAt(0)}</span>`}
+      </div>
+      <div class="mio-info">
+        <div class="mio-nome">${g.nome}</div>
+        <div class="mio-squadra">${g.squadra} · <span class="mio-quota-inline">Quot. ${g.quotazione || "—"}</span></div>
+      </div>
+      <div class="prezzo-field" onclick="event.stopPropagation();">
+        <input type="number" class="prezzo-input" min="0" max="1000" step="1" value="${prezzo}" oninput="onPrezzoChange('${id}', this.value, this)" aria-label="Prezzo di ${escAttr(g.nome)}" />
+        <span class="prezzo-unit">cr</span>
+      </div>
+      <button class="btn-remove" onclick="removeFromAcquisti('${g.nome.replace(/'/g, "\\'")}', '${g.squadra.replace(/'/g, "\\'")}')" title="Rimuovi dagli acquisti">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  `;
+}
+
+// ============================================================
+//  ESPORTA / IMPORTA · acquisti e "tutto"
+// ============================================================
+function dateStamp() {
+  return new Date().toISOString().slice(0, 10);
+}
+function downloadJSON(obj, filename) {
+  const blob = new Blob([JSON.stringify(obj, null, 2)], {
+    type: "application/json",
+  });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+function readJSONFile(event, handler) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      handler(JSON.parse(e.target.result));
+    } catch (err) {
+      showToast("Errore: file non valido.", "fa-exclamation-triangle");
+      console.error("Import error:", err);
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = "";
+}
+function normalizeAcquisto(a) {
+  let p;
+  if (a.prezzo !== undefined && a.prezzo !== null && a.prezzo !== "") {
+    p = clampPrezzo(a.prezzo);
+  } else {
+    p = clampPrezzo(a.quotazione != null ? a.quotazione : 1) || 1;
+  }
+  return {
+    nome: a.nome,
+    squadra: a.squadra,
+    ruolo: a.ruolo,
+    logo_url: a.logo_url,
+    quotazione: a.quotazione,
+    prezzo: p,
+  };
+}
+
+function esportaAcquisti() {
+  if (acquisti.length === 0) {
+    showToast("Nessun acquisto da esportare.", "fa-exclamation-circle");
+    return;
+  }
+  downloadJSON(
+    {
+      exportDate: new Date().toISOString(),
+      version: "1.0",
+      tipo: "acquisti",
+      budget: acquistiBudget,
+      speso: totaleSpeso(),
+      giocatori: acquisti,
+    },
+    `acquisti-${dateStamp()}.json`,
+  );
+  showToast("Acquisti esportati con successo!", "fa-download");
+}
+
+function importaAcquisti(event) {
+  readJSONFile(event, (data) => {
+    let giocatori = [];
+    if (data.tipo === "completo" && Array.isArray(data.acquisti)) {
+      giocatori = data.acquisti;
+    } else if (Array.isArray(data.giocatori)) {
+      giocatori = data.giocatori;
+    } else if (Array.isArray(data.acquisti)) {
+      giocatori = data.acquisti;
+    } else if (Array.isArray(data)) {
+      giocatori = data;
+    } else {
+      throw new Error("Formato non valido");
+    }
+    if (giocatori.length === 0) {
+      showToast("Nessun giocatore da importare.", "fa-exclamation-circle");
+      return;
+    }
+    if (
+      !confirm(
+        `Vuoi importare ${giocatori.length} acquisti? Sostituirà gli acquisti attuali.`,
+      )
+    )
+      return;
+    acquisti = giocatori.map(normalizeAcquisto);
+    if (typeof data.budget === "number") acquistiBudget = clampBudget(data.budget);
+    saveAcquisti();
+    syncBudgetInput();
+    refreshAfterAcquistiChange();
+    showToast(`Importati ${giocatori.length} acquisti!`, "fa-upload");
+  });
+}
+
+function esportaTutto() {
+  if (mioListone.length === 0 && acquisti.length === 0) {
+    showToast("Niente da esportare: tutto vuoto.", "fa-exclamation-circle");
+    return;
+  }
+  downloadJSON(
+    {
+      exportDate: new Date().toISOString(),
+      version: "1.0",
+      tipo: "completo",
+      budget: acquistiBudget,
+      speso: totaleSpeso(),
+      mioListone: mioListone,
+      acquisti: acquisti,
+    },
+    `listone-completo-${dateStamp()}.json`,
+  );
+  showToast("Tutto esportato: mio listone + acquisti!", "fa-cloud-arrow-down");
+}
+
+function importaTutto(event) {
+  readJSONFile(event, (data) => {
+    const hasMio = Array.isArray(data.mioListone);
+    const hasAcq = Array.isArray(data.acquisti);
+
+    if (data.tipo === "completo" || hasMio || hasAcq) {
+      const nMio = hasMio ? data.mioListone.length : 0;
+      const nAcq = hasAcq ? data.acquisti.length : 0;
+      if (
+        !confirm(
+          `Importare tutto? ${nMio} nel mio listone e ${nAcq} acquisti. Sostituirà i dati attuali.`,
+        )
+      )
+        return;
+      if (hasMio) {
+        mioListone = data.mioListone;
+        saveMioListone();
+      }
+      if (hasAcq) acquisti = data.acquisti.map(normalizeAcquisto);
+      if (typeof data.budget === "number")
+        acquistiBudget = clampBudget(data.budget);
+      saveAcquisti();
+      syncBudgetInput();
+      refreshAfterAcquistiChange();
+      showToast(
+        `Importati ${nMio} nel listone e ${nAcq} acquisti!`,
+        "fa-cloud-arrow-up",
+      );
+      return;
+    }
+
+    // fallback: file "mio listone" semplice (solo giocatori)
+    let giocatori = Array.isArray(data.giocatori)
+      ? data.giocatori
+      : Array.isArray(data)
+        ? data
+        : null;
+    if (!giocatori) throw new Error("Formato non valido");
+    if (giocatori.length === 0) {
+      showToast("Nessun giocatore da importare.", "fa-exclamation-circle");
+      return;
+    }
+    if (
+      !confirm(
+        `Il file contiene solo un listone (${giocatori.length} giocatori). Importarlo nel Mio Listone?`,
+      )
+    )
+      return;
+    mioListone = giocatori;
+    saveMioListone();
+    refreshAfterAcquistiChange();
+    showToast(`Importati ${giocatori.length} giocatori!`, "fa-upload");
+  });
+}
