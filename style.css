@@ -3296,27 +3296,17 @@ body::before {
 }
 /* nome più grande e leggibile nella sezione Acquisti */
 .acquisto-card .mio-nome {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
+  display: block;
   font-size: 0.98rem;
   font-weight: 700;
-  line-height: 1.2;
-}
-.acquisto-card .mio-nome {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.4rem;
-  font-size: 0.98rem;
-  font-weight: 700;
-  line-height: 1.25;
+  line-height: 1.3;
 }
 .acquisto-card .mio-nome .ruolo-tag {
-  margin-top: 0.1rem;
+  float: left;
+  margin: 0.1rem 0.4rem 0 0;
 }
 .acquisto-card .mio-nome .nome-txt {
-  flex: 1 1 auto;
-  min-width: 0;
+  display: block;
   white-space: normal;
   word-break: normal;
   overflow-wrap: break-word;
