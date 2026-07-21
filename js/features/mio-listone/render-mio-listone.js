@@ -140,4 +140,3 @@ function createMioCard(g) {
     </div>
   `;
 }
-

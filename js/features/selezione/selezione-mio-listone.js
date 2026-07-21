@@ -51,4 +51,3 @@ function selectMioSection(btn) {
     n ? "fa-check-double" : "fa-info-circle",
   );
 }
-

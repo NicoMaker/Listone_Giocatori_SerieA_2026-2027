@@ -179,4 +179,3 @@ document.addEventListener("DOMContentLoaded", () => {
   initScrollTopButton();
   window.addEventListener("resize", updateTabSlider);
 });
-

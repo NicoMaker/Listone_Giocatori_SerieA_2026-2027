@@ -15,4 +15,3 @@ function setVistaSingola(vista, btn) {
     renderSingolaSquadra(singolaSquadraSelezionata);
   }
 }
-

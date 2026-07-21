@@ -24,4 +24,3 @@ function tornaAlListone() {
   applyFilters();
   scrollToMain();
 }
-

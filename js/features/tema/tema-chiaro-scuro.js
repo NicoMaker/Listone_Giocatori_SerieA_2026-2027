@@ -49,4 +49,3 @@ let mioVistaCorrente = "ruolo";
 let vistaSingolaCorrente = "griglia";
 let searchTerm = "";
 let singolaSquadraSelezionata = null;
-

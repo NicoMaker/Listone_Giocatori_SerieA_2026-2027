@@ -26,4 +26,3 @@ function initRippleEffect() {
     span.addEventListener("animationend", () => span.remove());
   });
 }
-

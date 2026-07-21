@@ -18,4 +18,3 @@ function showToast(message, icon = "fa-check-circle") {
   clearTimeout(toast._timeout);
   toast._timeout = setTimeout(() => toast.classList.remove("show"), 3000);
 }
-

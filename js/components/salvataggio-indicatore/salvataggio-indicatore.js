@@ -33,4 +33,3 @@ function aggiornaInfoSalvataggio() {
     info.style.display = "flex";
   }
 }
-

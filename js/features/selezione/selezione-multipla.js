@@ -143,4 +143,3 @@ function selectAllVisible() {
   updateSelectionUI();
   showToast(`Selezionati ${checkboxes.length} giocatori`, "fa-check-double");
 }
-

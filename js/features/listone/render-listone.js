@@ -185,4 +185,3 @@ function renderListone(squadreDaRenderizzare) {
   updateSelectionUI();
   observeReveal(".card-squadra", cardContainer);
 }
-

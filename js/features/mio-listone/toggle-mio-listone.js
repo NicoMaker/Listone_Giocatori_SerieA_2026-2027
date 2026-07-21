@@ -59,4 +59,3 @@ function clearMioListone() {
     showToast("Listone svuotato!", "fa-trash");
   }
 }
-

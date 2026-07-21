@@ -97,4 +97,3 @@ function init() {
     requestAnimationFrame(updateTabSlider);
   }
 }
-

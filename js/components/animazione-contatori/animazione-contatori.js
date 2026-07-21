@@ -29,4 +29,3 @@ function animaContatore(el, nuovoValore) {
   }
   requestAnimationFrame(step);
 }
-

@@ -75,4 +75,3 @@ function importaListone(event) {
   reader.readAsText(file);
   event.target.value = "";
 }
-

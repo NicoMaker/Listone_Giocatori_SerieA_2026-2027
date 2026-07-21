@@ -115,4 +115,3 @@ function toggleMioSquadraChip(chip) {
   }
   renderMioListone();
 }
-

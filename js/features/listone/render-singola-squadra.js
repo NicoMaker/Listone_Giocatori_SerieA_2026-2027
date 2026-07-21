@@ -164,4 +164,3 @@ function renderSingolaSquadra(id) {
   }
   updateSelectionUI();
 }
-

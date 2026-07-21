@@ -201,4 +201,3 @@ function closePrezzoModal() {
     dismissPrezzoModal();
   }
 }
-

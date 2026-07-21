@@ -17,4 +17,3 @@ function aggiornaContatori() {
     typeof acquisti !== "undefined" ? acquisti.length : 0,
   );
 }
-

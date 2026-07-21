@@ -23,4 +23,3 @@ function saveMioListone() {
   aggiornaContatori();
   aggiornaInfoSalvataggio();
 }
-

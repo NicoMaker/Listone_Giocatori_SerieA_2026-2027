@@ -23,4 +23,3 @@ function setMioVista(vista, btn) {
   btn.classList.add("active");
   renderMioListone();
 }
-

@@ -98,4 +98,3 @@ function quickAcquista(nome, squadra, ruolo, logo_url, quotazione) {
     showToast(`${nome} acquistato per ${prezzo} cr`, "fa-sack-dollar");
   });
 }
-

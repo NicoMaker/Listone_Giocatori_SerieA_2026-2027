@@ -22,4 +22,3 @@ function apriSingolaSquadra(id) {
   renderSingolaSquadra(id);
   scrollToMain();
 }
-

@@ -71,4 +71,3 @@ function toggleRuoloMio(btn) {
   }
   renderMioListone();
 }
-

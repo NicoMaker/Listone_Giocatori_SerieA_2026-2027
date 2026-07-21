@@ -111,4 +111,3 @@ function removeSelectedFromMio() {
     showToast("Nessuno dei selezionati era nel listone", "fa-info-circle");
   }
 }
-
