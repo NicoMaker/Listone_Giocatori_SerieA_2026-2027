@@ -1862,6 +1862,7 @@ function quickAcquista(nome, squadra, ruolo, logo_url, quotazione) {
     (a) => a.nome === nome && a.squadra === squadra,
   );
   if (idx > -1) {
+    // Se è già negli acquisti, lo rimuovo e libero budget
     acquisti.splice(idx, 1);
     saveAcquisti();
     refreshAfterAcquistiChange();
@@ -1871,6 +1872,16 @@ function quickAcquista(nome, squadra, ruolo, logo_url, quotazione) {
   // Prima di aggiungerlo agli acquisti, chiedo subito il prezzo pagato
   // con una modale: niente più valore "di partenza" da correggere dopo.
   openPrezzoModal({ nome, squadra, ruolo, logo_url, quotazione }, (prezzo) => {
+    // Controllo budget prima di aggiungere
+    const spesoCorrente = totaleSpeso();
+    const rimanente = acquistiBudget - spesoCorrente;
+    if (prezzo > rimanente) {
+      showToast(
+        `Budget insufficiente! Ti mancano ${prezzo - rimanente} cr.`,
+        "fa-exclamation-triangle",
+      );
+      return; // non aggiungo
+    }
     acquisti.push({ nome, squadra, ruolo, logo_url, quotazione, prezzo });
     saveAcquisti();
     refreshAfterAcquistiChange();
@@ -1932,6 +1943,9 @@ function openPrezzoModal(giocatore, onConfirm, onCancel) {
         <span>Budget rimanente</span>
         <strong id="pmBudgetVal"></strong>
       </div>
+      <div id="pmBudgetError" class="pm-budget-error hidden">
+        <i class="fas fa-exclamation-circle"></i> Budget insufficiente!
+      </div>
 
       <div class="pm-actions">
         <button type="button" class="pm-btn pm-btn-cancel" id="pmCancelBtn">${step && step.total > 1 ? "Interrompi" : "Annulla"}</button>
@@ -1947,6 +1961,8 @@ function openPrezzoModal(giocatore, onConfirm, onCancel) {
   const chipsWrap = overlay.querySelector("#pmChips");
   const budgetRow = overlay.querySelector("#pmBudgetRow");
   const budgetVal = overlay.querySelector("#pmBudgetVal");
+  const errorEl = overlay.querySelector("#pmBudgetError");
+  const confirmBtn = overlay.querySelector("#pmConfirmBtn");
 
   // chip rapide: base quotazione + qualche scatto comune
   const chipValues = [
@@ -1974,8 +1990,11 @@ function openPrezzoModal(giocatore, onConfirm, onCancel) {
     const rimanente = acquistiBudget - speso - cur;
     budgetVal.textContent = `${rimanente} cr`;
     budgetRow.classList.toggle("pm-over", rimanente < 0);
+    // Se il prezzo supera il budget rimanente, disabilita il pulsante e mostra errore
+    const insufficiente = rimanente < 0;
+    confirmBtn.disabled = insufficiente;
+    errorEl.classList.toggle("hidden", !insufficiente);
   }
-
   function refresh() {
     syncChipsActive();
     syncBudget();
@@ -2010,6 +2029,16 @@ function openPrezzoModal(giocatore, onConfirm, onCancel) {
 
   function doConfirm() {
     const prezzo = clampPrezzo(input.value) || 0;
+    const spesoCorrente = totaleSpeso();
+    const rimanente = acquistiBudget - spesoCorrente - prezzo;
+    if (rimanente < 0) {
+      // Mostra errore e non chiudere
+      showToast(
+        `Budget insufficiente! Ti mancano ${-rimanente} cr.`,
+        "fa-exclamation-triangle",
+      );
+      return;
+    }
     dismissPrezzoModal();
     onConfirm(prezzo);
   }
@@ -2104,6 +2133,23 @@ function acquistaInSequenza(lista, index, vaiAgliAcquisti) {
   }
 
   const player = lista[index];
+  // Controllo budget preventivo: se il budget residuo è già zero, non posso
+  // permettere nessun acquisto ulteriore.
+  const spesoCorrente = totaleSpeso();
+  const rimanente = acquistiBudget - spesoCorrente;
+  if (rimanente <= 0) {
+    showToast(
+      `Budget esaurito! Non puoi acquistare altri giocatori.`,
+      "fa-exclamation-triangle",
+    );
+    // Interrompo la sequenza ma tengo quelli già acquistati
+    if (index > 0) {
+      saveAcquisti();
+      refreshAfterAcquistiChange();
+    }
+    return;
+  }
+
   openPrezzoModal(
     {
       nome: player.nome,
@@ -2114,6 +2160,21 @@ function acquistaInSequenza(lista, index, vaiAgliAcquisti) {
       step: { current: index + 1, total: lista.length },
     },
     (prezzo) => {
+      // Controllo budget al momento della conferma (potrebbe essere cambiato)
+      const spesoCorrente2 = totaleSpeso();
+      if (acquistiBudget - spesoCorrente2 - prezzo < 0) {
+        showToast(
+          `Budget insufficiente! Non puoi acquistare ${player.nome}.`,
+          "fa-exclamation-triangle",
+        );
+        // Interrompo la sequenza
+        if (index > 0) {
+          saveAcquisti();
+          refreshAfterAcquistiChange();
+          showToast(`Acquisto interrotto: ${index} giocatori aggiunti`, "fa-info-circle");
+        }
+        return;
+      }
       acquisti.push({
         nome: player.nome,
         squadra: player.squadra,
