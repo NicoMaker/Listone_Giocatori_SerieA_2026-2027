@@ -595,6 +595,10 @@ function setupLogoFallback() {
 
 async function loadData() {
   const loading = document.getElementById("loading");
+  const startedAt = (performance && performance.now) ? performance.now() : Date.now();
+  // Tempo minimo in cui mostrare l'intro, così l'animazione del pallone
+  // si vede tutta anche quando i dati si caricano in un lampo.
+  const MIN_INTRO_MS = 2600;
   try {
     const response = await fetch("data.json");
     if (!response.ok) throw new Error("Errore nel caricamento dei dati");
@@ -602,10 +606,22 @@ async function loadData() {
     serieAData = data;
     squadre = data.squadre;
     setupLogoFallback();
-    loading.classList.add("hidden");
-    init();
+
+    const now = (performance && performance.now) ? performance.now() : Date.now();
+    const elapsed = now - startedAt;
+    const wait = Math.max(0, MIN_INTRO_MS - elapsed);
+
+    setTimeout(() => {
+      // dissolvenza dolce, poi rimuove l'intro e avvia l'app
+      loading.classList.add("is-leaving");
+      setTimeout(() => {
+        loading.classList.add("hidden");
+        init();
+      }, 450);
+    }, wait);
   } catch (error) {
     console.error("Errore:", error);
+    loading.classList.remove("is-leaving");
     loading.innerHTML = `
       <i class="fas fa-exclamation-triangle" style="font-size: 2.5rem; color: #ef4444;"></i>
       <p style="margin-top: 1rem; color: #dc2626; font-weight: 600;">Impossibile caricare data.json</p>
