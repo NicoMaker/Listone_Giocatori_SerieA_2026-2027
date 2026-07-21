@@ -899,7 +899,8 @@ body::before {
   color: var(--text-3);
   pointer-events: none;
 }
-#searchInput {
+#searchInput,
+.search-wrap input[type="text"] {
   width: 100%;
   background: var(--surface-2);
   border: 1px solid var(--border);
@@ -913,14 +914,22 @@ body::before {
     box-shadow 0.18s var(--ease),
     background 0.18s var(--ease);
 }
-#searchInput::placeholder {
+#searchInput::placeholder,
+.search-wrap input[type="text"]::placeholder {
   color: var(--text-3);
 }
-#searchInput:focus {
+#searchInput:focus,
+.search-wrap input[type="text"]:focus {
   outline: none;
   border-color: color-mix(in srgb, var(--seriea-cyan) 55%, transparent);
   background: var(--surface-3);
   box-shadow: 0 0 0 3px var(--accent-soft);
+}
+/* La ricerca negli Acquisti prende l'accento oro per coerenza con la sezione */
+#panelAcquisti ~ * #searchInputAcquisti:focus,
+#toolbarAcquisti #searchInputAcquisti:focus {
+  border-color: color-mix(in srgb, var(--buy) 60%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--buy) 22%, transparent);
 }
 
 .controls-block {
@@ -3220,6 +3229,66 @@ body::before {
    ============================================================ */
 .acquisto-card {
   position: relative;
+}
+/* nome più grande e leggibile nella sezione Acquisti */
+.acquisto-card .mio-nome {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.98rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.acquisto-card .mio-nome .nome-txt {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+/* piccola etichetta ruolo (P/D/C/A) davanti al nome */
+.ruolo-tag {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  font-size: 0.62rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  color: #0b0b0b;
+}
+.ruolo-tag.por {
+  background: var(--por-c);
+}
+.ruolo-tag.dif {
+  background: var(--dif-c);
+}
+.ruolo-tag.cen {
+  background: var(--cen-c);
+  color: #fff;
+}
+.ruolo-tag.att {
+  background: var(--att-c);
+  color: #fff;
+}
+.acquisto-card .mio-squadra {
+  font-size: 0.76rem;
+}
+/* evidenzia la card appena comprata mentre imposti il prezzo */
+.acquisto-card.just-added {
+  animation: justAddedPulse 1.6s var(--ease);
+  border-color: var(--buy);
+}
+@keyframes justAddedPulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--buy) 55%, transparent);
+  }
+  30% {
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--buy) 22%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--buy) 0%, transparent);
+  }
 }
 .mio-quota-inline {
   font-family: var(--font-mono);

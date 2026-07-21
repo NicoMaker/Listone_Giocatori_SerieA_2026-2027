@@ -373,6 +373,16 @@
             <i class="fas fa-times"></i> Deseleziona
           </button>
           <button
+            class="btn-action btn-buy"
+            id="buySelectedMioBtn"
+            onclick="acquistaSelezionatiDaMio()"
+            title="Compra i giocatori selezionati e vai agli acquisti"
+            disabled
+          >
+            <i class="fas fa-sack-dollar"></i> Compra selezionati
+            <span class="selected-badge" id="selectedCountBuyMio">0</span>
+          </button>
+          <button
             class="btn-action"
             id="removeSelectedBtn"
             onclick="removeSelectedFromMio()"

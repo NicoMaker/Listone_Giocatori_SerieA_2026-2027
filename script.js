@@ -86,18 +86,21 @@ function updateSelectionUI() {
   const addBtn = document.getElementById("addSelectedBtn");
   const removeBtn = document.getElementById("removeSelectedBtn");
   const buyBtn = document.getElementById("buySelectedBtn");
+  const buyMioBtn = document.getElementById("buySelectedMioBtn");
   const removeAcqBtn = document.getElementById("removeSelectedAcquistiBtn");
   const countSpan = document.getElementById("selectedCount");
   const countSpanMio = document.getElementById("selectedCountMio");
   const countSpanBuy = document.getElementById("selectedCountBuy");
+  const countSpanBuyMio = document.getElementById("selectedCountBuyMio");
   const countSpanAcq = document.getElementById("selectedCountAcquisti");
 
   if (addBtn) addBtn.disabled = count === 0;
   if (removeBtn) removeBtn.disabled = count === 0;
   if (buyBtn) buyBtn.disabled = count === 0;
+  if (buyMioBtn) buyMioBtn.disabled = count === 0;
   if (removeAcqBtn) removeAcqBtn.disabled = count === 0;
 
-  [countSpanBuy, countSpanAcq].forEach((el) => {
+  [countSpanBuy, countSpanBuyMio, countSpanAcq].forEach((el) => {
     if (el && el.textContent !== String(count)) {
       el.textContent = count;
       el.classList.add("bump");
@@ -1799,6 +1802,10 @@ let acquistiVistaCorrente = "ruolo";
 let acquistiBudget = 1000;
 const BUDGET_MAX = 1000;
 const PREZZO_MAX = 1000;
+// id del giocatore appena comprato: al primo render degli acquisti il suo
+// campo prezzo viene messo a fuoco e selezionato, così imposti subito
+// a quanto l'hai preso.
+let focusPrezzoId = null;
 
 // ---------- LOCALSTORAGE ----------
 function loadAcquisti() {
@@ -1865,14 +1872,27 @@ function quickAcquista(nome, squadra, ruolo, logo_url, quotazione) {
   const prezzo = clampPrezzo(quotazione || 1) || 1;
   acquisti.push({ nome, squadra, ruolo, logo_url, quotazione, prezzo });
   saveAcquisti();
+  focusPrezzoId = getPlayerId(nome, squadra);
   refreshAfterAcquistiChange();
-  showToast(`${nome} acquistato per ${prezzo} cr`, "fa-sack-dollar");
+  showToast(`${nome} acquistato per ${prezzo} cr · imposta il prezzo`, "fa-sack-dollar");
 }
 
 // ---------- ACQUISTA I SELEZIONATI (dal Listone) ----------
 function acquistaSelezionati() {
+  _acquistaSelezione({ vaiAgliAcquisti: false });
+}
+
+// ---------- ACQUISTA I SELEZIONATI (dalla sezione "Il Mio") ----------
+// Permette di comprare in blocco i giocatori spuntati nel Mio Listone
+// e ti porta direttamente agli Acquisti per impostare i prezzi.
+function acquistaSelezionatiDaMio() {
+  _acquistaSelezione({ vaiAgliAcquisti: true });
+}
+
+function _acquistaSelezione({ vaiAgliAcquisti }) {
   if (selectedPlayers.size === 0) return;
   let added = 0;
+  let ultimoId = null;
   for (let [id, player] of selectedPlayers) {
     if (!isAcquistato(player.nome, player.squadra)) {
       const prezzo = clampPrezzo(player.quotazione || 1) || 1;
@@ -1884,14 +1904,25 @@ function acquistaSelezionati() {
         quotazione: player.quotazione,
         prezzo,
       });
+      ultimoId = getPlayerId(player.nome, player.squadra);
       added++;
     }
   }
   if (added > 0) {
     saveAcquisti();
-    refreshAfterAcquistiChange();
-    showToast(`Acquistati ${added} giocatori!`, "fa-sack-dollar");
+    focusPrezzoId = ultimoId;
     clearSelection();
+    if (vaiAgliAcquisti) {
+      aggiornaContatori();
+      switchTab("acquisti", { skipScroll: true });
+      showToast(
+        `Acquistati ${added} giocatori! Imposta i prezzi 👇`,
+        "fa-sack-dollar",
+      );
+    } else {
+      refreshAfterAcquistiChange();
+      showToast(`Acquistati ${added} giocatori!`, "fa-sack-dollar");
+    }
   } else {
     showToast(
       "I giocatori selezionati sono già negli acquisti",
@@ -2232,12 +2263,43 @@ function renderAcquisti() {
 
   observeReveal(".mio-ruolo-section, .mio-squadra-section", container);
   updateSelectionUI();
+
+  // Se ho appena comprato un giocatore, porto il cursore sul suo prezzo
+  // e lo seleziono: basta digitare per impostare quanto l'hai pagato.
+  if (focusPrezzoId) {
+    const panelVisibile =
+      panel && !panel.classList.contains("hidden");
+    const input = container.querySelector(
+      `.acquisto-card .prezzo-input[data-id="${cssEscape(focusPrezzoId)}"]`,
+    );
+    if (panelVisibile && input) {
+      requestAnimationFrame(() => {
+        input.focus();
+        input.select();
+        const card = input.closest(".acquisto-card");
+        if (card) {
+          card.classList.add("just-added");
+          card.scrollIntoView({ behavior: "smooth", block: "center" });
+          setTimeout(() => card.classList.remove("just-added"), 1600);
+        }
+      });
+      focusPrezzoId = null;
+    }
+  }
+}
+
+// piccola escape per usare un id dentro un selettore CSS in modo sicuro
+function cssEscape(s) {
+  if (window.CSS && CSS.escape) return CSS.escape(s);
+  return String(s).replace(/["\\\]\[#.:>+~*^$|=()]/g, "\\$&");
 }
 
 function createAcquistoCard(g) {
   const id = getPlayerId(g.nome, g.squadra);
   const isSelected = selectedPlayers.has(id);
   const prezzo = Number(g.prezzo) || 0;
+  const ruoloAbbr = { Portiere: "P", Difensore: "D", Centrocampista: "C", Attaccante: "A" }[g.ruolo] || "";
+  const ruoloCls = { Portiere: "por", Difensore: "dif", Centrocampista: "cen", Attaccante: "att" }[g.ruolo] || "";
   return `
     <div class="mio-card acquisto-card">
       <input type="checkbox" class="player-checkbox" data-id="${id}" data-player='${escAttr(JSON.stringify(g))}' ${isSelected ? "checked" : ""} onchange="togglePlayerSelection('${id}', JSON.parse(this.dataset.player), this)" />
@@ -2245,11 +2307,11 @@ function createAcquistoCard(g) {
         ${g.logo_url ? `<img src="${g.logo_url}" alt="${g.squadra}" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\\'mio-logo-fb\\'>${g.squadra.charAt(0)}</span>'" />` : `<span class="mio-logo-fb">${g.squadra.charAt(0)}</span>`}
       </div>
       <div class="mio-info">
-        <div class="mio-nome">${g.nome}</div>
+        <div class="mio-nome" title="${escAttr(g.nome)}"><span class="ruolo-tag ${ruoloCls}">${ruoloAbbr}</span><span class="nome-txt">${g.nome}</span></div>
         <div class="mio-squadra">${g.squadra} · <span class="mio-quota-inline">Quot. ${g.quotazione || "—"}</span></div>
       </div>
       <div class="prezzo-field" onclick="event.stopPropagation();">
-        <input type="number" class="prezzo-input" min="0" max="1000" step="1" value="${prezzo}" oninput="onPrezzoChange('${id}', this.value, this)" aria-label="Prezzo di ${escAttr(g.nome)}" />
+        <input type="number" class="prezzo-input" data-id="${id}" min="0" max="1000" step="1" value="${prezzo}" oninput="onPrezzoChange('${id}', this.value, this)" onfocus="this.select()" aria-label="Prezzo di ${escAttr(g.nome)}" />
         <span class="prezzo-unit">cr</span>
       </div>
       <button class="btn-remove" onclick="removeFromAcquisti('${g.nome.replace(/'/g, "\\'")}', '${g.squadra.replace(/'/g, "\\'")}')" title="Rimuovi dagli acquisti">
