@@ -2171,7 +2171,10 @@ function acquistaInSequenza(lista, index, vaiAgliAcquisti) {
         if (index > 0) {
           saveAcquisti();
           refreshAfterAcquistiChange();
-          showToast(`Acquisto interrotto: ${index} giocatori aggiunti`, "fa-info-circle");
+          showToast(
+            `Acquisto interrotto: ${index} giocatori aggiunti`,
+            "fa-info-circle",
+          );
         }
         return;
       }
@@ -2785,3 +2788,13 @@ function importaTutto(event) {
     showToast(`Importati ${giocatori.length} giocatori!`, "fa-upload");
   });
 }
+
+(function () {
+  var saved = localStorage.getItem("listoneTheme");
+  var theme =
+    saved ||
+    (window.matchMedia("(prefers-color-scheme: light)").matches
+      ? "light"
+      : "dark");
+  document.documentElement.setAttribute("data-theme", theme);
+})();
